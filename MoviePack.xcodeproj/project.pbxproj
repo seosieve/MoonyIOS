@@ -24,6 +24,8 @@
 		4E8657DA2C11C4A200FF4D6D /* MovieRankTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657D92C11C4A200FF4D6D /* MovieRankTableViewCell.swift */; };
 		4E8657DC2C11C58800FF4D6D /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657DB2C11C58800FF4D6D /* Identifier.swift */; };
 		4E8657DF2C11C63900FF4D6D /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657DE2C11C63900FF4D6D /* UITableViewCell+Extension.swift */; };
+		4E8657E12C12B89D00FF4D6D /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657E02C12B89D00FF4D6D /* Movie.swift */; };
+		4E8657E42C12D4BC00FF4D6D /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8657E32C12D4BC00FF4D6D /* Toast */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,7 @@
 		4E8657D92C11C4A200FF4D6D /* MovieRankTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRankTableViewCell.swift; sourceTree = "<group>"; };
 		4E8657DB2C11C58800FF4D6D /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		4E8657DE2C11C63900FF4D6D /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
+		4E8657E02C12B89D00FF4D6D /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E8657E42C12D4BC00FF4D6D /* Toast in Frameworks */,
 				4E8657CD2C10674200FF4D6D /* Alamofire in Frameworks */,
 				4E8657CA2C10673600FF4D6D /* Kingfisher in Frameworks */,
 				4E86578D2C0F1FBD00FF4D6D /* SnapKit in Frameworks */,
@@ -108,6 +112,7 @@
 			children = (
 				4E8657D32C1076C900FF4D6D /* APIKey.swift */,
 				4E8657D52C10796000FF4D6D /* Lotto.swift */,
+				4E8657E02C12B89D00FF4D6D /* Movie.swift */,
 				4E8657DB2C11C58800FF4D6D /* Identifier.swift */,
 			);
 			path = Model;
@@ -141,6 +146,7 @@
 				4E86578C2C0F1FBD00FF4D6D /* SnapKit */,
 				4E8657C92C10673600FF4D6D /* Kingfisher */,
 				4E8657CC2C10674200FF4D6D /* Alamofire */,
+				4E8657E32C12D4BC00FF4D6D /* Toast */,
 			);
 			productName = MoviePack;
 			productReference = 4E8657742C0F1F4400FF4D6D /* MoviePack.app */;
@@ -174,6 +180,7 @@
 				4E86578B2C0F1FBD00FF4D6D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				4E8657C82C10673600FF4D6D /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				4E8657CB2C10674200FF4D6D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4E8657E22C12D4BC00FF4D6D /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 4E8657752C0F1F4400FF4D6D /* Products */;
 			projectDirPath = "";
@@ -204,6 +211,7 @@
 			files = (
 				4E86577C2C0F1F4400FF4D6D /* SignUpViewController.swift in Sources */,
 				4E8657782C0F1F4400FF4D6D /* AppDelegate.swift in Sources */,
+				4E8657E12C12B89D00FF4D6D /* Movie.swift in Sources */,
 				4E86577A2C0F1F4400FF4D6D /* SceneDelegate.swift in Sources */,
 				4E8657DA2C11C4A200FF4D6D /* MovieRankTableViewCell.swift in Sources */,
 				4E8657D82C11BEF200FF4D6D /* MovieRankViewController.swift in Sources */,
@@ -461,6 +469,14 @@
 				minimumVersion = 5.9.1;
 			};
 		};
+		4E8657E22C12D4BC00FF4D6D /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -478,6 +494,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E8657CB2C10674200FF4D6D /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		4E8657E32C12D4BC00FF4D6D /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E8657E22C12D4BC00FF4D6D /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

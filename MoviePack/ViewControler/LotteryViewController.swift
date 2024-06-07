@@ -290,14 +290,14 @@ class LotteryViewController: UIViewController {
         AF.request(urlString+round).responseDecodable(of: Lotto.self) { response in
             switch response.result {
             case .success(let value):
-                self.configureViewByValue(value: value)
+                self.configureRequest(value: value)
             case .failure(let error):
                 print(error)
             }
         }
     }
     
-    func configureViewByValue(value: Lotto) {
+    func configureRequest(value: Lotto) {
         dateLabel.text = value.drawDateString
         roundLabel.text = value.drawNoString
         let numberArr = [value.drwtNo1, value.drwtNo2, value.drwtNo3, value.drwtNo4, value.drwtNo5, value.drwtNo6, value.bnusNo]
