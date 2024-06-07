@@ -89,7 +89,7 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         configureSubviews()
-        setViews()
+        configureConstraints()
     }
     
     func configureSubviews() {
@@ -104,7 +104,7 @@ class SignUpViewController: UIViewController {
         view.addSubview(toggleSwitch)
     }
     
-    func setViews() {
+    func configureConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(50)
             make.centerX.equalToSuperview()

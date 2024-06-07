@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import SnapKit
+import Alamofire
 
 class LotteryViewController: UIViewController {
     
-    let roundArr = [11,12,13,14,15]
-    let url = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=1122"
+    var latestRound: Int {
+        Int(floor(((Date().timeIntervalSince1970-1039186800) / 604800) + 1))
+    }
+    lazy var roundArr = Array(1...latestRound)
+    let urlString = APIURL.lottoUrl
 
     lazy var numberTextField = {
         let textField = UITextField()
@@ -19,6 +24,7 @@ class LotteryViewController: UIViewController {
         textField.textAlignment = .center
         textField.tintColor = .clear
         textField.inputView = numberPickerView
+        textField.inputAccessoryView = numberToolBar
         return textField
     }()
     
@@ -26,6 +32,16 @@ class LotteryViewController: UIViewController {
         let pickerView = UIPickerView()
         pickerView.delegate = self
         return pickerView
+    }()
+    
+    lazy var numberToolBar = {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        let button = UIBarButtonItem(title: "닫기", style: .plain, target: self, action: #selector(dismissPickerView))
+        toolBar.tintColor = .darkGray
+        toolBar.setItems([button], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        return toolBar
     }()
     
     let announcementLabel = {
@@ -90,7 +106,7 @@ class LotteryViewController: UIViewController {
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.textColor = .white
-        label.text = "6"
+        label.text = ""
         return label
     }()
     
@@ -102,7 +118,7 @@ class LotteryViewController: UIViewController {
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.textColor = .white
-        label.text = "6"
+        label.text = ""
         return label
     }()
     
@@ -114,7 +130,7 @@ class LotteryViewController: UIViewController {
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.textColor = .white
-        label.text = "6"
+        label.text = ""
         return label
     }()
     
@@ -126,7 +142,7 @@ class LotteryViewController: UIViewController {
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.textColor = .white
-        label.text = "6"
+        label.text = ""
         return label
     }()
     
@@ -138,7 +154,7 @@ class LotteryViewController: UIViewController {
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.textColor = .white
-        label.text = "37"
+        label.text = ""
         return label
     }()
     
@@ -150,7 +166,7 @@ class LotteryViewController: UIViewController {
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.textColor = .white
-        label.text = "37"
+        label.text = ""
         return label
     }()
     
@@ -174,7 +190,7 @@ class LotteryViewController: UIViewController {
         label.layer.masksToBounds = true
         label.textAlignment = .center
         label.textColor = .white
-        label.text = "40"
+        label.text = ""
         return label
     }()
     
@@ -188,9 +204,16 @@ class LotteryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        configureSubviews()
         setViews()
+        configureSubviews()
+        configureConstraints()
+    }
+    
+    func setViews() {
+        view.backgroundColor = .white
+        numberTextField.text = String(latestRound)
+        numberPickerView.selectRow(latestRound-1, inComponent: 0, animated: true)
+        lotteryRequest(round: String(latestRound))
     }
     
     func configureSubviews() {
@@ -213,7 +236,7 @@ class LotteryViewController: UIViewController {
         view.addSubview(bonusLabel)
     }
     
-    func setViews() {
+    func configureConstraints() {
         numberTextField.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(30)
             make.height.equalTo(40)
@@ -258,6 +281,29 @@ class LotteryViewController: UIViewController {
             make.centerX.equalTo(ballStackView.arrangedSubviews.last!.snp.centerX)
         }
     }
+    
+    @objc func dismissPickerView() {
+        self.view.endEditing(true)
+    }
+    
+    func lotteryRequest(round: String) {
+        AF.request(urlString+round).responseDecodable(of: Lotto.self) { response in
+            switch response.result {
+            case .success(let value):
+                self.configureViewByValue(value: value)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func configureViewByValue(value: Lotto) {
+        dateLabel.text = value.drawDateString
+        roundLabel.text = value.drawNoString
+        let numberArr = [value.drwtNo1, value.drwtNo2, value.drwtNo3, value.drwtNo4, value.drwtNo5, value.drwtNo6, value.bnusNo]
+        let numberLabelArr = [ball1, ball2, ball3, ball4, ball5, ball6, bonusBall]
+        zip(numberLabelArr, numberArr).forEach { $0.text = String($1) }
+    }
 }
 
 extension LotteryViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -274,6 +320,8 @@ extension LotteryViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(#function)
+        let round = String(roundArr[row])
+        numberTextField.text = round
+        lotteryRequest(round: round)
     }
 }

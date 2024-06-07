@@ -91,7 +91,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         configureSubviews()
-        setViews()
+        configureConstraints()
     }
     
     func configureSubviews() {
@@ -105,7 +105,7 @@ class HomeViewController: UIViewController {
         view.addSubview(subImageView3)
     }
     
-    func setViews() {
+    func configureConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
             make.centerX.equalToSuperview()
