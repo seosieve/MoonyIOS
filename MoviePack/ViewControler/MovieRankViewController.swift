@@ -16,6 +16,7 @@ class MovieRankViewController: UIViewController {
     var movieArr: [Movie] = [] {
         didSet { movieTableView.reloadData() }
     }
+    
     var yesterdayDate: Int {
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now)!
         let dateFormatter = DateFormatter()
