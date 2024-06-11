@@ -32,6 +32,12 @@
 		4E86582D2C16FAB900FF4D6D /* TrendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86582C2C16FAB900FF4D6D /* TrendDetailViewController.swift */; };
 		4E8658332C17004C00FF4D6D /* CastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8658322C17004C00FF4D6D /* CastTableViewCell.swift */; };
 		4E8658352C1710C600FF4D6D /* OverViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8658342C1710C600FF4D6D /* OverViewTableViewCell.swift */; };
+		4E9330552C1837BC00D1E91C /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330542C1837BC00D1E91C /* SearchCollectionViewCell.swift */; };
+		4E9330572C1837C700D1E91C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330562C1837C700D1E91C /* SearchViewController.swift */; };
+		4E93305A2C183AA500D1E91C /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330592C183AA500D1E91C /* Configure.swift */; };
+		4E93305D2C18420D00D1E91C /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93305C2C18420C00D1E91C /* UICollectionView+Extension.swift */; };
+		4E93305F2C1848FA00D1E91C /* UISearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */; };
+		4E9330612C184F2800D1E91C /* SearchMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330602C184F2800D1E91C /* SearchMovie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +64,12 @@
 		4E86582C2C16FAB900FF4D6D /* TrendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendDetailViewController.swift; sourceTree = "<group>"; };
 		4E8658322C17004C00FF4D6D /* CastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastTableViewCell.swift; sourceTree = "<group>"; };
 		4E8658342C1710C600FF4D6D /* OverViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewTableViewCell.swift; sourceTree = "<group>"; };
+		4E9330542C1837BC00D1E91C /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		4E9330562C1837C700D1E91C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		4E9330592C183AA500D1E91C /* Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
+		4E93305C2C18420C00D1E91C /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Extension.swift"; sourceTree = "<group>"; };
+		4E9330602C184F2800D1E91C /* SearchMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +107,7 @@
 		4E8657762C0F1F4400FF4D6D /* MoviePack */ = {
 			isa = PBXGroup;
 			children = (
+				4E9330582C1837D300D1E91C /* Protocol */,
 				4E8657DD2C11C62700FF4D6D /* Extension */,
 				4E8657D22C10767D00FF4D6D /* Model */,
 				4E8657772C0F1F4400FF4D6D /* AppDelegate.swift */,
@@ -116,6 +129,7 @@
 				4E8657D72C11BEF200FF4D6D /* MovieRankViewController.swift */,
 				4E8657D92C11C4A200FF4D6D /* MovieRankTableViewCell.swift */,
 				4E8658252C16DA2200FF4D6D /* Trend */,
+				4E9330532C1837AB00D1E91C /* Search */,
 			);
 			path = ViewControler;
 			sourceTree = "<group>";
@@ -127,7 +141,7 @@
 				4E8657D52C10796000FF4D6D /* Lotto.swift */,
 				4E8657E02C12B89D00FF4D6D /* Movie.swift */,
 				4E86582A2C16F4B400FF4D6D /* Trend.swift */,
-				4E8657DB2C11C58800FF4D6D /* Identifier.swift */,
+				4E9330602C184F2800D1E91C /* SearchMovie.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -136,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				4E8657DE2C11C63900FF4D6D /* UITableViewCell+Extension.swift */,
+				4E93305C2C18420C00D1E91C /* UICollectionView+Extension.swift */,
+				4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -150,6 +166,24 @@
 				4E8658342C1710C600FF4D6D /* OverViewTableViewCell.swift */,
 			);
 			path = Trend;
+			sourceTree = "<group>";
+		};
+		4E9330532C1837AB00D1E91C /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4E9330562C1837C700D1E91C /* SearchViewController.swift */,
+				4E9330542C1837BC00D1E91C /* SearchCollectionViewCell.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		4E9330582C1837D300D1E91C /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				4E8657DB2C11C58800FF4D6D /* Identifier.swift */,
+				4E9330592C183AA500D1E91C /* Configure.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,9 +269,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E93305F2C1848FA00D1E91C /* UISearchBar+Extension.swift in Sources */,
 				4E86577C2C0F1F4400FF4D6D /* SignUpViewController.swift in Sources */,
+				4E9330612C184F2800D1E91C /* SearchMovie.swift in Sources */,
 				4E8657782C0F1F4400FF4D6D /* AppDelegate.swift in Sources */,
+				4E93305A2C183AA500D1E91C /* Configure.swift in Sources */,
 				4E86582B2C16F4B400FF4D6D /* Trend.swift in Sources */,
+				4E9330572C1837C700D1E91C /* SearchViewController.swift in Sources */,
 				4E8657E12C12B89D00FF4D6D /* Movie.swift in Sources */,
 				4E8658352C1710C600FF4D6D /* OverViewTableViewCell.swift in Sources */,
 				4E86577A2C0F1F4400FF4D6D /* SceneDelegate.swift in Sources */,
@@ -245,10 +283,12 @@
 				4E8657D82C11BEF200FF4D6D /* MovieRankViewController.swift in Sources */,
 				4E8658332C17004C00FF4D6D /* CastTableViewCell.swift in Sources */,
 				4E86578F2C0F250600FF4D6D /* HomeViewController.swift in Sources */,
+				4E93305D2C18420D00D1E91C /* UICollectionView+Extension.swift in Sources */,
 				4E8657DF2C11C63900FF4D6D /* UITableViewCell+Extension.swift in Sources */,
 				4E86582D2C16FAB900FF4D6D /* TrendDetailViewController.swift in Sources */,
 				4E8657DC2C11C58800FF4D6D /* Identifier.swift in Sources */,
 				4E8658292C16DB4F00FF4D6D /* TrendTableViewCell.swift in Sources */,
+				4E9330552C1837BC00D1E91C /* SearchCollectionViewCell.swift in Sources */,
 				4E8657D62C10796000FF4D6D /* Lotto.swift in Sources */,
 				4E8657D42C1076C900FF4D6D /* APIKey.swift in Sources */,
 				4E8657CF2C10675800FF4D6D /* LotteryViewController.swift in Sources */,

@@ -40,7 +40,7 @@ class TrendTableViewCell: UITableViewCell {
     let containerView = {
         let view = UIView()
         view.layer.cornerRadius = 14
-        view.layer.masksToBounds = true
+        view.clipsToBounds = true
         view.backgroundColor = .white
         return view
     }()
