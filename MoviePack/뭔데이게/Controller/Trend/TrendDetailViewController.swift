@@ -40,6 +40,12 @@ class TrendDetailViewController: UIViewController {
         return label
     }()
     
+    var posterImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .red
+        return imageView
+    }()
+    
     lazy var detailTableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -69,12 +75,13 @@ class TrendDetailViewController: UIViewController {
         view.addSubview(detailImageView)
         view.addSubview(dimView)
         view.addSubview(titleLabel)
+        view.addSubview(posterImageView)
         view.addSubview(detailTableView)
     }
     
     func configureConstraints() {
         detailImageView.snp.makeConstraints { make in
-            make.horizontalEdges.top.equalTo(view.safeAreaLayoutGuide)
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(250)
         }
         
@@ -85,6 +92,13 @@ class TrendDetailViewController: UIViewController {
         
         titleLabel.snp.makeConstraints { make in
             make.top.leading.equalTo(detailImageView).inset(20)
+        }
+        
+        posterImageView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.leading.equalTo(detailImageView).inset(30)
+            make.bottom.equalTo(detailImageView).inset(30)
+            make.width.equalTo(50)
         }
         
         detailTableView.snp.makeConstraints { make in

@@ -15,7 +15,11 @@ class TrendViewController: UIViewController {
     let identifier = TrendTableViewCell.identifier
     let trendUrlString = APIURL.trendUrl
     var trendArr: [Trend] = [] {
-        didSet { trendTableView.reloadData() }
+        didSet {
+            if trendArr.count != 0 {
+                trendTableView.reloadData()
+            }
+        }
     }
     var creditsArr = Array(repeating: CreditsResult.makeDummy, count: 20)
     
