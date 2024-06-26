@@ -30,21 +30,33 @@ class SearchDetailViewController: BaseViewController {
         customView.posterCollectionView.dataSource = self
         
         APIURL.movieID = 940721
+        
+        let group = DispatchGroup()
+        
+        group.enter()
         searchRequest(url: APIURL.similarMovieUrl) { searchMovieResult in
             guard let searchMovieResult else { return }
             self.similarMovieResult = searchMovieResult
-            self.customView.similarCollectionView.reloadData()
+            group.leave()
         }
         
+        group.enter()
         searchRequest(url: APIURL.recommendMovieUrl) { searchMovieResult in
             guard let searchMovieResult else { return }
             self.recommendMovieResult = searchMovieResult
-            self.customView.recommendCollectionView.reloadData()
+            group.leave()
         }
         
+        group.enter()
         searchRequest2(url: APIURL.posterUrl) { posterResult in
             guard let posterResult else { return }
             self.posterResult = posterResult
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            self.customView.similarCollectionView.reloadData()
+            self.customView.recommendCollectionView.reloadData()
             self.customView.posterCollectionView.reloadData()
         }
     }
