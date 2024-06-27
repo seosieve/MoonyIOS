@@ -15,7 +15,6 @@ class LotteryViewController: UIViewController {
         Int(floor(((Date().timeIntervalSince1970-1039186800) / 604800) + 1))
     }
     lazy var roundArr = Array(1...latestRound)
-    let urlString = APIURL.lottoUrl
 
     lazy var numberTextField = {
         let textField = UITextField()
@@ -213,7 +212,7 @@ class LotteryViewController: UIViewController {
         view.backgroundColor = .white
         numberTextField.text = String(latestRound)
         numberPickerView.selectRow(latestRound-1, inComponent: 0, animated: true)
-        lotteryRequest(round: String(latestRound))
+        configureLotto(round: String(latestRound))
     }
     
     func configureSubviews() {
@@ -286,18 +285,19 @@ class LotteryViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    func lotteryRequest(round: String) {
-        AF.request(urlString+round).responseDecodable(of: Lotto.self) { response in
-            switch response.result {
-            case .success(let value):
-                self.configureRequest(value: value)
-            case .failure(let error):
-                print(error)
+    func configureLotto(round: String) {
+        LottoManager.shared.lotteryRequest(round: round) { lotto, error in
+            if let error = error {
+                print("Error: \(error)")
+            } else {
+                guard let lotto = lotto else { return }
+                self.configureUI(value: lotto)
             }
         }
     }
     
-    func configureRequest(value: Lotto) {
+    func configureUI(value: Lotto) {
+        print(value)
         dateLabel.text = value.drawDateString
         roundLabel.text = value.drawNoString
         let numberArr = [value.drwtNo1, value.drwtNo2, value.drwtNo3, value.drwtNo4, value.drwtNo5, value.drwtNo6, value.bnusNo]
@@ -322,6 +322,6 @@ extension LotteryViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let round = String(roundArr[row])
         numberTextField.text = round
-        lotteryRequest(round: round)
+        configureLotto(round: round)
     }
 }

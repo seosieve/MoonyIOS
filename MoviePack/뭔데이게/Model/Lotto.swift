@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 struct Lotto: Decodable {
     //Date
@@ -26,5 +27,23 @@ struct Lotto: Decodable {
     }
     var drawNoString: String {
         return String(drwNo) + "회"
+    }
+}
+
+//MARK: - LottoManager
+struct LottoManager {
+    private init() {}
+    static let shared = LottoManager()
+    let urlString = APIURL.lottoUrl
+    
+    func lotteryRequest(round: String, completionHandler: @escaping (Lotto?, Error?) -> Void) {
+        AF.request(urlString+round).responseDecodable(of: Lotto.self) { response in
+            switch response.result {
+            case .success(let value):
+                completionHandler(value, nil)
+            case .failure(let error):
+                completionHandler(nil, error)
+            }
+        }
     }
 }
