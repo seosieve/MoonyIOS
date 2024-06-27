@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 //MARK: - SearchMovieResult
 struct SearchMovieResult: Decodable {
@@ -49,7 +50,6 @@ extension SearchMovie {
 }
 
 
-
 //MARK: - posterResult
 struct PosterResult: Decodable {
     var backdrops: [Potser]
@@ -74,6 +74,44 @@ struct Potser: Decodable {
 extension Potser {
     enum CodingKeys: String, CodingKey {
         case posterPath = "file_path"
+    }
+}
+
+enum Search {
+    case movie(url: String)
+    case poster(url: String)
+}
+
+struct SearchResult {
+    
+    static let shared = SearchResult()
+    typealias searchHandler = (SearchMovieResult?) -> ()
+    typealias posterHandler = (PosterResult?) -> ()
+    
+    private init() { }
+    
+    func searchRequest(url: String, handler: @escaping searchHandler) {
+        AF.request(url).responseDecodable(of: SearchMovieResult.self) { response in
+            switch response.result {
+            case .success(let value):
+                handler(value)
+            case .failure(let error):
+                print(error)
+                handler(nil)
+            }
+        }
+    }
+    
+    func searchRequest2(url: String, handler: @escaping posterHandler) {
+        AF.request(url).responseDecodable(of: PosterResult.self) { response in
+            switch response.result {
+            case .success(let value):
+                handler(value)
+            case .failure(let error):
+                print(error)
+                handler(nil)
+            }
+        }
     }
 }
 

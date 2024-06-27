@@ -34,21 +34,21 @@ class SearchDetailViewController: BaseViewController {
         let group = DispatchGroup()
         
         group.enter()
-        searchRequest(url: APIURL.similarMovieUrl) { searchMovieResult in
+        SearchResult.shared.searchRequest(url: APIURL.similarMovieUrl) { searchMovieResult in
             guard let searchMovieResult else { return }
             self.similarMovieResult = searchMovieResult
             group.leave()
         }
         
         group.enter()
-        searchRequest(url: APIURL.recommendMovieUrl) { searchMovieResult in
+        SearchResult.shared.searchRequest(url: APIURL.recommendMovieUrl) { searchMovieResult in
             guard let searchMovieResult else { return }
             self.recommendMovieResult = searchMovieResult
             group.leave()
         }
         
         group.enter()
-        searchRequest2(url: APIURL.posterUrl) { posterResult in
+        SearchResult.shared.searchRequest2(url: APIURL.posterUrl) { posterResult in
             guard let posterResult else { return }
             self.posterResult = posterResult
             group.leave()
@@ -58,30 +58,6 @@ class SearchDetailViewController: BaseViewController {
             self.customView.similarCollectionView.reloadData()
             self.customView.recommendCollectionView.reloadData()
             self.customView.posterCollectionView.reloadData()
-        }
-    }
-    
-    func searchRequest(url: String, handler: @escaping (SearchMovieResult?) -> ()) {
-        AF.request(url).responseDecodable(of: SearchMovieResult.self) { response in
-            switch response.result {
-            case .success(let value):
-                handler(value)
-            case .failure(let error):
-                print(error)
-                handler(nil)
-            }
-        }
-    }
-    
-    func searchRequest2(url: String, handler: @escaping (PosterResult?) -> ()) {
-        AF.request(url).responseDecodable(of: PosterResult.self) { response in
-            switch response.result {
-            case .success(let value):
-                handler(value)
-            case .failure(let error):
-                print(error)
-                handler(nil)
-            }
         }
     }
 }

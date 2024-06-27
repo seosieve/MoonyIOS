@@ -55,6 +55,10 @@ class SearchViewController: BaseViewController {
         }
     }
     
+    
+
+    
+    
     //Search Request Logic
     func searchRequest(word: String, handler: @escaping (SearchMovieResult?) -> ()) {
         let url = APIURL.searchMovieUrl + "&query=\(word)" + "&page=\(page)"
