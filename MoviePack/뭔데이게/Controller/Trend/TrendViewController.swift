@@ -83,7 +83,7 @@ class TrendViewController: UIViewController {
     }
     
     func creditsRequest(id: Int, index: Int, dispatchGroup: DispatchGroup) {
-        TrendManager.shared.creditRequest(id: id) { trendResult, error in
+        TrendManager.shared.creditRequest(type: .credit(id: id)) { trendResult, error in
             if let error = error {
                 print("Error: \(error)")
             } else {

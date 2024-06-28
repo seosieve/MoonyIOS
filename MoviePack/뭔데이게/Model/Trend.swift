@@ -60,16 +60,33 @@ struct Credits: Decodable {
     }
 }
 
+enum RequestType {
+    case trend
+    case credit(id: Int)
+    
+    var haveID: Int? {
+        switch self {
+        case .trend:
+            return nil
+        case .credit(let id):
+            return id
+        }
+    }
+}
 
 struct TrendManager {
-    private init() {}
-    static let shared = TrendManager()
     
-    let urlString = APIURL.trendUrl
+    private init() {}
+    
+    static let shared = TrendManager()
     
     func trendRequest(completionHandler: @escaping (TrendResult?, Error?) -> Void) {
         
-        AF.request(urlString).responseDecodable(of: TrendResult.self) { response in
+        let urlString = "https://api.themoviedb.org/3/trending/movie/week"
+        
+        let param: Parameters = ["api_key": APIKey.trendKey, "language": "ko-KR"]
+        
+        AF.request(urlString, parameters: param).responseDecodable(of: TrendResult.self) { response in
             switch response.result {
             case .success(let value):
                 completionHandler(value, nil)
@@ -79,9 +96,14 @@ struct TrendManager {
         }
     }
     
-    func creditRequest(id: Int, completionHandler: @escaping (CreditsResult?, Error?) -> Void) {
-        APIURL.movieID = id
-        AF.request(APIURL.creditsUrl).responseDecodable(of: CreditsResult.self) { response in
+    func creditRequest(type: RequestType, completionHandler: @escaping (CreditsResult?, Error?) -> Void) {
+        guard let id = type.haveID else { return }
+        
+        let urlString = "https://api.themoviedb.org/3/movie/\(id)/credits"
+        
+        let param: Parameters = ["api_key": APIKey.trendKey, "language": "ko-KR"]
+        
+        AF.request(urlString, parameters: param).responseDecodable(of: CreditsResult.self) { response in
             switch response.result {
             case .success(let value):
                 completionHandler(value, nil)
