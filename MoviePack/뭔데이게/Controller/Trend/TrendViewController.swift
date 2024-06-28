@@ -13,15 +13,8 @@ import Kingfisher
 class TrendViewController: UIViewController {
     
     let identifier = TrendTableViewCell.identifier
-    let trendUrlString = APIURL.trendUrl
-    var trendArr: [Trend] = [] {
-        didSet {
-            if trendArr.count != 0 {
-                trendTableView.reloadData()
-            }
-        }
-    }
-    var creditsArr = Array(repeating: CreditsResult.makeDummy, count: 20)
+    var trendArr: [Trend] = []
+    var creditsArr: [CreditsResult] = []
     
     lazy var trendTableView = {
         let tableView = UITableView()
@@ -61,27 +54,47 @@ class TrendViewController: UIViewController {
     
     func trendRequest() {
         view.makeToastActivity(.center)
-        AF.request(trendUrlString).responseDecodable(of: TrendResult.self) { response in
-            switch response.result {
-            case .success(let value):
-                self.trendArr = value.results
-            case .failure(let error):
-                print(error)
+        TrendManager.shared.trendRequest { trendResult, error in
+            if let error = error {
+                print("Error: \(error)")
+            } else {
+                guard let trendResult = trendResult else {
+                    self.view.hideToastActivity()
+                    return
+                }
+                
+                self.trendArr = trendResult.results
+                self.creditsArr = Array(repeating: CreditsResult(), count: trendResult.results.count)
+                
+                let dispatchGroup = DispatchGroup()
+                
+                for (index, result) in trendResult.results.enumerated() {
+                    dispatchGroup.enter()
+                    self.creditsRequest(id: result.id, index: index, dispatchGroup: dispatchGroup)
+                }
+                
+                dispatchGroup.notify(queue: .main) {
+                    self.view.hideToastActivity()
+                    self.trendTableView.reloadData()
+                }
             }
             self.view.hideToastActivity()
         }
     }
     
-    func creditsRequest(id: Int, handler: @escaping (CreditsResult) -> ()) {
-        APIURL.movieID = id
-        AF.request(APIURL.creditsUrl).responseDecodable(of: CreditsResult.self) { response in
-            switch response.result {
-            case .success(let value):
-                handler(value)
-            case .failure(let error):
-                print(error)
+    func creditsRequest(id: Int, index: Int, dispatchGroup: DispatchGroup) {
+        TrendManager.shared.creditRequest(id: id) { trendResult, error in
+            if let error = error {
+                print("Error: \(error)")
+            } else {
+                if let trendResult = trendResult {
+                    self.creditsArr[index] = trendResult
+                } else {
+                    dispatchGroup.leave()
+                    return
+                }
+                dispatchGroup.leave()
             }
-            self.view.hideToastActivity()
         }
     }
     
@@ -103,14 +116,10 @@ extension TrendViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let trend = trendArr[indexPath.row]
+        let credit = creditsArr[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! TrendTableViewCell
-        let id = trend.id
-        creditsRequest(id: id) { CreditsResult in
-            self.creditsArr[indexPath.row] = CreditsResult
-            cell.characterLabel.text = "\(CreditsResult.cast[0].name), \(CreditsResult.cast[1].name), \(CreditsResult.cast[2].name)"
-        }
+        cell.characterLabel.text = "\(credit.cast[0].name), \(credit.cast[1].name), \(credit.cast[2].name)"
         cell.configureCell(trend: trend)
-        
         cell.detailButton.addTarget(self, action: #selector(detailButtonPressed), for: .touchUpInside)
         
         return cell

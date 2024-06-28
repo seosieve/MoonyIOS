@@ -7,12 +7,10 @@
 
 import UIKit
 import SnapKit
-import Alamofire
 import Toast
 
 class MovieRankViewController: UIViewController {
 
-    let urlString = APIURL.movieUrl
     var movieArr: [Movie] = [] {
         didSet { movieTableView.reloadData() }
     }
@@ -156,14 +154,14 @@ class MovieRankViewController: UIViewController {
     
     func movieRequest(date: Int) {
         view.makeToastActivity(.center)
-        AF.request(urlString+String(date)).responseDecodable(of: MovieResult.self) { response in
-            switch response.result {
-            case .success(let value):
-                self.configureRequest(value: value)
-            case .failure(let error):
+        MovieManager.shared.movieRequest(date: date) { movieResult, error in
+            if let error = error {
                 self.view.makeToast("년도와 월, 일을 합쳐 8글자로 작성해주세요.", position: .center)
                 self.dateTextField.text = ""
-                print(error)
+                print("Error: \(error)")
+            } else {
+                guard let movieResult = movieResult else { return }
+                self.configureRequest(value: movieResult)
             }
             self.view.hideToastActivity()
         }

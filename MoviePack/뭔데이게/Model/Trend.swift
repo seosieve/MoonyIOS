@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 struct TrendResult: Decodable {
     let results: [Trend]
@@ -43,8 +44,9 @@ struct CreditsResult: Decodable {
     let id: Int
     let cast: [Credits]
     
-    static var makeDummy: CreditsResult {
-        return CreditsResult(id: 0, cast: [])
+    init(id: Int = 0, cast: [Credits] = []) {
+        self.id = id
+        self.cast = cast
     }
 }
 
@@ -55,5 +57,37 @@ struct Credits: Decodable {
     let character: String
     var profileUrl: String {
         return "https://image.tmdb.org/t/p/w780/\(profile_path ?? "")"
+    }
+}
+
+
+struct TrendManager {
+    private init() {}
+    static let shared = TrendManager()
+    
+    let urlString = APIURL.trendUrl
+    
+    func trendRequest(completionHandler: @escaping (TrendResult?, Error?) -> Void) {
+        
+        AF.request(urlString).responseDecodable(of: TrendResult.self) { response in
+            switch response.result {
+            case .success(let value):
+                completionHandler(value, nil)
+            case .failure(let error):
+                completionHandler(nil, error)
+            }
+        }
+    }
+    
+    func creditRequest(id: Int, completionHandler: @escaping (CreditsResult?, Error?) -> Void) {
+        APIURL.movieID = id
+        AF.request(APIURL.creditsUrl).responseDecodable(of: CreditsResult.self) { response in
+            switch response.result {
+            case .success(let value):
+                completionHandler(value, nil)
+            case .failure(let error):
+                completionHandler(nil, error)
+            }
+        }
     }
 }
