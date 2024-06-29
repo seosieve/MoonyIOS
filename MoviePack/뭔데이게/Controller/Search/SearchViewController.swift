@@ -14,7 +14,7 @@ class SearchViewController: BaseViewController {
     
     var customView = SearchView()
     
-    var searchMovieResult = SearchMovieResult.dummy
+    var searchMovieResult = SearchMovieResult()
     var previousWord = ""
     var page = 1
     
@@ -39,7 +39,7 @@ class SearchViewController: BaseViewController {
         view.makeToastActivity(.center)
         searchRequest(word: word) { searchMovieResult in
             guard let searchMovieResult else { return }
-            print(searchMovieResult.totalResults)
+            self.customView.configureView(isEmpty: true)
             switch self.page {
             case 1:
                 self.searchMovieResult = searchMovieResult
@@ -50,14 +50,14 @@ class SearchViewController: BaseViewController {
             self.view.hideToastActivity()
             
             if self.page == 1 {
-                self.customView.searchCollectionView.scrollToItem(at: [0,0], at: .top, animated: true)
+                if searchMovieResult.totalResults == 0 {
+                    self.customView.configureView(isEmpty: false)
+                } else {
+                    self.customView.searchCollectionView.scrollToItem(at: [0,0], at: .top, animated: true)
+                }
             }
         }
     }
-    
-    
-
-    
     
     //Search Request Logic
     func searchRequest(word: String, handler: @escaping (SearchMovieResult?) -> ()) {
@@ -96,7 +96,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let movie = searchMovieResult.results[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.identifier, for: indexPath) as! SearchCollectionViewCell
-        cell.configureCell(movie: movie)
+        cell.configureCell(result: movie)
         return cell
     }
 }

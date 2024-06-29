@@ -12,44 +12,40 @@ class SearchDetailViewController: BaseViewController {
 
     var customView = SearchDetailView()
     
-    var similarMovieResult = SearchMovieResult.dummy
-    var recommendMovieResult = SearchMovieResult.dummy
-    var posterResult = SearchMovieResult.dummy
+    var resultsArr: [[Results]] = Array(repeating: [Results](), count: 3)
     
     override func loadView() {
         self.view = customView
+    }
+    
+    override func configure() {
         customView.similarCollectionView.delegate = self
         customView.similarCollectionView.dataSource = self
         customView.recommendCollectionView.delegate = self
         customView.recommendCollectionView.dataSource = self
         customView.posterCollectionView.delegate = self
         customView.posterCollectionView.dataSource = self
-    }
-    
-    override func configure() {
-
-        APIURL.movieID = 940721
         
         let group = DispatchGroup()
         
         group.enter()
-        SearchResult.shared.searchRequest(url: APIURL.similarMovieUrl) { searchMovieResult in
+        SearchResult.shared.searchRequest(router: .similar(id: 940721), type: SearchMovieResult.self) { searchMovieResult in
             guard let searchMovieResult else { return }
-            self.similarMovieResult = searchMovieResult
+            self.resultsArr[0] = searchMovieResult.results
             group.leave()
         }
         
         group.enter()
-        SearchResult.shared.searchRequest(url: APIURL.recommendMovieUrl) { searchMovieResult in
+        SearchResult.shared.searchRequest(router: .recommend(id: 940721), type: SearchMovieResult.self) { searchMovieResult in
             guard let searchMovieResult else { return }
-            self.recommendMovieResult = searchMovieResult
+            self.resultsArr[1] = searchMovieResult.results
             group.leave()
         }
         
         group.enter()
-        SearchResult.shared.searchRequest(url: APIURL.posterUrl) { posterResult in
+        SearchResult.shared.searchRequest(router: .poster(id: 940721), type: PosterResult.self) { posterResult in
             guard let posterResult else { return }
-            self.posterResult = posterResult
+            self.resultsArr[2] = posterResult.backdrops
             group.leave()
         }
         
@@ -59,27 +55,37 @@ class SearchDetailViewController: BaseViewController {
             self.customView.posterCollectionView.reloadData()
         }
     }
+    
+    func configureType(_ collectionView: UICollectionView) -> CollectionViewType {
+        switch collectionView {
+        case customView.similarCollectionView:
+            return .similar
+        case customView.recommendCollectionView:
+            return .recommend
+        default:
+            return .poster
+        }
+    }
+}
+
+enum CollectionViewType: Int {
+    case similar
+    case recommend
+    case poster
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension SearchDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return similarMovieResult.results.count
+        let type = configureType(collectionView)
+        return resultsArr[type.rawValue].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.identifier, for: indexPath) as! SearchCollectionViewCell
         cell.removeGradient()
-        
-        switch collectionView {
-        case customView.similarCollectionView:
-            print("aa")
-        case customView.recommendCollectionView:
-            print("bb")
-        default:
-            print("cc")
-        }
-        
+        let type = configureType(collectionView)
+        cell.configureCell(result: resultsArr[type.rawValue][indexPath.row])
         return cell
     }
 }

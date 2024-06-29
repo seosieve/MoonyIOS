@@ -92,4 +92,9 @@ class SearchView: BaseView {
             make.centerX.equalToSuperview()
         }
     }
+    
+    func configureView(isEmpty: Bool) {
+        emptyImageView.isHidden = isEmpty
+        emptyLabel.isHidden = isEmpty
+    }
 }

@@ -17,16 +17,16 @@ class SearchDetailView: BaseView {
         return label
     }()
     
-    let flowLayout = {
+    static func flowLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         layout.itemSize = CGSize(width: 100, height: 150)
         return layout
-    }()
+    }
     
-    let posterFlowLayout = {
+    let posterFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
@@ -35,8 +35,8 @@ class SearchDetailView: BaseView {
         return layout
     }()
     
-    lazy var similarCollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+    var similarCollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout())
         collectionView.backgroundColor = .black
         collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
         return collectionView
@@ -50,8 +50,8 @@ class SearchDetailView: BaseView {
         return label
     }()
     
-    lazy var recommendCollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+    var recommendCollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout())
         collectionView.backgroundColor = .black
         collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
         return collectionView

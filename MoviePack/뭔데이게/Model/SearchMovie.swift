@@ -8,15 +8,27 @@
 import Foundation
 import Alamofire
 
+protocol Results {
+    var backdropPath: String? { get }
+    var posterUrl: String { get }
+}
+
 //MARK: - SearchMovieResult
 struct SearchMovieResult: Decodable {
     let page: Int?
     var results: [SearchMovie]
     let totalPages: Int
     let totalResults: Int
+    
+    init(page: Int? = 0, results: [SearchMovie] = [], totalPages: Int = 0, totalResults: Int = 0) {
+        self.page = page
+        self.results = results
+        self.totalPages = totalPages
+        self.totalResults = totalResults
+    }
 }
 
-//CodingKeys, Dummy
+//CodingKeys
 extension SearchMovieResult {
     enum CodingKeys: String, CodingKey {
         case page
@@ -24,46 +36,64 @@ extension SearchMovieResult {
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
-    
-    static var dummy: SearchMovieResult {
-        return SearchMovieResult(page: 0, results: [], totalPages: 0, totalResults: 0)
-    }
 }
 
 //MARK: - SearchMovie
-struct SearchMovie: Decodable {
-    let id: Int
-    let title: String
+struct SearchMovie: Decodable, Results {
+    let id: Int?
+    let title: String?
     let backdropPath: String?
-    let posterPath: String?
     var posterUrl: String {
-        return "https://image.tmdb.org/t/p/w780/" + (backdropPath ?? posterPath ?? "")
+        return "https://image.tmdb.org/t/p/w780/" + (backdropPath ?? "")
     }
 }
 
-//CodingKeys, Dummy
+//CodingKeys
 extension SearchMovie {
     enum CodingKeys: String, CodingKey {
         case id
         case title
         case backdropPath = "backdrop_path"
-        case posterPath = "file_path"
+    }
+}
+
+//MARK: - PosterResult
+struct PosterResult: Decodable {
+    var backdrops: [Poster]
+    
+    init(backdrops: [Poster] = []) {
+        self.backdrops = backdrops
+    }
+}
+
+struct Poster: Decodable, Results {
+    let backdropPath: String?
+    var posterUrl: String {
+        return "https://image.tmdb.org/t/p/w780/" + (backdropPath ?? "")
+    }
+}
+
+//CodingKeys
+extension Poster {
+    enum CodingKeys: String, CodingKey {
+        case backdropPath = "file_path"
     }
 }
 
 struct SearchResult {
+    
     static let shared = SearchResult()
     
     private init() { }
     
-    func searchRequest(url: String, handler: @escaping (SearchMovieResult?) -> ()) {
-        AF.request(url).responseDecodable(of: SearchMovieResult.self) { response in
+    func searchRequest<T: Decodable>(router: TMDB, type: T.Type, handler: @escaping (T?) -> ()) {
+        AF.request(router.endPoint, method: router.method, parameters: router.parameters, headers: router.header).responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let value):
+                print(value)
                 handler(value)
             case .failure(let error):
                 print(error)
-                
             }
         }
     }

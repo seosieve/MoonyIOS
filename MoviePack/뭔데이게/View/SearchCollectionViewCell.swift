@@ -78,10 +78,13 @@ class SearchCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configureCell(movie: SearchMovie) {
-        let url = URL(string: movie.posterUrl)
+    func configureCell(result: Results) {
+        if let result = result as? SearchMovie {
+            titleLabel.text = result.title
+        }
+        
+        let url = URL(string: result.posterUrl)
         searchImageView.kf.setImage(with: url)
-        titleLabel.text = movie.title
     }
 }
 
