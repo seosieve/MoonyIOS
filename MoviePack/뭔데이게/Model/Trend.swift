@@ -60,16 +60,37 @@ struct Credits: Decodable {
     }
 }
 
-enum RequestType {
+enum TMDB {
     case trend
     case credit(id: Int)
     
-    var haveID: Int? {
+    var baseURL: String {
+        return "https://api.themoviedb.org/3/"
+    }
+    
+    var endPoint: String {
         switch self {
         case .trend:
-            return nil
+            return baseURL + "trending/movie/week"
         case .credit(let id):
-            return id
+            return baseURL + "movie/\(id)/credits"
+        }
+    }
+    
+    var header: HTTPHeaders {
+        return ["Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MmEwZjRkOWVlNzI4YTUzNzJiY2RjOThiYTIxMDE3ZSIsIm5iZiI6MTcxOTQ4NDA2My43NjE0NDMsInN1YiI6IjY2NjExZTVhZTg1NjZiNmE4Y2EyNTcxMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mZuAp79W_whTRwVIXpYuUJdvTF3Eq86_L1lR1Rk35LI"]
+    }
+    
+    var method: HTTPMethod {
+        return .get
+    }
+    
+    var parameters: Parameters {
+        switch self {
+        case .trend:
+            return ["api_key": APIKey.trendKey, "language": "ko-KR"]
+        case .credit:
+            return ["api_key": APIKey.trendKey, "language": "ko-KR"]
         }
     }
 }
@@ -80,13 +101,9 @@ struct TrendManager {
     
     static let shared = TrendManager()
     
-    func trendRequest(completionHandler: @escaping (TrendResult?, Error?) -> Void) {
+    func trendRequest(router: TMDB, completionHandler: @escaping (TrendResult?, Error?) -> Void) {
         
-        let urlString = "https://api.themoviedb.org/3/trending/movie/week"
-        
-        let param: Parameters = ["api_key": APIKey.trendKey, "language": "ko-KR"]
-        
-        AF.request(urlString, parameters: param).responseDecodable(of: TrendResult.self) { response in
+        AF.request(router.endPoint, method: router.method, parameters: router.parameters, headers: router.header).responseDecodable(of: TrendResult.self) { response in
             switch response.result {
             case .success(let value):
                 completionHandler(value, nil)
@@ -96,14 +113,9 @@ struct TrendManager {
         }
     }
     
-    func creditRequest(type: RequestType, completionHandler: @escaping (CreditsResult?, Error?) -> Void) {
-        guard let id = type.haveID else { return }
+    func creditRequest(router: TMDB, completionHandler: @escaping (CreditsResult?, Error?) -> Void) {
         
-        let urlString = "https://api.themoviedb.org/3/movie/\(id)/credits"
-        
-        let param: Parameters = ["api_key": APIKey.trendKey, "language": "ko-KR"]
-        
-        AF.request(urlString, parameters: param).responseDecodable(of: CreditsResult.self) { response in
+        AF.request(router.endPoint, method: router.method, parameters: router.parameters, headers: router.header).responseDecodable(of: CreditsResult.self) { response in
             switch response.result {
             case .success(let value):
                 completionHandler(value, nil)

@@ -10,3 +10,6 @@ import UIKit
 protocol ReusableProtocol: AnyObject {
     static var identifier: String { get }
 }
+
+
+

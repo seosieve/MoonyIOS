@@ -54,14 +54,11 @@ class TrendViewController: UIViewController {
     
     func trendRequest() {
         view.makeToastActivity(.center)
-        TrendManager.shared.trendRequest { trendResult, error in
+        TrendManager.shared.trendRequest(router: .trend) { trendResult, error in
             if let error = error {
                 print("Error: \(error)")
             } else {
-                guard let trendResult = trendResult else {
-                    self.view.hideToastActivity()
-                    return
-                }
+                guard let trendResult = trendResult else { self.view.hideToastActivity(); return }
                 
                 self.trendArr = trendResult.results
                 self.creditsArr = Array(repeating: CreditsResult(), count: trendResult.results.count)
@@ -78,23 +75,18 @@ class TrendViewController: UIViewController {
                     self.trendTableView.reloadData()
                 }
             }
-            self.view.hideToastActivity()
         }
     }
     
     func creditsRequest(id: Int, index: Int, dispatchGroup: DispatchGroup) {
-        TrendManager.shared.creditRequest(type: .credit(id: id)) { trendResult, error in
+        TrendManager.shared.creditRequest(router: .credit(id: id)) { trendResult, error in
             if let error = error {
                 print("Error: \(error)")
             } else {
-                if let trendResult = trendResult {
-                    self.creditsArr[index] = trendResult
-                } else {
-                    dispatchGroup.leave()
-                    return
-                }
-                dispatchGroup.leave()
+                guard let trendResult = trendResult else { dispatchGroup.leave(); return }
+                self.creditsArr[index] = trendResult
             }
+            dispatchGroup.leave()
         }
     }
     
