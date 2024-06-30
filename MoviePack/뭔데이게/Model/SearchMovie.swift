@@ -90,7 +90,6 @@ struct SearchResult {
         AF.request(router.endPoint, method: router.method, parameters: router.parameters, headers: router.header).responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let value):
-                print(value)
                 handler(value)
             case .failure(let error):
                 print(error)

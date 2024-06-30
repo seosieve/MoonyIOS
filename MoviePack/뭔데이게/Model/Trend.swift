@@ -63,8 +63,8 @@ struct Credits: Decodable {
 enum TMDB {
     case trend
     case credit(id: Int)
-    case similar(id: Int)
-    case recommend(id: Int)
+    case similar(id: Int, page: Int)
+    case recommend(id: Int, page: Int)
     case poster(id: Int)
     
     var baseURL: String {
@@ -77,9 +77,9 @@ enum TMDB {
             return baseURL + "trending/movie/week"
         case .credit(let id):
             return baseURL + "movie/\(id)/credits"
-        case .similar(let id):
+        case .similar(let id, let page):
             return baseURL + "movie/\(id)/similar"
-        case .recommend(let id):
+        case .recommend(let id, let page):
             return baseURL + "movie/\(id)/recommendations"
         case .poster(let id):
             return baseURL + "movie/\(id)/images"
@@ -100,10 +100,10 @@ enum TMDB {
             return ["api_key": APIKey.trendKey, "language": "ko-KR"]
         case .credit:
             return ["api_key": APIKey.trendKey, "language": "ko-KR"]
-        case .similar:
-            return ["api_key": APIKey.trendKey, "language": "ko-KR"]
-        case .recommend:
-            return ["api_key": APIKey.trendKey, "language": "ko-KR"]
+        case .similar(let id, let page):
+            return ["api_key": APIKey.trendKey, "language": "ko-KR", "page": page]
+        case .recommend(let id, let page):
+            return ["api_key": APIKey.trendKey, "language": "ko-KR", "page": page]
         case .poster:
             return ["api_key": APIKey.trendKey]
         }

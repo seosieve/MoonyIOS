@@ -7,9 +7,8 @@
 
 import UIKit
 
-protocol ReusableProtocol: AnyObject {
-    static var identifier: String { get }
+extension NSObjectProtocol {
+    static var identifier: String {
+        return String(describing: self)
+    }
 }
-
-
-

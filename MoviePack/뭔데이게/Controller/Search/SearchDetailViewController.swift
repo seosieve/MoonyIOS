@@ -8,35 +8,58 @@
 import UIKit
 import Toast
 
+enum CollectionViewType: Int {
+    case similar
+    case recommend
+    case poster
+    
+    var title: String {
+        switch self {
+        case .similar:
+            return "비슷한 영화"
+        case .recommend:
+            return "추천 영화"
+        case .poster:
+            return "포스터"
+        }
+    }
+    
+    var layout: UICollectionViewFlowLayout {
+        switch self {
+        case .similar, .recommend:
+            SearchDetailTableViewCell.flowLayout(width: 120, height: 180)
+        case .poster:
+            SearchDetailTableViewCell.flowLayout(width: 150, height: 180)
+        }
+    }
+}
+
 class SearchDetailViewController: BaseViewController {
 
     var customView = SearchDetailView()
     
     var resultsArr: [[Results]] = Array(repeating: [Results](), count: 3)
+    var page: [Int] = [1,1,1]
     
     override func loadView() {
         self.view = customView
     }
     
     override func configure() {
-        customView.similarCollectionView.delegate = self
-        customView.similarCollectionView.dataSource = self
-        customView.recommendCollectionView.delegate = self
-        customView.recommendCollectionView.dataSource = self
-        customView.posterCollectionView.delegate = self
-        customView.posterCollectionView.dataSource = self
+        customView.searchDetailTableView.delegate = self
+        customView.searchDetailTableView.dataSource = self
         
         let group = DispatchGroup()
         
         group.enter()
-        SearchResult.shared.searchRequest(router: .similar(id: 940721), type: SearchMovieResult.self) { searchMovieResult in
+        SearchResult.shared.searchRequest(router: .similar(id: 940721, page: 1), type: SearchMovieResult.self) { searchMovieResult in
             guard let searchMovieResult else { return }
             self.resultsArr[0] = searchMovieResult.results
             group.leave()
         }
         
         group.enter()
-        SearchResult.shared.searchRequest(router: .recommend(id: 940721), type: SearchMovieResult.self) { searchMovieResult in
+        SearchResult.shared.searchRequest(router: .recommend(id: 940721, page: 1), type: SearchMovieResult.self) { searchMovieResult in
             guard let searchMovieResult else { return }
             self.resultsArr[1] = searchMovieResult.results
             group.leave()
@@ -50,42 +73,54 @@ class SearchDetailViewController: BaseViewController {
         }
         
         group.notify(queue: .main) {
-            self.customView.similarCollectionView.reloadData()
-            self.customView.recommendCollectionView.reloadData()
-            self.customView.posterCollectionView.reloadData()
-        }
-    }
-    
-    func configureType(_ collectionView: UICollectionView) -> CollectionViewType {
-        switch collectionView {
-        case customView.similarCollectionView:
-            return .similar
-        case customView.recommendCollectionView:
-            return .recommend
-        default:
-            return .poster
+            self.customView.searchDetailTableView.reloadData()
         }
     }
 }
 
-enum CollectionViewType: Int {
-    case similar
-    case recommend
-    case poster
-}
-
-//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension SearchDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let type = configureType(collectionView)
-        return resultsArr[type.rawValue].count
+extension SearchDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.identifier, for: indexPath) as! SearchCollectionViewCell
-        cell.removeGradient()
-        let type = configureType(collectionView)
-        cell.configureCell(result: resultsArr[type.rawValue][indexPath.row])
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchDetailTableViewCell.identifier, for: indexPath) as? SearchDetailTableViewCell
+        guard let cell = cell else { return UITableViewCell() }
+        guard let type = CollectionViewType(rawValue: indexPath.row) else { return UITableViewCell() }
+        
+        cell.titleLabel.text = type.title
+        cell.searchDetailCollectionView.collectionViewLayout = type.layout
+        cell.type = type
+        cell.resultsArr = resultsArr[indexPath.row]
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? SearchDetailTableViewCell else { return }
+        guard cell.delegate == nil else { return }
+        cell.delegate = self
+    }
+}
+
+extension SearchDetailViewController: TableViewCellDelegate {
+    func configureResult(type: CollectionViewType, completionHandler: @escaping ([Results]) -> Void) {
+        let index = type.rawValue
+        page[index] += 1
+        
+        switch type {
+        case .similar:
+            SearchResult.shared.searchRequest(router: .similar(id: 940721, page: page[index]), type: SearchMovieResult.self) { searchMovieResult in
+                guard let searchMovieResult else { return }
+                completionHandler(searchMovieResult.results)
+            }
+        case .recommend:
+            SearchResult.shared.searchRequest(router: .recommend(id: 940721, page: page[index]), type: SearchMovieResult.self) { searchMovieResult in
+                guard let searchMovieResult else { return }
+                completionHandler(searchMovieResult.results)
+            }
+        case .poster:
+            break
+        }
     }
 }

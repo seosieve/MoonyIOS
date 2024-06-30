@@ -13,6 +13,8 @@
 		4E7D09F02C2972C0000A9FF2 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D09EF2C2972C0000A9FF2 /* BaseViewController.swift */; };
 		4E7D09F22C29917E000A9FF2 /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D09F12C29917E000A9FF2 /* SearchDetailViewController.swift */; };
 		4E7D09F42C299595000A9FF2 /* SearchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D09F32C299595000A9FF2 /* SearchDetailView.swift */; };
+		4E7D0A192C312A18000A9FF2 /* SearchDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D0A182C312A18000A9FF2 /* SearchDetailTableViewCell.swift */; };
+		4E7D0A1B2C315678000A9FF2 /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D0A1A2C315678000A9FF2 /* BaseTableView.swift */; };
 		4E8657782C0F1F4400FF4D6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657772C0F1F4400FF4D6D /* AppDelegate.swift */; };
 		4E86577A2C0F1F4400FF4D6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657792C0F1F4400FF4D6D /* SceneDelegate.swift */; };
 		4E86577C2C0F1F4400FF4D6D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86577B2C0F1F4400FF4D6D /* SignUpViewController.swift */; };
@@ -40,7 +42,6 @@
 		4E8658352C1710C600FF4D6D /* OverViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8658342C1710C600FF4D6D /* OverViewTableViewCell.swift */; };
 		4E9330552C1837BC00D1E91C /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330542C1837BC00D1E91C /* SearchCollectionViewCell.swift */; };
 		4E9330572C1837C700D1E91C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330562C1837C700D1E91C /* SearchViewController.swift */; };
-		4E93305D2C18420D00D1E91C /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93305C2C18420C00D1E91C /* UICollectionView+Extension.swift */; };
 		4E93305F2C1848FA00D1E91C /* UISearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */; };
 		4E9330612C184F2800D1E91C /* SearchMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330602C184F2800D1E91C /* SearchMovie.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,8 @@
 		4E7D09EF2C2972C0000A9FF2 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4E7D09F12C29917E000A9FF2 /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		4E7D09F32C299595000A9FF2 /* SearchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailView.swift; sourceTree = "<group>"; };
+		4E7D0A182C312A18000A9FF2 /* SearchDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailTableViewCell.swift; sourceTree = "<group>"; };
+		4E7D0A1A2C315678000A9FF2 /* BaseTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
 		4E8657742C0F1F4400FF4D6D /* MoviePack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviePack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E8657772C0F1F4400FF4D6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E8657792C0F1F4400FF4D6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,7 +80,6 @@
 		4E8658342C1710C600FF4D6D /* OverViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverViewTableViewCell.swift; sourceTree = "<group>"; };
 		4E9330542C1837BC00D1E91C /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E9330562C1837C700D1E91C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		4E93305C2C18420C00D1E91C /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Extension.swift"; sourceTree = "<group>"; };
 		4E9330602C184F2800D1E91C /* SearchMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,9 +128,10 @@
 		4E7D09E92C296F22000A9FF2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4E9330542C1837BC00D1E91C /* SearchCollectionViewCell.swift */,
 				4E7D09ED2C29712E000A9FF2 /* SearchView.swift */,
 				4E7D09F32C299595000A9FF2 /* SearchDetailView.swift */,
+				4E9330542C1837BC00D1E91C /* SearchCollectionViewCell.swift */,
+				4E7D0A182C312A18000A9FF2 /* SearchDetailTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -137,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				4E7D09EB2C296FE9000A9FF2 /* BaseView.swift */,
+				4E7D0A1A2C315678000A9FF2 /* BaseTableView.swift */,
 				4E7D09EF2C2972C0000A9FF2 /* BaseViewController.swift */,
 			);
 			path = Base;
@@ -198,7 +202,6 @@
 			isa = PBXGroup;
 			children = (
 				4E8657DE2C11C63900FF4D6D /* UITableViewCell+Extension.swift */,
-				4E93305C2C18420C00D1E91C /* UICollectionView+Extension.swift */,
 				4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */,
 				4E7D09E32C296102000A9FF2 /* UIView+Extension.swift */,
 			);
@@ -321,12 +324,14 @@
 				4E86577C2C0F1F4400FF4D6D /* SignUpViewController.swift in Sources */,
 				4E9330612C184F2800D1E91C /* SearchMovie.swift in Sources */,
 				4E8657782C0F1F4400FF4D6D /* AppDelegate.swift in Sources */,
+				4E7D0A1B2C315678000A9FF2 /* BaseTableView.swift in Sources */,
 				4E7D09F02C2972C0000A9FF2 /* BaseViewController.swift in Sources */,
 				4E86582B2C16F4B400FF4D6D /* Trend.swift in Sources */,
 				4E7D09EC2C296FE9000A9FF2 /* BaseView.swift in Sources */,
 				4E9330572C1837C700D1E91C /* SearchViewController.swift in Sources */,
 				4E8657E12C12B89D00FF4D6D /* Movie.swift in Sources */,
 				4E8658352C1710C600FF4D6D /* OverViewTableViewCell.swift in Sources */,
+				4E7D0A192C312A18000A9FF2 /* SearchDetailTableViewCell.swift in Sources */,
 				4E7D09F42C299595000A9FF2 /* SearchDetailView.swift in Sources */,
 				4E86577A2C0F1F4400FF4D6D /* SceneDelegate.swift in Sources */,
 				4E8657DA2C11C4A200FF4D6D /* MovieRankTableViewCell.swift in Sources */,
@@ -334,7 +339,6 @@
 				4E8658332C17004C00FF4D6D /* CastTableViewCell.swift in Sources */,
 				4E7D09F22C29917E000A9FF2 /* SearchDetailViewController.swift in Sources */,
 				4E86578F2C0F250600FF4D6D /* HomeViewController.swift in Sources */,
-				4E93305D2C18420D00D1E91C /* UICollectionView+Extension.swift in Sources */,
 				4E8657DF2C11C63900FF4D6D /* UITableViewCell+Extension.swift in Sources */,
 				4E86582D2C16FAB900FF4D6D /* TrendDetailViewController.swift in Sources */,
 				4E8657DC2C11C58800FF4D6D /* Identifier.swift in Sources */,
