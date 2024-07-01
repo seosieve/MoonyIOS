@@ -99,6 +99,14 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.configureCell(result: movie)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let id = searchMovieResult.results[indexPath.row].id, let title = searchMovieResult.results[indexPath.row].title else { return }
+        let vc = SearchDetailViewController(id: id, title: title)
+        let backBarButtonItem = UIBarButtonItem(title: "")
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 //MARK: - UICollectionViewDataSourcePrefetching

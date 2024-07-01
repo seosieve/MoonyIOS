@@ -7,6 +7,7 @@
 
 import UIKit
 import Toast
+import YoutubePlayer_in_WKWebView
 
 enum CollectionViewType: Int {
     case similar
@@ -39,34 +40,55 @@ class SearchDetailViewController: BaseViewController {
     var customView = SearchDetailView()
     
     var resultsArr: [[Results]] = Array(repeating: [Results](), count: 3)
-    var page: [Int] = [1,1,1]
+    var page: [Int] = [1,1]
+    
+    var id: Int!
+    var navTitle: String!
+    
+    init(id: Int, title: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.id = id
+        self.navTitle = title
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         self.view = customView
     }
     
     override func configure() {
+        navigationItem.title = navTitle
+        
         customView.searchDetailTableView.delegate = self
         customView.searchDetailTableView.dataSource = self
+        
+        SearchManager.shared.searchRequest(router: .video(id: id), type: VideoResult.self) { videoResult in
+            guard let videoResult else { return }
+            guard let key = videoResult.results.first?.key else { return }
+            self.customView.previewVideoView.load(withVideoId: key)
+        }
         
         let group = DispatchGroup()
         
         group.enter()
-        SearchResult.shared.searchRequest(router: .similar(id: 940721, page: 1), type: SearchMovieResult.self) { searchMovieResult in
+        SearchManager.shared.searchRequest(router: .similar(id: id, page: 1), type: SearchMovieResult.self) { searchMovieResult in
             guard let searchMovieResult else { return }
             self.resultsArr[0] = searchMovieResult.results
             group.leave()
         }
         
         group.enter()
-        SearchResult.shared.searchRequest(router: .recommend(id: 940721, page: 1), type: SearchMovieResult.self) { searchMovieResult in
+        SearchManager.shared.searchRequest(router: .recommend(id: id, page: 1), type: SearchMovieResult.self) { searchMovieResult in
             guard let searchMovieResult else { return }
             self.resultsArr[1] = searchMovieResult.results
             group.leave()
         }
         
         group.enter()
-        SearchResult.shared.searchRequest(router: .poster(id: 940721), type: PosterResult.self) { posterResult in
+        SearchManager.shared.searchRequest(router: .poster(id: id), type: PosterResult.self) { posterResult in
             guard let posterResult else { return }
             self.resultsArr[2] = posterResult.backdrops
             group.leave()
@@ -110,12 +132,12 @@ extension SearchDetailViewController: TableViewCellDelegate {
         
         switch type {
         case .similar:
-            SearchResult.shared.searchRequest(router: .similar(id: 940721, page: page[index]), type: SearchMovieResult.self) { searchMovieResult in
+            SearchManager.shared.searchRequest(router: .similar(id: 940721, page: page[index]), type: SearchMovieResult.self) { searchMovieResult in
                 guard let searchMovieResult else { return }
                 completionHandler(searchMovieResult.results)
             }
         case .recommend:
-            SearchResult.shared.searchRequest(router: .recommend(id: 940721, page: page[index]), type: SearchMovieResult.self) { searchMovieResult in
+            SearchManager.shared.searchRequest(router: .recommend(id: 940721, page: page[index]), type: SearchMovieResult.self) { searchMovieResult in
                 guard let searchMovieResult else { return }
                 completionHandler(searchMovieResult.results)
             }

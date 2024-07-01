@@ -80,9 +80,22 @@ extension Poster {
     }
 }
 
-struct SearchResult {
+//MARK: - VideoResult
+struct VideoResult: Decodable {
+    let results: [Video]
     
-    static let shared = SearchResult()
+    init(results: [Video]) {
+        self.results = results
+    }
+}
+
+struct Video: Decodable {
+    let key: String
+}
+
+struct SearchManager {
+    
+    static let shared = SearchManager()
     
     private init() { }
     
