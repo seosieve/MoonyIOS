@@ -46,6 +46,8 @@
 		4E9330572C1837C700D1E91C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330562C1837C700D1E91C /* SearchViewController.swift */; };
 		4E93305F2C1848FA00D1E91C /* UISearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */; };
 		4E9330612C184F2800D1E91C /* SearchMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330602C184F2800D1E91C /* SearchMovie.swift */; };
+		4ED9C4FD2C40FD8E0090320E /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C4FC2C40FD8E0090320E /* CustomTabBarController.swift */; };
+		4ED9C5002C40FDC90090320E /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED9C4FF2C40FDC90090320E /* Then */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +87,7 @@
 		4E9330562C1837C700D1E91C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Extension.swift"; sourceTree = "<group>"; };
 		4E9330602C184F2800D1E91C /* SearchMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovie.swift; sourceTree = "<group>"; };
+		4ED9C4FC2C40FD8E0090320E /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E7D0A332C32D7EB000A9FF2 /* YoutubePlayer-in-WKWebView in Frameworks */,
+				4ED9C5002C40FDC90090320E /* Then in Frameworks */,
 				4E8657E42C12D4BC00FF4D6D /* Toast in Frameworks */,
 				4E8657CD2C10674200FF4D6D /* Alamofire in Frameworks */,
 				4E8657CA2C10673600FF4D6D /* Kingfisher in Frameworks */,
@@ -134,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				4E7D0A372C32E37C000A9FF2 /* Search */,
+				4ED9C4FC2C40FD8E0090320E /* CustomTabBarController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -280,6 +285,7 @@
 				4E8657CC2C10674200FF4D6D /* Alamofire */,
 				4E8657E32C12D4BC00FF4D6D /* Toast */,
 				4E7D0A322C32D7EB000A9FF2 /* YoutubePlayer-in-WKWebView */,
+				4ED9C4FF2C40FDC90090320E /* Then */,
 			);
 			productName = MoviePack;
 			productReference = 4E8657742C0F1F4400FF4D6D /* MoviePack.app */;
@@ -315,6 +321,7 @@
 				4E8657CB2C10674200FF4D6D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				4E8657E22C12D4BC00FF4D6D /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				4E7D0A312C32D7EB000A9FF2 /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */,
+				4ED9C4FE2C40FDC90090320E /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = 4E8657752C0F1F4400FF4D6D /* Products */;
 			projectDirPath = "";
@@ -345,6 +352,7 @@
 			files = (
 				4E7D0A362C32DDEB000A9FF2 /* TMDBRouter.swift in Sources */,
 				4E93305F2C1848FA00D1E91C /* UISearchBar+Extension.swift in Sources */,
+				4ED9C4FD2C40FD8E0090320E /* CustomTabBarController.swift in Sources */,
 				4E86577C2C0F1F4400FF4D6D /* SignUpViewController.swift in Sources */,
 				4E9330612C184F2800D1E91C /* SearchMovie.swift in Sources */,
 				4E8657782C0F1F4400FF4D6D /* AppDelegate.swift in Sources */,
@@ -638,6 +646,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		4ED9C4FE2C40FDC90090320E /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -665,6 +681,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E8657E22C12D4BC00FF4D6D /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		4ED9C4FF2C40FDC90090320E /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4ED9C4FE2C40FDC90090320E /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -12,17 +12,39 @@ import Toast
 
 class SearchViewController: BaseViewController {
     
-    var customView = SearchView()
+    let customView = SearchView()
     
     var searchMovieResult = SearchMovieResult()
     var previousWord = ""
     var page = 1
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+//        print(view)
+//        loadView()
+//        viewDidLoad()
+    }
+    
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//        print(#function, "SearchViewController")
+//    }
     override func loadView() {
-        self.view = customView
+//        print(view)
+        super.loadView()
+        print(view)
+//        view = customView
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print(#function, "SearchViewController")
     }
     
     override func configure() {
+        super.configure()
+        print(#function, "SearchViewController")
         let listButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = listButton
         navigationController?.navigationBar.tintColor = .gray
