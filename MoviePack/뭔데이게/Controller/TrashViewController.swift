@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  TrashViewController.swift
 //  MoviePack
 //
 //  Created by 서충원 on 6/4/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class HomeViewController: UIViewController {
+class TrashViewController: UIViewController {
 
     var titleLabel = {
         let label = UILabel()

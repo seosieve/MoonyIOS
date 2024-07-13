@@ -29,7 +29,7 @@ class SearchDetailView: BaseView {
         return tableView
     }()
     
-    override func configureSubviews() {
+    override func configureSubViews() {
         self.addSubview(previewVideoView)
         self.addSubview(searchDetailTableView)
     }

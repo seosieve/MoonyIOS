@@ -35,9 +35,7 @@ enum CollectionViewType: Int {
     }
 }
 
-class SearchDetailViewController: BaseViewController {
-
-    var customView = SearchDetailView()
+class SearchDetailViewController: BaseViewController<SearchDetailView, HomeViewModel> {
     
     var resultsArr: [[Results]] = Array(repeating: [Results](), count: 3)
     var page: [Int] = [1,1]
@@ -46,29 +44,21 @@ class SearchDetailViewController: BaseViewController {
     var navTitle: String!
     
     init(id: Int, title: String) {
-        super.init(nibName: nil, bundle: nil)
+        super.init(view: SearchDetailView(), viewModel: HomeViewModel())
         self.id = id
         self.navTitle = title
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func loadView() {
-        self.view = customView
-    }
-    
-    override func configure() {
+    override func configureView() {
         navigationItem.title = navTitle
         
-        customView.searchDetailTableView.delegate = self
-        customView.searchDetailTableView.dataSource = self
+        baseView.searchDetailTableView.delegate = self
+        baseView.searchDetailTableView.dataSource = self
         
         SearchManager.shared.searchRequest(router: .video(id: id), type: VideoResult.self) { videoResult in
             guard let videoResult else { return }
             guard let key = videoResult.results.first?.key else { return }
-            self.customView.previewVideoView.load(withVideoId: key)
+            self.baseView.previewVideoView.load(withVideoId: key)
         }
         
         let group = DispatchGroup()
@@ -95,7 +85,7 @@ class SearchDetailViewController: BaseViewController {
         }
         
         group.notify(queue: .main) {
-            self.customView.searchDetailTableView.reloadData()
+            self.baseView.searchDetailTableView.reloadData()
         }
     }
 }

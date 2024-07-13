@@ -10,50 +10,22 @@ import Alamofire
 import Kingfisher
 import Toast
 
-class SearchViewController: BaseViewController {
-    
-    let customView = SearchView()
+class SearchViewController: BaseViewController<SearchView, HomeViewModel> {
     
     var searchMovieResult = SearchMovieResult()
     var previousWord = ""
     var page = 1
     
-    init() {
-        super.init(nibName: nil, bundle: nil)
-//        print(view)
-//        loadView()
-//        viewDidLoad()
-    }
-    
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//        print(#function, "SearchViewController")
-//    }
-    override func loadView() {
-//        print(view)
-        super.loadView()
-        print(view)
-//        view = customView
-        
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print(#function, "SearchViewController")
-    }
-    
-    override func configure() {
-        super.configure()
-        print(#function, "SearchViewController")
+    override func configureView() {
         let listButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: nil)
         navigationItem.rightBarButtonItem = listButton
         navigationController?.navigationBar.tintColor = .gray
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.title = "SEARCH"
-        customView.searchBar.delegate = self
-        customView.searchCollectionView.delegate = self
-        customView.searchCollectionView.dataSource = self
-        customView.searchCollectionView.prefetchDataSource = self
+        baseView.searchBar.delegate = self
+        baseView.searchCollectionView.delegate = self
+        baseView.searchCollectionView.dataSource = self
+        baseView.searchCollectionView.prefetchDataSource = self
     }
     
     //Wrapping with Additional Work
@@ -61,21 +33,21 @@ class SearchViewController: BaseViewController {
         view.makeToastActivity(.center)
         searchRequest(word: word) { searchMovieResult in
             guard let searchMovieResult else { return }
-            self.customView.configureView(isEmpty: true)
+            self.baseView.configureView(isEmpty: true)
             switch self.page {
             case 1:
                 self.searchMovieResult = searchMovieResult
             default:
                 self.searchMovieResult.results += searchMovieResult.results
             }
-            self.customView.searchCollectionView.reloadData()
+            self.baseView.searchCollectionView.reloadData()
             self.view.hideToastActivity()
             
             if self.page == 1 {
                 if searchMovieResult.totalResults == 0 {
-                    self.customView.configureView(isEmpty: false)
+                    self.baseView.configureView(isEmpty: false)
                 } else {
-                    self.customView.searchCollectionView.scrollToItem(at: [0,0], at: .top, animated: true)
+                    self.baseView.searchCollectionView.scrollToItem(at: [0,0], at: .top, animated: true)
                 }
             }
         }
@@ -145,7 +117,7 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
         print(item, movieCount)
         let totalPage = searchMovieResult.totalPages
         if movieCount == item && totalPage != page {
-            guard let text = customView.searchBar.text else { return }
+            guard let text = baseView.searchBar.text else { return }
             page += 1
             search(word: text)
         }

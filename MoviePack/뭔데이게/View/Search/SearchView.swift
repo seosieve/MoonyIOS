@@ -6,19 +6,29 @@
 //
 
 import UIKit
+import Then
 
 class SearchView: BaseView {
     
-    lazy var searchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "영화 제목을 검색해보세요."
-        searchBar.barTintColor = .black
-        searchBar.searchTextField.backgroundColor = .darkGray
-        searchBar.searchTextField.tintColor = .white
-        searchBar.searchTextField.textColor = .white
-        searchBar.setSearchTextFieldItemColor(to: .systemGray2)
-        return searchBar
-    }()
+//    lazy var searchBar = {
+//        let searchBar = UISearchBar()
+//        searchBar.placeholder = "영화 제목을 검색해보세요."
+//        searchBar.barTintColor = .black
+//        searchBar.searchTextField.backgroundColor = .darkGray
+//        searchBar.searchTextField.tintColor = .white
+//        searchBar.searchTextField.textColor = .white
+//        searchBar.setSearchTextFieldItemColor(to: .systemGray2)
+//        return searchBar
+//    }()
+    
+    lazy var searchBar = UISearchBar().then {
+        $0.placeholder = "영화 제목을 검색해보세요."
+        $0.barTintColor = .black
+        $0.searchTextField.backgroundColor = .darkGray
+        $0.searchTextField.tintColor = .white
+        $0.searchTextField.textColor = .white
+        $0.setSearchTextFieldItemColor(to: .systemGray2)
+    }
     
     let flowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -58,11 +68,11 @@ class SearchView: BaseView {
         return label
     }()
     
-    override func setViews() {
+    override func configureView() {
         self.hideKeyboardWhenTappedAround()
     }
     
-    override func configureSubviews() {
+    override func configureSubViews() {
         self.addSubview(searchBar)
         self.addSubview(searchCollectionView)
         self.addSubview(emptyImageView)

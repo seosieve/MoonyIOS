@@ -15,27 +15,20 @@
 		4E7D09F42C299595000A9FF2 /* SearchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D09F32C299595000A9FF2 /* SearchDetailView.swift */; };
 		4E7D0A192C312A18000A9FF2 /* SearchDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D0A182C312A18000A9FF2 /* SearchDetailTableViewCell.swift */; };
 		4E7D0A1B2C315678000A9FF2 /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D0A1A2C315678000A9FF2 /* BaseTableView.swift */; };
-		4E7D0A332C32D7EB000A9FF2 /* YoutubePlayer-in-WKWebView in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7D0A322C32D7EB000A9FF2 /* YoutubePlayer-in-WKWebView */; };
 		4E7D0A362C32DDEB000A9FF2 /* TMDBRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D0A352C32DDEB000A9FF2 /* TMDBRouter.swift */; };
 		4E8657782C0F1F4400FF4D6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657772C0F1F4400FF4D6D /* AppDelegate.swift */; };
 		4E86577A2C0F1F4400FF4D6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657792C0F1F4400FF4D6D /* SceneDelegate.swift */; };
 		4E86577C2C0F1F4400FF4D6D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86577B2C0F1F4400FF4D6D /* SignUpViewController.swift */; };
 		4E8657812C0F1F4600FF4D6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E8657802C0F1F4600FF4D6D /* Assets.xcassets */; };
-		4E8657842C0F1F4600FF4D6D /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 4E8657832C0F1F4600FF4D6D /* Base */; };
-		4E86578D2C0F1FBD00FF4D6D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4E86578C2C0F1FBD00FF4D6D /* SnapKit */; };
-		4E86578F2C0F250600FF4D6D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86578E2C0F250600FF4D6D /* HomeViewController.swift */; };
-		4E8657CA2C10673600FF4D6D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8657C92C10673600FF4D6D /* Kingfisher */; };
-		4E8657CD2C10674200FF4D6D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8657CC2C10674200FF4D6D /* Alamofire */; };
+		4E86578F2C0F250600FF4D6D /* TrashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86578E2C0F250600FF4D6D /* TrashViewController.swift */; };
 		4E8657CF2C10675800FF4D6D /* LotteryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657CE2C10675800FF4D6D /* LotteryViewController.swift */; };
 		4E8657D12C10763900FF4D6D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4E8657D02C10763900FF4D6D /* .gitignore */; };
 		4E8657D42C1076C900FF4D6D /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657D32C1076C900FF4D6D /* APIKey.swift */; };
 		4E8657D62C10796000FF4D6D /* Lotto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657D52C10796000FF4D6D /* Lotto.swift */; };
 		4E8657D82C11BEF200FF4D6D /* MovieRankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657D72C11BEF200FF4D6D /* MovieRankViewController.swift */; };
 		4E8657DA2C11C4A200FF4D6D /* MovieRankTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657D92C11C4A200FF4D6D /* MovieRankTableViewCell.swift */; };
-		4E8657DC2C11C58800FF4D6D /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657DB2C11C58800FF4D6D /* Identifier.swift */; };
 		4E8657DF2C11C63900FF4D6D /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657DE2C11C63900FF4D6D /* UITableViewCell+Extension.swift */; };
 		4E8657E12C12B89D00FF4D6D /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8657E02C12B89D00FF4D6D /* Movie.swift */; };
-		4E8657E42C12D4BC00FF4D6D /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8657E32C12D4BC00FF4D6D /* Toast */; };
 		4E8658272C16DA4000FF4D6D /* TrendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8658262C16DA4000FF4D6D /* TrendViewController.swift */; };
 		4E8658292C16DB4F00FF4D6D /* TrendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8658282C16DB4F00FF4D6D /* TrendTableViewCell.swift */; };
 		4E86582B2C16F4B400FF4D6D /* Trend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E86582A2C16F4B400FF4D6D /* Trend.swift */; };
@@ -47,7 +40,25 @@
 		4E93305F2C1848FA00D1E91C /* UISearchBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */; };
 		4E9330612C184F2800D1E91C /* SearchMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330602C184F2800D1E91C /* SearchMovie.swift */; };
 		4ED9C4FD2C40FD8E0090320E /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C4FC2C40FD8E0090320E /* CustomTabBarController.swift */; };
-		4ED9C5002C40FDC90090320E /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED9C4FF2C40FDC90090320E /* Then */; };
+		4ED9C5062C426D800090320E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5052C426D800090320E /* HomeView.swift */; };
+		4ED9C5082C426D880090320E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5072C426D880090320E /* HomeViewModel.swift */; };
+		4ED9C50A2C426D940090320E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5092C426D940090320E /* HomeViewController.swift */; };
+		4ED9C50C2C426E3E0090320E /* NSObjectProtocol + Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C50B2C426E3E0090320E /* NSObjectProtocol + Extenstion.swift */; };
+		4ED9C5112C426FD90090320E /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED9C5102C426FD90090320E /* Then */; };
+		4ED9C5142C4270080090320E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED9C5132C4270080090320E /* RealmSwift */; };
+		4ED9C5172C4270180090320E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED9C5162C4270180090320E /* Alamofire */; };
+		4ED9C51A2C4270250090320E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED9C5192C4270250090320E /* SnapKit */; };
+		4ED9C51D2C4270CF0090320E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED9C51C2C4270CF0090320E /* Kingfisher */; };
+		4ED9C5202C4270F90090320E /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED9C51F2C4270F90090320E /* Toast */; };
+		4ED9C5232C4271220090320E /* YoutubePlayer-in-WKWebView in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED9C5222C4271220090320E /* YoutubePlayer-in-WKWebView */; };
+		4ED9C5252C42752A0090320E /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5242C42752A0090320E /* BaseCollectionViewCell.swift */; };
+		4ED9C5272C42754C0090320E /* RankCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5262C42754C0090320E /* RankCollectionViewCell.swift */; };
+		4ED9C5292C42ACFC0090320E /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5282C42ACFC0090320E /* BaseViewModel.swift */; };
+		4ED9C52C2C42AFA10090320E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C52B2C42AFA10090320E /* SettingView.swift */; };
+		4ED9C52E2C42AFAE0090320E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C52D2C42AFAE0090320E /* SettingViewController.swift */; };
+		4ED9C5302C42AFB80090320E /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C52F2C42AFB80090320E /* SettingViewModel.swift */; };
+		4ED9C5332C42B1E80090320E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5322C42B1E80090320E /* Colors.swift */; };
+		4ED9C5362C42B67D0090320E /* TrendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5352C42B67D0090320E /* TrendCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,14 +78,13 @@
 		4E8657802C0F1F4600FF4D6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E8657832C0F1F4600FF4D6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E8657852C0F1F4600FF4D6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4E86578E2C0F250600FF4D6D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		4E86578E2C0F250600FF4D6D /* TrashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashViewController.swift; sourceTree = "<group>"; };
 		4E8657CE2C10675800FF4D6D /* LotteryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LotteryViewController.swift; sourceTree = "<group>"; };
 		4E8657D02C10763900FF4D6D /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		4E8657D32C1076C900FF4D6D /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		4E8657D52C10796000FF4D6D /* Lotto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lotto.swift; sourceTree = "<group>"; };
 		4E8657D72C11BEF200FF4D6D /* MovieRankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRankViewController.swift; sourceTree = "<group>"; };
 		4E8657D92C11C4A200FF4D6D /* MovieRankTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRankTableViewCell.swift; sourceTree = "<group>"; };
-		4E8657DB2C11C58800FF4D6D /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		4E8657DE2C11C63900FF4D6D /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		4E8657E02C12B89D00FF4D6D /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		4E8658262C16DA4000FF4D6D /* TrendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +98,18 @@
 		4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+Extension.swift"; sourceTree = "<group>"; };
 		4E9330602C184F2800D1E91C /* SearchMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovie.swift; sourceTree = "<group>"; };
 		4ED9C4FC2C40FD8E0090320E /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		4ED9C5052C426D800090320E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4ED9C5072C426D880090320E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		4ED9C5092C426D940090320E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		4ED9C50B2C426E3E0090320E /* NSObjectProtocol + Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObjectProtocol + Extenstion.swift"; sourceTree = "<group>"; };
+		4ED9C5242C42752A0090320E /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		4ED9C5262C42754C0090320E /* RankCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankCollectionViewCell.swift; sourceTree = "<group>"; };
+		4ED9C5282C42ACFC0090320E /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		4ED9C52B2C42AFA10090320E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		4ED9C52D2C42AFAE0090320E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		4ED9C52F2C42AFB80090320E /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		4ED9C5322C42B1E80090320E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		4ED9C5352C42B67D0090320E /* TrendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,12 +117,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E7D0A332C32D7EB000A9FF2 /* YoutubePlayer-in-WKWebView in Frameworks */,
-				4ED9C5002C40FDC90090320E /* Then in Frameworks */,
-				4E8657E42C12D4BC00FF4D6D /* Toast in Frameworks */,
-				4E8657CD2C10674200FF4D6D /* Alamofire in Frameworks */,
-				4E8657CA2C10673600FF4D6D /* Kingfisher in Frameworks */,
-				4E86578D2C0F1FBD00FF4D6D /* SnapKit in Frameworks */,
+				4ED9C5202C4270F90090320E /* Toast in Frameworks */,
+				4ED9C5232C4271220090320E /* YoutubePlayer-in-WKWebView in Frameworks */,
+				4ED9C5172C4270180090320E /* Alamofire in Frameworks */,
+				4ED9C51A2C4270250090320E /* SnapKit in Frameworks */,
+				4ED9C5142C4270080090320E /* RealmSwift in Frameworks */,
+				4ED9C5112C426FD90090320E /* Then in Frameworks */,
+				4ED9C51D2C4270CF0090320E /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,27 +133,25 @@
 		4E7D09E72C296EEA000A9FF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4E8657772C0F1F4400FF4D6D /* AppDelegate.swift */,
-				4E8657792C0F1F4400FF4D6D /* SceneDelegate.swift */,
-				4E8657802C0F1F4600FF4D6D /* Assets.xcassets */,
-				4E8657822C0F1F4600FF4D6D /* LaunchScreen.storyboard */,
-				4E8657852C0F1F4600FF4D6D /* Info.plist */,
-				4E7D09EA2C296F53000A9FF2 /* Base */,
-				4E9330582C1837D300D1E91C /* Protocol */,
+				4ED9C5312C42B1DF0090320E /* NameSpace */,
 				4E8657DD2C11C62700FF4D6D /* Extension */,
+				4E8657802C0F1F4600FF4D6D /* Assets.xcassets */,
+				4E8657852C0F1F4600FF4D6D /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		4E7D09E82C296F18000A9FF2 /* MVC */ = {
+		4E7D09E82C296F18000A9FF2 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				4E7D09EA2C296F53000A9FF2 /* Base */,
+				4ED9C5042C426D4B0090320E /* Interface */,
 				4E7D0A342C32DD52000A9FF2 /* Network */,
 				4E8657D22C10767D00FF4D6D /* Model */,
 				4E7D09E92C296F22000A9FF2 /* View */,
 				4E8657C72C10670600FF4D6D /* Controller */,
 			);
-			name = MVC;
+			name = Presentation;
 			path = "뭔데이게";
 			sourceTree = "<group>";
 		};
@@ -147,8 +168,10 @@
 			isa = PBXGroup;
 			children = (
 				4E7D09EB2C296FE9000A9FF2 /* BaseView.swift */,
-				4E7D0A1A2C315678000A9FF2 /* BaseTableView.swift */,
 				4E7D09EF2C2972C0000A9FF2 /* BaseViewController.swift */,
+				4E7D0A1A2C315678000A9FF2 /* BaseTableView.swift */,
+				4ED9C5242C42752A0090320E /* BaseCollectionViewCell.swift */,
+				4ED9C5282C42ACFC0090320E /* BaseViewModel.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -193,8 +216,10 @@
 		4E8657762C0F1F4400FF4D6D /* MoviePack */ = {
 			isa = PBXGroup;
 			children = (
+				4ED9C50E2C426E870090320E /* StoryBoard */,
+				4ED9C50D2C426E740090320E /* Application */,
 				4E7D09E72C296EEA000A9FF2 /* Resources */,
-				4E7D09E82C296F18000A9FF2 /* MVC */,
+				4E7D09E82C296F18000A9FF2 /* Presentation */,
 			);
 			path = MoviePack;
 			sourceTree = "<group>";
@@ -203,7 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				4E86577B2C0F1F4400FF4D6D /* SignUpViewController.swift */,
-				4E86578E2C0F250600FF4D6D /* HomeViewController.swift */,
+				4E86578E2C0F250600FF4D6D /* TrashViewController.swift */,
 				4E8657CE2C10675800FF4D6D /* LotteryViewController.swift */,
 				4E8657D72C11BEF200FF4D6D /* MovieRankViewController.swift */,
 				4E8657D92C11C4A200FF4D6D /* MovieRankTableViewCell.swift */,
@@ -230,6 +255,7 @@
 				4E8657DE2C11C63900FF4D6D /* UITableViewCell+Extension.swift */,
 				4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */,
 				4E7D09E32C296102000A9FF2 /* UIView+Extension.swift */,
+				4ED9C50B2C426E3E0090320E /* NSObjectProtocol + Extenstion.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -255,12 +281,68 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		4E9330582C1837D300D1E91C /* Protocol */ = {
+		4ED9C5032C426D180090320E /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				4E8657DB2C11C58800FF4D6D /* Identifier.swift */,
+				4ED9C5052C426D800090320E /* HomeView.swift */,
+				4ED9C5092C426D940090320E /* HomeViewController.swift */,
+				4ED9C5072C426D880090320E /* HomeViewModel.swift */,
+				4ED9C5342C42B63F0090320E /* Cell */,
 			);
-			path = Protocol;
+			path = Home;
+			sourceTree = "<group>";
+		};
+		4ED9C5042C426D4B0090320E /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				4ED9C5032C426D180090320E /* Home */,
+				4ED9C52A2C42AF8E0090320E /* Setting */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		4ED9C50D2C426E740090320E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				4E8657772C0F1F4400FF4D6D /* AppDelegate.swift */,
+				4E8657792C0F1F4400FF4D6D /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		4ED9C50E2C426E870090320E /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				4E8657822C0F1F4600FF4D6D /* LaunchScreen.storyboard */,
+			);
+			path = StoryBoard;
+			sourceTree = "<group>";
+		};
+		4ED9C52A2C42AF8E0090320E /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				4ED9C52B2C42AFA10090320E /* SettingView.swift */,
+				4ED9C52D2C42AFAE0090320E /* SettingViewController.swift */,
+				4ED9C52F2C42AFB80090320E /* SettingViewModel.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		4ED9C5312C42B1DF0090320E /* NameSpace */ = {
+			isa = PBXGroup;
+			children = (
+				4ED9C5322C42B1E80090320E /* Colors.swift */,
+			);
+			path = NameSpace;
+			sourceTree = "<group>";
+		};
+		4ED9C5342C42B63F0090320E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4ED9C5262C42754C0090320E /* RankCollectionViewCell.swift */,
+				4ED9C5352C42B67D0090320E /* TrendCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,12 +362,13 @@
 			);
 			name = MoviePack;
 			packageProductDependencies = (
-				4E86578C2C0F1FBD00FF4D6D /* SnapKit */,
-				4E8657C92C10673600FF4D6D /* Kingfisher */,
-				4E8657CC2C10674200FF4D6D /* Alamofire */,
-				4E8657E32C12D4BC00FF4D6D /* Toast */,
-				4E7D0A322C32D7EB000A9FF2 /* YoutubePlayer-in-WKWebView */,
-				4ED9C4FF2C40FDC90090320E /* Then */,
+				4ED9C5102C426FD90090320E /* Then */,
+				4ED9C5132C4270080090320E /* RealmSwift */,
+				4ED9C5162C4270180090320E /* Alamofire */,
+				4ED9C5192C4270250090320E /* SnapKit */,
+				4ED9C51C2C4270CF0090320E /* Kingfisher */,
+				4ED9C51F2C4270F90090320E /* Toast */,
+				4ED9C5222C4271220090320E /* YoutubePlayer-in-WKWebView */,
 			);
 			productName = MoviePack;
 			productReference = 4E8657742C0F1F4400FF4D6D /* MoviePack.app */;
@@ -316,12 +399,13 @@
 			);
 			mainGroup = 4E86576B2C0F1F4400FF4D6D;
 			packageReferences = (
-				4E86578B2C0F1FBD00FF4D6D /* XCRemoteSwiftPackageReference "SnapKit" */,
-				4E8657C82C10673600FF4D6D /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				4E8657CB2C10674200FF4D6D /* XCRemoteSwiftPackageReference "Alamofire" */,
-				4E8657E22C12D4BC00FF4D6D /* XCRemoteSwiftPackageReference "Toast-Swift" */,
-				4E7D0A312C32D7EB000A9FF2 /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */,
-				4ED9C4FE2C40FDC90090320E /* XCRemoteSwiftPackageReference "Then" */,
+				4ED9C50F2C426FD90090320E /* XCRemoteSwiftPackageReference "Then" */,
+				4ED9C5122C4270080090320E /* XCRemoteSwiftPackageReference "realm-swift" */,
+				4ED9C5152C4270180090320E /* XCRemoteSwiftPackageReference "Alamofire" */,
+				4ED9C5182C4270250090320E /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4ED9C51B2C4270CF0090320E /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				4ED9C51E2C4270F90090320E /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				4ED9C5212C4271220090320E /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */,
 			);
 			productRefGroup = 4E8657752C0F1F4400FF4D6D /* Products */;
 			projectDirPath = "";
@@ -339,7 +423,6 @@
 			files = (
 				4E8657812C0F1F4600FF4D6D /* Assets.xcassets in Resources */,
 				4E8657D12C10763900FF4D6D /* .gitignore in Resources */,
-				4E8657842C0F1F4600FF4D6D /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,8 +438,10 @@
 				4ED9C4FD2C40FD8E0090320E /* CustomTabBarController.swift in Sources */,
 				4E86577C2C0F1F4400FF4D6D /* SignUpViewController.swift in Sources */,
 				4E9330612C184F2800D1E91C /* SearchMovie.swift in Sources */,
+				4ED9C50A2C426D940090320E /* HomeViewController.swift in Sources */,
 				4E8657782C0F1F4400FF4D6D /* AppDelegate.swift in Sources */,
 				4E7D0A1B2C315678000A9FF2 /* BaseTableView.swift in Sources */,
+				4ED9C5362C42B67D0090320E /* TrendCollectionViewCell.swift in Sources */,
 				4E7D09F02C2972C0000A9FF2 /* BaseViewController.swift in Sources */,
 				4E86582B2C16F4B400FF4D6D /* Trend.swift in Sources */,
 				4E7D09EC2C296FE9000A9FF2 /* BaseView.swift in Sources */,
@@ -364,20 +449,29 @@
 				4E8657E12C12B89D00FF4D6D /* Movie.swift in Sources */,
 				4E8658352C1710C600FF4D6D /* OverViewTableViewCell.swift in Sources */,
 				4E7D0A192C312A18000A9FF2 /* SearchDetailTableViewCell.swift in Sources */,
+				4ED9C5302C42AFB80090320E /* SettingViewModel.swift in Sources */,
 				4E7D09F42C299595000A9FF2 /* SearchDetailView.swift in Sources */,
 				4E86577A2C0F1F4400FF4D6D /* SceneDelegate.swift in Sources */,
 				4E8657DA2C11C4A200FF4D6D /* MovieRankTableViewCell.swift in Sources */,
+				4ED9C5082C426D880090320E /* HomeViewModel.swift in Sources */,
 				4E8657D82C11BEF200FF4D6D /* MovieRankViewController.swift in Sources */,
+				4ED9C50C2C426E3E0090320E /* NSObjectProtocol + Extenstion.swift in Sources */,
+				4ED9C52C2C42AFA10090320E /* SettingView.swift in Sources */,
 				4E8658332C17004C00FF4D6D /* CastTableViewCell.swift in Sources */,
 				4E7D09F22C29917E000A9FF2 /* SearchDetailViewController.swift in Sources */,
-				4E86578F2C0F250600FF4D6D /* HomeViewController.swift in Sources */,
+				4E86578F2C0F250600FF4D6D /* TrashViewController.swift in Sources */,
+				4ED9C5272C42754C0090320E /* RankCollectionViewCell.swift in Sources */,
 				4E8657DF2C11C63900FF4D6D /* UITableViewCell+Extension.swift in Sources */,
 				4E86582D2C16FAB900FF4D6D /* TrendDetailViewController.swift in Sources */,
-				4E8657DC2C11C58800FF4D6D /* Identifier.swift in Sources */,
 				4E7D09EE2C29712E000A9FF2 /* SearchView.swift in Sources */,
 				4E8658292C16DB4F00FF4D6D /* TrendTableViewCell.swift in Sources */,
+				4ED9C5332C42B1E80090320E /* Colors.swift in Sources */,
 				4E9330552C1837BC00D1E91C /* SearchCollectionViewCell.swift in Sources */,
+				4ED9C5252C42752A0090320E /* BaseCollectionViewCell.swift in Sources */,
+				4ED9C5062C426D800090320E /* HomeView.swift in Sources */,
 				4E8657D62C10796000FF4D6D /* Lotto.swift in Sources */,
+				4ED9C5292C42ACFC0090320E /* BaseViewModel.swift in Sources */,
+				4ED9C52E2C42AFAE0090320E /* SettingViewController.swift in Sources */,
 				4E8657D42C1076C900FF4D6D /* APIKey.swift in Sources */,
 				4E8657CF2C10675800FF4D6D /* LotteryViewController.swift in Sources */,
 				4E7D09E42C296102000A9FF2 /* UIView+Extension.swift in Sources */,
@@ -606,47 +700,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E7D0A312C32D7EB000A9FF2 /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hmhv/YoutubePlayer-in-WKWebView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.11;
-			};
-		};
-		4E86578B2C0F1FBD00FF4D6D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.7.1;
-			};
-		};
-		4E8657C82C10673600FF4D6D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.11.0;
-			};
-		};
-		4E8657CB2C10674200FF4D6D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
-			};
-		};
-		4E8657E22C12D4BC00FF4D6D /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.1.1;
-			};
-		};
-		4ED9C4FE2C40FDC90090320E /* XCRemoteSwiftPackageReference "Then" */ = {
+		4ED9C50F2C426FD90090320E /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then.git";
 			requirement = {
@@ -654,38 +708,91 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		4ED9C5122C4270080090320E /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.52.1;
+			};
+		};
+		4ED9C5152C4270180090320E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		4ED9C5182C4270250090320E /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		4ED9C51B2C4270CF0090320E /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+		4ED9C51E2C4270F90090320E /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+		4ED9C5212C4271220090320E /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmhv/YoutubePlayer-in-WKWebView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.11;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4E7D0A322C32D7EB000A9FF2 /* YoutubePlayer-in-WKWebView */ = {
+		4ED9C5102C426FD90090320E /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E7D0A312C32D7EB000A9FF2 /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */;
-			productName = "YoutubePlayer-in-WKWebView";
+			package = 4ED9C50F2C426FD90090320E /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
-		4E86578C2C0F1FBD00FF4D6D /* SnapKit */ = {
+		4ED9C5132C4270080090320E /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E86578B2C0F1FBD00FF4D6D /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
+			package = 4ED9C5122C4270080090320E /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
-		4E8657C92C10673600FF4D6D /* Kingfisher */ = {
+		4ED9C5162C4270180090320E /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E8657C82C10673600FF4D6D /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-		4E8657CC2C10674200FF4D6D /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E8657CB2C10674200FF4D6D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 4ED9C5152C4270180090320E /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		4E8657E32C12D4BC00FF4D6D /* Toast */ = {
+		4ED9C5192C4270250090320E /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4E8657E22C12D4BC00FF4D6D /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			package = 4ED9C5182C4270250090320E /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		4ED9C51C2C4270CF0090320E /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4ED9C51B2C4270CF0090320E /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		4ED9C51F2C4270F90090320E /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4ED9C51E2C4270F90090320E /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
 		};
-		4ED9C4FF2C40FDC90090320E /* Then */ = {
+		4ED9C5222C4271220090320E /* YoutubePlayer-in-WKWebView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4ED9C4FE2C40FDC90090320E /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
+			package = 4ED9C5212C4271220090320E /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */;
+			productName = "YoutubePlayer-in-WKWebView";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
