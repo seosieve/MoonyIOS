@@ -17,6 +17,7 @@ final class CustomTabBarController: UITabBarController {
     func configureTabBarItems() {
         let homeViewController = HomeViewController(view: HomeView(), viewModel: HomeViewModel())
         let homeNavigationController = UINavigationController(rootViewController: homeViewController)
+        homeNavigationController.setNavigationAppearance()
         homeNavigationController.tabBarItem.image = UIImage(systemName: "movieclapper")
         homeNavigationController.tabBarItem.selectedImage = UIImage(systemName: "movieclapper.fill")
         
@@ -58,7 +59,7 @@ final class CustomTabBarController: UITabBarController {
         
         self.tabBar.layer.insertSublayer(layer, at: 0)
         ///Item Color
-        self.tabBar.tintColor = Colors.blueInterface
+        self.tabBar.tintColor = Colors.blueAccent
         self.tabBar.unselectedItemTintColor = Colors.blackDescription
         ///TabBar Appearance
         let appearance = UITabBarAppearance()

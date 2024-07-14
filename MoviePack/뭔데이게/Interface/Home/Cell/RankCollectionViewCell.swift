@@ -11,7 +11,7 @@ import SnapKit
 
 class RankCollectionViewCell: BaseCollectionViewCell {
     
-    private lazy var backgroundImageView = UIImageView().then {
+    private let backgroundImageView = UIImageView().then {
         $0.image = UIImage(named: "베테랑")
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
@@ -57,8 +57,8 @@ class RankCollectionViewCell: BaseCollectionViewCell {
     
     let gradeLabel = UILabel().then {
         $0.text = "★★★☆☆"
-        $0.font = .boldSystemFont(ofSize: 16)
-        $0.textColor = Colors.blueContent
+        $0.font = .boldSystemFont(ofSize: 18)
+        $0.textColor = Colors.blueDescription
     }
     
     let totalViewerLabel = UILabel().then {
@@ -124,7 +124,7 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         
         rankLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(25)
-            make.leading.equalToSuperview().inset(25)
+            make.leading.equalToSuperview().inset(27)
         }
         
         changeRankLabel.snp.makeConstraints { make in
@@ -138,7 +138,7 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         }
         
         gradeLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(5)
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
         }
         

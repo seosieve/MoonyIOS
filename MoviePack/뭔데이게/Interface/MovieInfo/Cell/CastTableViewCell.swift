@@ -52,7 +52,7 @@ class CastTableViewCell: UITableViewCell {
     }
     
     func setViews() {
-        backgroundColor = .white
+        backgroundColor = Colors.blackBackground
     }
     
     func configureSubviews() {

@@ -65,6 +65,8 @@
 		4ED9C5402C439BDD0090320E /* MovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C53F2C439BDD0090320E /* MovieInfoViewController.swift */; };
 		4ED9C5422C439BE50090320E /* MovieInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5412C439BE50090320E /* MovieInfoViewModel.swift */; };
 		4ED9C5442C439ECC0090320E /* Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5432C439ECC0090320E /* Names.swift */; };
+		4ED9C5462C43A9990090320E /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5452C43A9990090320E /* UIViewController + Extension.swift */; };
+		4ED9C5482C43B1310090320E /* UINavigationController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5472C43B1310090320E /* UINavigationController + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,6 +124,8 @@
 		4ED9C53F2C439BDD0090320E /* MovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewController.swift; sourceTree = "<group>"; };
 		4ED9C5412C439BE50090320E /* MovieInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewModel.swift; sourceTree = "<group>"; };
 		4ED9C5432C439ECC0090320E /* Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Names.swift; sourceTree = "<group>"; };
+		4ED9C5452C43A9990090320E /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
+		4ED9C5472C43B1310090320E /* UINavigationController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +274,8 @@
 				4E93305E2C1848FA00D1E91C /* UISearchBar+Extension.swift */,
 				4E7D09E32C296102000A9FF2 /* UIView+Extension.swift */,
 				4ED9C50B2C426E3E0090320E /* NSObjectProtocol + Extenstion.swift */,
+				4ED9C5452C43A9990090320E /* UIViewController + Extension.swift */,
+				4ED9C5472C43B1310090320E /* UINavigationController + Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -280,7 +286,6 @@
 				4E8658262C16DA4000FF4D6D /* TrendViewController.swift */,
 				4E8658282C16DB4F00FF4D6D /* TrendTableViewCell.swift */,
 				4E86582C2C16FAB900FF4D6D /* TrendDetailViewController.swift */,
-				4E8658322C17004C00FF4D6D /* CastTableViewCell.swift */,
 				4E8658342C1710C600FF4D6D /* OverViewTableViewCell.swift */,
 			);
 			path = Trend;
@@ -367,8 +372,17 @@
 				4ED9C53D2C439BD10090320E /* MovieInfoView.swift */,
 				4ED9C53F2C439BDD0090320E /* MovieInfoViewController.swift */,
 				4ED9C5412C439BE50090320E /* MovieInfoViewModel.swift */,
+				4ED9C5492C43D35C0090320E /* Cell */,
 			);
 			path = MovieInfo;
+			sourceTree = "<group>";
+		};
+		4ED9C5492C43D35C0090320E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4E8658322C17004C00FF4D6D /* CastTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -481,6 +495,7 @@
 				4E7D0A192C312A18000A9FF2 /* SearchDetailTableViewCell.swift in Sources */,
 				4ED9C5302C42AFB80090320E /* SettingViewModel.swift in Sources */,
 				4E7D09F42C299595000A9FF2 /* SearchDetailView.swift in Sources */,
+				4ED9C5482C43B1310090320E /* UINavigationController + Extension.swift in Sources */,
 				4E86577A2C0F1F4400FF4D6D /* SceneDelegate.swift in Sources */,
 				4E8657DA2C11C4A200FF4D6D /* MovieRankTableViewCell.swift in Sources */,
 				4ED9C5082C426D880090320E /* HomeViewModel.swift in Sources */,
@@ -506,6 +521,7 @@
 				4ED9C52E2C42AFAE0090320E /* SettingViewController.swift in Sources */,
 				4E8657D42C1076C900FF4D6D /* APIKey.swift in Sources */,
 				4E8657CF2C10675800FF4D6D /* LotteryViewController.swift in Sources */,
+				4ED9C5462C43A9990090320E /* UIViewController + Extension.swift in Sources */,
 				4E7D09E42C296102000A9FF2 /* UIView+Extension.swift in Sources */,
 				4E8658272C16DA4000FF4D6D /* TrendViewController.swift in Sources */,
 			);
