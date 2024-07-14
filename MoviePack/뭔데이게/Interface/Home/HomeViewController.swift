@@ -10,9 +10,18 @@ import UIKit
 class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
     
     override func configureView() {
+        ///Navigation Controller
+        baseView.configureNavigationController(self)
         ///CollectionView Delegate
         baseView.rankCollectionView.dataSource = self
         baseView.trendCollectionView.dataSource = self
+        ///Rank Card Clicked
+        NotificationCenter.default.addObserver(self, selector: #selector(rankCardClicked), name: Names.Noti.rank, object: nil)
+    }
+    
+    @objc func rankCardClicked() {
+        let vc = MovieInfoViewController(view: MovieInfoView(), viewModel: MovieInfoViewModel())
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -27,8 +36,6 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
         if collectionView == baseView.rankCollectionView {
             let identifier = RankCollectionViewCell.identifier
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? RankCollectionViewCell

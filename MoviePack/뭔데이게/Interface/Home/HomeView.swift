@@ -13,10 +13,17 @@ class HomeView: BaseView {
     
     var previousIndex = 0
     
+    lazy var filterButtonItem = {
+        let button = UIBarButtonItem()
+        button.image = UIImage(systemName: "ellipsis")
+        button.style = .plain
+        return button
+    }()
+    
     let rankLayout = UICollectionViewFlowLayout().then {
-        $0.itemSize = CGSize(width: 290, height: 420)
+        $0.itemSize = CGSize(width: 300, height: 550)
         $0.scrollDirection = .horizontal
-        $0.minimumLineSpacing = 0
+        $0.minimumLineSpacing = -30
     }
     
     lazy var rankCollectionView = UICollectionView(frame: .zero, collectionViewLayout: rankLayout).then {
@@ -29,6 +36,12 @@ class HomeView: BaseView {
         $0.showsHorizontalScrollIndicator = false
         $0.isPagingEnabled = false
         $0.delegate = self
+    }
+    
+    private let dateLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.text = "영화진흥위원회 2024.07.13일 기준"
+        $0.textColor = Colors.blackContent
     }
     
     let trendLayout = UICollectionViewFlowLayout().then {
@@ -50,6 +63,7 @@ class HomeView: BaseView {
     
     override func configureSubViews() {
         self.addSubview(rankCollectionView)
+        self.addSubview(dateLabel)
         self.addSubview(trendCollectionView)
     }
     
@@ -57,23 +71,34 @@ class HomeView: BaseView {
         rankCollectionView.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(420)
+            make.height.equalTo(550)
         }
         
-        trendCollectionView.snp.makeConstraints { make in
+        dateLabel.snp.makeConstraints { make in
             make.top.equalTo(rankCollectionView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(200)
+            make.trailing.equalToSuperview().inset(20)
         }
+        
+//        trendCollectionView.snp.makeConstraints { make in
+//            make.top.equalTo(rankCollectionView.snp.bottom).offset(20)
+//            make.horizontalEdges.equalToSuperview()
+//            make.height.equalTo(200)
+//        }
+    }
+    
+    override func configureNavigationController(_ vc: UIViewController) {
+        vc.navigationItem.rightBarButtonItem = filterButtonItem
+        vc.navigationController?.navigationBar.tintColor = Colors.blackDescription
     }
 }
 
 //MARK: - UICollectionViewDelegate
 extension HomeView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
+        NotificationCenter.default.post(name: Names.Noti.rank, object: nil)
     }
     
+    ///Paging Animation
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         guard let layout = rankCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         
@@ -83,6 +108,7 @@ extension HomeView: UICollectionViewDelegate {
         targetContentOffset.pointee = CGPoint(x: index * cellWidth - scrollView.contentInset.left, y: 0)
     }
     
+    ///Zoom Animation
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let layout = rankCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         

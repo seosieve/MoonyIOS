@@ -15,6 +15,7 @@ enum Colors {
     static let blackInterface = UIColor("#1E1E1E")
     static let blackContent = UIColor("#2C2C2C")
     static let blackDescription = UIColor("#707070")
+    static let blackAccent = UIColor("#C1C1C1")
     
     static let flagOrange = UIColor("#FF9933")
     static let trashPink = UIColor("#EF4962")

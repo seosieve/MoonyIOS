@@ -59,6 +59,12 @@
 		4ED9C5302C42AFB80090320E /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C52F2C42AFB80090320E /* SettingViewModel.swift */; };
 		4ED9C5332C42B1E80090320E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5322C42B1E80090320E /* Colors.swift */; };
 		4ED9C5362C42B67D0090320E /* TrendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5352C42B67D0090320E /* TrendCollectionViewCell.swift */; };
+		4ED9C5392C438B650090320E /* StretchPro.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4ED9C5382C438B650090320E /* StretchPro.otf */; };
+		4ED9C53B2C4397360090320E /* BlackHanSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4ED9C53A2C4397360090320E /* BlackHanSans.ttf */; };
+		4ED9C53E2C439BD10090320E /* MovieInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C53D2C439BD10090320E /* MovieInfoView.swift */; };
+		4ED9C5402C439BDD0090320E /* MovieInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C53F2C439BDD0090320E /* MovieInfoViewController.swift */; };
+		4ED9C5422C439BE50090320E /* MovieInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5412C439BE50090320E /* MovieInfoViewModel.swift */; };
+		4ED9C5442C439ECC0090320E /* Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5432C439ECC0090320E /* Names.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +116,12 @@
 		4ED9C52F2C42AFB80090320E /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		4ED9C5322C42B1E80090320E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4ED9C5352C42B67D0090320E /* TrendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendCollectionViewCell.swift; sourceTree = "<group>"; };
+		4ED9C5382C438B650090320E /* StretchPro.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = StretchPro.otf; sourceTree = "<group>"; };
+		4ED9C53A2C4397360090320E /* BlackHanSans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BlackHanSans.ttf; sourceTree = "<group>"; };
+		4ED9C53D2C439BD10090320E /* MovieInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoView.swift; sourceTree = "<group>"; };
+		4ED9C53F2C439BDD0090320E /* MovieInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewController.swift; sourceTree = "<group>"; };
+		4ED9C5412C439BE50090320E /* MovieInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoViewModel.swift; sourceTree = "<group>"; };
+		4ED9C5432C439ECC0090320E /* Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Names.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +145,8 @@
 		4E7D09E72C296EEA000A9FF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4ED9C53A2C4397360090320E /* BlackHanSans.ttf */,
+				4ED9C5382C438B650090320E /* StretchPro.otf */,
 				4ED9C5312C42B1DF0090320E /* NameSpace */,
 				4E8657DD2C11C62700FF4D6D /* Extension */,
 				4E8657802C0F1F4600FF4D6D /* Assets.xcassets */,
@@ -296,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED9C5032C426D180090320E /* Home */,
+				4ED9C53C2C439BAD0090320E /* MovieInfo */,
 				4ED9C52A2C42AF8E0090320E /* Setting */,
 			);
 			path = Interface;
@@ -332,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED9C5322C42B1E80090320E /* Colors.swift */,
+				4ED9C5432C439ECC0090320E /* Names.swift */,
 			);
 			path = NameSpace;
 			sourceTree = "<group>";
@@ -343,6 +359,16 @@
 				4ED9C5352C42B67D0090320E /* TrendCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		4ED9C53C2C439BAD0090320E /* MovieInfo */ = {
+			isa = PBXGroup;
+			children = (
+				4ED9C53D2C439BD10090320E /* MovieInfoView.swift */,
+				4ED9C53F2C439BDD0090320E /* MovieInfoViewController.swift */,
+				4ED9C5412C439BE50090320E /* MovieInfoViewModel.swift */,
+			);
+			path = MovieInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -421,6 +447,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ED9C5392C438B650090320E /* StretchPro.otf in Resources */,
+				4ED9C53B2C4397360090320E /* BlackHanSans.ttf in Resources */,
 				4E8657812C0F1F4600FF4D6D /* Assets.xcassets in Resources */,
 				4E8657D12C10763900FF4D6D /* .gitignore in Resources */,
 			);
@@ -438,12 +466,14 @@
 				4ED9C4FD2C40FD8E0090320E /* CustomTabBarController.swift in Sources */,
 				4E86577C2C0F1F4400FF4D6D /* SignUpViewController.swift in Sources */,
 				4E9330612C184F2800D1E91C /* SearchMovie.swift in Sources */,
+				4ED9C5422C439BE50090320E /* MovieInfoViewModel.swift in Sources */,
 				4ED9C50A2C426D940090320E /* HomeViewController.swift in Sources */,
 				4E8657782C0F1F4400FF4D6D /* AppDelegate.swift in Sources */,
 				4E7D0A1B2C315678000A9FF2 /* BaseTableView.swift in Sources */,
 				4ED9C5362C42B67D0090320E /* TrendCollectionViewCell.swift in Sources */,
 				4E7D09F02C2972C0000A9FF2 /* BaseViewController.swift in Sources */,
 				4E86582B2C16F4B400FF4D6D /* Trend.swift in Sources */,
+				4ED9C5402C439BDD0090320E /* MovieInfoViewController.swift in Sources */,
 				4E7D09EC2C296FE9000A9FF2 /* BaseView.swift in Sources */,
 				4E9330572C1837C700D1E91C /* SearchViewController.swift in Sources */,
 				4E8657E12C12B89D00FF4D6D /* Movie.swift in Sources */,
@@ -466,8 +496,10 @@
 				4E7D09EE2C29712E000A9FF2 /* SearchView.swift in Sources */,
 				4E8658292C16DB4F00FF4D6D /* TrendTableViewCell.swift in Sources */,
 				4ED9C5332C42B1E80090320E /* Colors.swift in Sources */,
+				4ED9C53E2C439BD10090320E /* MovieInfoView.swift in Sources */,
 				4E9330552C1837BC00D1E91C /* SearchCollectionViewCell.swift in Sources */,
 				4ED9C5252C42752A0090320E /* BaseCollectionViewCell.swift in Sources */,
+				4ED9C5442C439ECC0090320E /* Names.swift in Sources */,
 				4ED9C5062C426D800090320E /* HomeView.swift in Sources */,
 				4E8657D62C10796000FF4D6D /* Lotto.swift in Sources */,
 				4ED9C5292C42ACFC0090320E /* BaseViewModel.swift in Sources */,
