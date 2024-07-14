@@ -11,15 +11,15 @@ import Toast
 
 class MovieRankViewController: UIViewController {
 
-    var movieArr: [Movie] = [] {
+    var movieArr: [KobisRank] = [] {
         didSet { movieTableView.reloadData() }
     }
     
-    var yesterdayDate: Int {
+    var yesterdayDate: String {
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now)!
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
-        let date = Int(dateFormatter.string(from: yesterday))!
+        let date = dateFormatter.string(from: yesterday)
         return date
     }
     
@@ -141,8 +141,8 @@ class MovieRankViewController: UIViewController {
     @discardableResult func searchAction() -> Bool {
         guard let text = dateTextField.text else { return true }
         
-        if let date = Int(text) {
-            movieRequest(date: date)
+        if Int(text) != nil {
+            movieRequest(date: text)
         } else {
             view.makeToast("날짜를 숫자로 입력해주세요.", position: .center)
             dateTextField.text = ""
@@ -152,16 +152,16 @@ class MovieRankViewController: UIViewController {
         return true
     }
     
-    func movieRequest(date: Int) {
+    func movieRequest(date: String) {
         view.makeToastActivity(.center)
-        KobisManager.shared.movieRequest(date: date) { movieResult, error in
-            if let error = error {
+        NetworkManager.shared.networkRequest(router: Network.kobis(date: date), type: KobisResult.self) { result in
+            switch result {
+            case .success(let success):
+                self.configureRequest(value: success)
+            case .failure(let failure):
                 self.view.makeToast("년도와 월, 일을 합쳐 8글자로 작성해주세요.", position: .center)
                 self.dateTextField.text = ""
-                print("Error: \(error)")
-            } else {
-                guard let movieResult = movieResult else { return }
-                self.configureRequest(value: movieResult)
+                print(failure)
             }
             self.view.hideToastActivity()
         }

@@ -86,7 +86,7 @@ class MovieRankTableViewCell: UITableViewCell {
         }
     }
     
-    func configureCell(movie: Movie) {
+    func configureCell(movie: KobisRank) {
         rankLabel.text = movie.rank
         titleLabel.text = movie.movieNm
         dateLabel.text = movie.openDt

@@ -14,11 +14,14 @@ struct KobisResult: Decodable {
 struct boxOfficeResult: Decodable {
     let boxofficeType: String
     let showRange: String
-    let dailyBoxOfficeList: [Movie]
+    let dailyBoxOfficeList: [KobisRank]
 }
 
-struct Movie: Decodable {
+struct KobisRank: Decodable {
     let rank: String
+    let rankInten: String
     let movieNm: String
     let openDt: String
+    let salesAcc: String
+    let audiCnt: String
 }

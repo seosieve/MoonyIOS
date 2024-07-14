@@ -31,39 +31,28 @@ class SearchViewController: BaseViewController<SearchView, HomeViewModel> {
     //Wrapping with Additional Work
     func search(word: String) {
         view.makeToastActivity(.center)
-        searchRequest(word: word) { searchMovieResult in
-            guard let searchMovieResult else { return }
-            self.baseView.configureView(isEmpty: true)
-            switch self.page {
-            case 1:
-                self.searchMovieResult = searchMovieResult
-            default:
-                self.searchMovieResult.results += searchMovieResult.results
-            }
-            self.baseView.searchCollectionView.reloadData()
-            self.view.hideToastActivity()
-            
-            if self.page == 1 {
-                if searchMovieResult.totalResults == 0 {
-                    self.baseView.configureView(isEmpty: false)
-                } else {
-                    self.baseView.searchCollectionView.scrollToItem(at: [0,0], at: .top, animated: true)
+        NetworkManager.shared.networkRequest(router: Network.search(word: word, page: page), type: SearchMovieResult.self) { result in
+            switch result {
+            case .success(let success):
+                self.baseView.configureView(isEmpty: true)
+                switch self.page {
+                case 1:
+                    self.searchMovieResult = success
+                default:
+                    self.searchMovieResult.results += success.results
                 }
-            }
-        }
-    }
-    
-    //Search Request Logic
-    func searchRequest(word: String, handler: @escaping (SearchMovieResult?) -> ()) {
-        let url = APIURL.searchMovieUrl + "&query=\(word)" + "&page=\(page)"
-        
-        AF.request(url).responseDecodable(of: SearchMovieResult.self) { response in
-            switch response.result {
-            case .success(let value):
-                handler(value)
-            case .failure(let error):
-                print(error)
-                handler(nil)
+                self.baseView.searchCollectionView.reloadData()
+                self.view.hideToastActivity()
+                
+                if self.page == 1 {
+                    if success.totalResults == 0 {
+                        self.baseView.configureView(isEmpty: false)
+                    } else {
+                        self.baseView.searchCollectionView.scrollToItem(at: [0,0], at: .top, animated: true)
+                    }
+                }
+            case .failure(let failure):
+                print(failure)
             }
         }
     }

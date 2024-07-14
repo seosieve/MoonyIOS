@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class CastTableViewCell: UITableViewCell {
+class CastTableViewCell: BaseTableViewCell {
     
     let castImageView = UIImageView().then {
         $0.backgroundColor = Colors.blackContent
@@ -31,34 +31,18 @@ class CastTableViewCell: UITableViewCell {
         label.text = "Seong Gi-hun / \"No.073\""
         return label
     }()
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setViews()
-        configureSubviews()
-        configureConstraints()
-    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        selectionAnimation()
-    }
-    
-    func setViews() {
+    override func configureView() {
         backgroundColor = Colors.blackBackground
     }
     
-    func configureSubviews() {
+    override func configureSubViews() {
         contentView.addSubview(castImageView)
         contentView.addSubview(actorNameLabel)
         contentView.addSubview(castNameLabel)
     }
     
-    func configureConstraints() {
+    override func configureConstraints() {
         castImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
             make.centerY.equalToSuperview()

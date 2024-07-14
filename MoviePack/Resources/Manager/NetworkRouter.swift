@@ -9,6 +9,8 @@ import Foundation
 import Alamofire
 
 enum Network {
+    case kobis(date: String)
+    case search(word: String, page: Int)
     case trend
     case credit(id: Int)
     case similar(id: Int, page: Int)
@@ -17,11 +19,20 @@ enum Network {
     case video(id: Int)
     
     var baseURL: String {
-        return "https://api.themoviedb.org/3/"
+        switch self {
+        case .kobis:
+            return "https://kobis.or.kr/kobisopenapi/webservice/rest/"
+        default:
+            return "https://api.themoviedb.org/3/"
+        }
     }
     
     var endPoint: String {
         switch self {
+        case .kobis:
+            return baseURL + "boxoffice/searchDailyBoxOfficeList.json"
+        case .search:
+            return baseURL + "search/movie"
         case .trend:
             return baseURL + "trending/movie/week"
         case .credit(let id):
@@ -43,18 +54,22 @@ enum Network {
     
     var parameters: Parameters {
         switch self {
+        case .kobis(let date):
+            return ["key": APIKey.kobisKey, "targetDt": date]
+        case .search(let word, let page):
+            return ["api_key": APIKey.TMDBKey, "language": "ko-KR", "query": word, "page": page]
         case .trend:
-            return ["api_key": APIKey.trendKey, "language": "ko-KR"]
+            return ["api_key": APIKey.TMDBKey, "language": "ko-KR"]
         case .credit:
-            return ["api_key": APIKey.trendKey, "language": "ko-KR"]
+            return ["api_key": APIKey.TMDBKey, "language": "ko-KR"]
         case .similar(_, let page):
-            return ["api_key": APIKey.trendKey, "language": "ko-KR", "page": page]
+            return ["api_key": APIKey.TMDBKey, "language": "ko-KR", "page": page]
         case .recommend(_, let page):
-            return ["api_key": APIKey.trendKey, "language": "ko-KR", "page": page]
+            return ["api_key": APIKey.TMDBKey, "language": "ko-KR", "page": page]
         case .poster:
-            return ["api_key": APIKey.trendKey]
+            return ["api_key": APIKey.TMDBKey]
         case .video:
-            return ["api_key": APIKey.trendKey]
+            return ["api_key": APIKey.TMDBKey]
         }
     }
 }

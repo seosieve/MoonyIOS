@@ -30,8 +30,10 @@ final class CustomTabBarController: UITabBarController {
         userNavigationController.tabBarItem.image = UIImage(systemName: "popcorn")
         userNavigationController.tabBarItem.selectedImage = UIImage(systemName: "popcorn.fill")
         
-        let settingViewController = SettingViewController(view: SettingView(), viewModel: SettingViewModel())
-        let settingNavigationController = UINavigationController(rootViewController: settingViewController)
+//        let settingViewController = SettingViewController(view: SettingView(), viewModel: SettingViewModel())
+//        let settingNavigationController = UINavigationController(rootViewController: settingViewController)
+        
+        let settingNavigationController = MovieRankViewController()
         settingNavigationController.tabBarItem.image = UIImage(systemName: "person")
         settingNavigationController.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
         

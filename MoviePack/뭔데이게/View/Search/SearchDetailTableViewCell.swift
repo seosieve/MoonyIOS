@@ -8,7 +8,7 @@
 import UIKit
 import Toast
 
-class SearchDetailTableViewCell: BaseTableView {
+class SearchDetailTableViewCell: BaseTableViewCell {
     
     weak var delegate: TableViewCellDelegate?
     
@@ -45,11 +45,11 @@ class SearchDetailTableViewCell: BaseTableView {
         return collectionView
     }()
     
-    override func setViews() {
+    override func configureView() {
         contentView.backgroundColor = .black
     }
     
-    override func configureSubviews() {
+    override func configureSubViews() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(searchDetailCollectionView)
     }

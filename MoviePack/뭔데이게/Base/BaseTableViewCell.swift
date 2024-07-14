@@ -1,5 +1,5 @@
 //
-//  BaseTableView.swift
+//  BaseTableViewCell.swift
 //  MoviePack
 //
 //  Created by 서충원 on 6/30/24.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-class BaseTableView: UITableViewCell {
+class BaseTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setViews()
-        configureSubviews()
+        configureView()
+        configureSubViews()
         configureConstraints()
     }
     
@@ -21,15 +21,14 @@ class BaseTableView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setViews() {
-        
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        selectionAnimation()
     }
     
-    func configureSubviews() {
-        
-    }
-    
-    func configureConstraints() {
-        
-    }
+    func configureView() { }
+
+    func configureSubViews() { }
+
+    func configureConstraints() { }
 }
