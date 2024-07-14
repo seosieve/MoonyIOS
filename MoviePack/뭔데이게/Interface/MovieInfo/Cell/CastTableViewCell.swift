@@ -6,26 +6,23 @@
 //
 
 import UIKit
+import Then
 import SnapKit
 
 class CastTableViewCell: UITableViewCell {
     
-    let castImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .systemGray6
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 12
-        return imageView
-    }()
+    let castImageView = UIImageView().then {
+        $0.backgroundColor = Colors.blackContent
+        $0.contentMode = .scaleAspectFill
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 12
+    }
     
-    let actorNameLabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 21, weight: .medium)
-        label.text = "Lee Jung-jae"
-        return label
-    }()
+    let actorNameLabel = UILabel().then {
+        $0.textColor = Colors.blackAccent
+        $0.font = .systemFont(ofSize: 20, weight: .medium)
+        $0.text = "Lee Jung-jae"
+    }
     
     let castNameLabel = {
         let label = UILabel()
@@ -71,7 +68,7 @@ class CastTableViewCell: UITableViewCell {
         
         actorNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(castImageView.snp.trailing).offset(20)
-            make.bottom.equalTo(contentView.snp.centerY).inset(10)
+            make.bottom.equalTo(contentView.snp.centerY).offset(-8)
         }
         
         castNameLabel.snp.makeConstraints { make in

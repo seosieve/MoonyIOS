@@ -42,7 +42,6 @@ extension HomeViewController: UICollectionViewDataSource {
             guard let cell else { return UICollectionViewCell() }
             ///Carousel Animation
             indexPath.row == baseView.previousIndex ? baseView.increaseAnimation(zoomCell: cell) : baseView.decreaseAnimation(zoomCell: cell)
-            
             return cell
         } else {
             let identifier = TrendCollectionViewCell.identifier

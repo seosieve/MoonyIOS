@@ -154,7 +154,7 @@ class MovieRankViewController: UIViewController {
     
     func movieRequest(date: Int) {
         view.makeToastActivity(.center)
-        MovieManager.shared.movieRequest(date: date) { movieResult, error in
+        KobisManager.shared.movieRequest(date: date) { movieResult, error in
             if let error = error {
                 self.view.makeToast("년도와 월, 일을 합쳐 8글자로 작성해주세요.", position: .center)
                 self.dateTextField.text = ""
@@ -167,7 +167,7 @@ class MovieRankViewController: UIViewController {
         }
     }
     
-    func configureRequest(value: MovieResult) {
+    func configureRequest(value: KobisResult) {
         let dailyBoxOfficeList = value.boxOfficeResult.dailyBoxOfficeList
         if dailyBoxOfficeList.isEmpty {
             self.view.makeToast("유효한 날짜를 입력해주세요.", position: .center)

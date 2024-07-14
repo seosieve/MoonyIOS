@@ -55,32 +55,51 @@ class SearchDetailViewController: BaseViewController<SearchDetailView, HomeViewM
         baseView.searchDetailTableView.delegate = self
         baseView.searchDetailTableView.dataSource = self
         
-        SearchManager.shared.searchRequest(router: .video(id: id), type: VideoResult.self) { videoResult in
-            guard let videoResult else { return }
-            guard let key = videoResult.results.first?.key else { return }
-            self.baseView.previewVideoView.load(withVideoId: key)
+        NetworkManager.shared.networkRequest(router: .video(id: id), type: VideoResult.self) { result in
+            switch result {
+            case .success(let success):
+                guard let key = success.results.first?.key else { return }
+                self.baseView.previewVideoView.load(withVideoId: key)
+            case .failure(let failure):
+                print(failure)
+            }
         }
         
         let group = DispatchGroup()
         
         group.enter()
-        SearchManager.shared.searchRequest(router: .similar(id: id, page: 1), type: SearchMovieResult.self) { searchMovieResult in
-            guard let searchMovieResult else { return }
-            self.resultsArr[0] = searchMovieResult.results
+        NetworkManager.shared.networkRequest(router: .similar(id: id, page: 1), type: SearchMovieResult.self) { result in
+            switch result {
+            case .success(let success):
+                self.resultsArr[0] = success.results
+            case .failure(let failure):
+                print(failure)
+            }
+            
             group.leave()
         }
         
         group.enter()
-        SearchManager.shared.searchRequest(router: .recommend(id: id, page: 1), type: SearchMovieResult.self) { searchMovieResult in
-            guard let searchMovieResult else { return }
-            self.resultsArr[1] = searchMovieResult.results
+        NetworkManager.shared.networkRequest(router: .recommend(id: id, page: 1), type: SearchMovieResult.self) { result in
+            switch result {
+            case .success(let success):
+                self.resultsArr[1] = success.results
+            case .failure(let failure):
+                print(failure)
+            }
+            
             group.leave()
         }
         
         group.enter()
-        SearchManager.shared.searchRequest(router: .poster(id: id), type: PosterResult.self) { posterResult in
-            guard let posterResult else { return }
-            self.resultsArr[2] = posterResult.backdrops
+        NetworkManager.shared.networkRequest(router: .poster(id: id), type: PosterResult.self) { result in
+            switch result {
+            case .success(let success):
+                self.resultsArr[2] = success.backdrops
+            case .failure(let failure):
+                print(failure)
+            }
+            
             group.leave()
         }
         
@@ -122,14 +141,22 @@ extension SearchDetailViewController: TableViewCellDelegate {
         
         switch type {
         case .similar:
-            SearchManager.shared.searchRequest(router: .similar(id: 940721, page: page[index]), type: SearchMovieResult.self) { searchMovieResult in
-                guard let searchMovieResult else { return }
-                completionHandler(searchMovieResult.results)
+            NetworkManager.shared.networkRequest(router: .similar(id: 940721, page: page[index]), type: SearchMovieResult.self) { result in
+                switch result {
+                case .success(let success):
+                    completionHandler(success.results)
+                case .failure(let failure):
+                    print(failure)
+                }
             }
         case .recommend:
-            SearchManager.shared.searchRequest(router: .recommend(id: 940721, page: page[index]), type: SearchMovieResult.self) { searchMovieResult in
-                guard let searchMovieResult else { return }
-                completionHandler(searchMovieResult.results)
+            NetworkManager.shared.networkRequest(router: .recommend(id: 940721, page: page[index]), type: SearchMovieResult.self) { result in
+                switch result {
+                case .success(let success):
+                    completionHandler(success.results)
+                case .failure(let failure):
+                    print(failure)
+                }
             }
         case .poster:
             break

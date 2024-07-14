@@ -59,34 +59,3 @@ struct Credits: Decodable {
         return "https://image.tmdb.org/t/p/w780/\(profile_path ?? "")"
     }
 }
-
-struct TrendManager {
-    
-    private init() {}
-    
-    static let shared = TrendManager()
-    
-    func trendRequest(router: TMDB, completionHandler: @escaping (TrendResult?, Error?) -> Void) {
-        
-        AF.request(router.endPoint, method: router.method, parameters: router.parameters, headers: router.header).responseDecodable(of: TrendResult.self) { response in
-            switch response.result {
-            case .success(let value):
-                completionHandler(value, nil)
-            case .failure(let error):
-                completionHandler(nil, error)
-            }
-        }
-    }
-    
-    func creditRequest(router: TMDB, completionHandler: @escaping (CreditsResult?, Error?) -> Void) {
-        
-        AF.request(router.endPoint, method: router.method, parameters: router.parameters, headers: router.header).responseDecodable(of: CreditsResult.self) { response in
-            switch response.result {
-            case .success(let value):
-                completionHandler(value, nil)
-            case .failure(let error):
-                completionHandler(nil, error)
-            }
-        }
-    }
-}

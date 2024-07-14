@@ -93,22 +93,4 @@ struct Video: Decodable {
     let key: String
 }
 
-struct SearchManager {
-    
-    static let shared = SearchManager()
-    
-    private init() { }
-    
-    func searchRequest<T: Decodable>(router: TMDB, type: T.Type, handler: @escaping (T?) -> ()) {
-        AF.request(router.endPoint, method: router.method, parameters: router.parameters, headers: router.header).responseDecodable(of: T.self) { response in
-            switch response.result {
-            case .success(let value):
-                handler(value)
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-}
-
 

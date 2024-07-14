@@ -16,7 +16,7 @@ extension UIViewController {
             let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)
             let image = UIImage(systemName: "chevron.left", withConfiguration: config)
             $0.setImage(image, for: .normal)
-            $0.backgroundColor = Colors.blackContent.withAlphaComponent(0.5)
+            $0.backgroundColor = Colors.blackContent.withAlphaComponent(0.7)
             $0.tintColor = Colors.blackAccent
             $0.layer.cornerRadius = 20
             $0.addTarget(self, action: #selector(backButtonClicked), for: .touchUpInside)

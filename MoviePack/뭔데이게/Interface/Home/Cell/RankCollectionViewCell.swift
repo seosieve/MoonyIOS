@@ -37,8 +37,14 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         $0.layer.cornerRadius = 10
     }
     
+    private let poundKeyLabel = UILabel().then {
+        $0.text = "#"
+        $0.font = UIFont(name: "StretchProRegular", size: 25)
+        $0.textColor = Colors.blackAccent
+    }
+    
     private let rankLabel = UILabel().then {
-        $0.text = "#1"
+        $0.text = "1"
         $0.font = UIFont(name: "StretchProRegular", size: 30)
         $0.textColor = .white
     }
@@ -53,6 +59,12 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         $0.text = "인사이드 아웃 2"
         $0.font = UIFont(name: "BlackHanSans-Regular", size: 20)
         $0.textColor = .white
+    }
+    
+    private let engTitleLabel = UILabel().then {
+        $0.text = "Inside Out 2"
+        $0.font = UIFont(name: "StretchProRegular", size: 12)
+        $0.textColor = Colors.blackDescription
     }
     
     let gradeLabel = UILabel().then {
@@ -73,6 +85,12 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         $0.textColor = Colors.blackDescription
     }
     
+    let barcodeImageView = UIImageView().then {
+        $0.image = UIImage(named: "barcode")
+        $0.contentMode = .scaleAspectFill
+        $0.tintColor = Colors.blackContent
+    }
+    
     override func configureView() {
         contentView.backgroundColor = Colors.blackBackground
     }
@@ -83,12 +101,15 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         contentView.addSubview(topCustomView)
         contentView.addSubview(leadingCustomView)
         contentView.addSubview(posterImageView)
+        contentView.addSubview(poundKeyLabel)
         contentView.addSubview(rankLabel)
         contentView.addSubview(changeRankLabel)
         contentView.addSubview(titleLabel)
+        contentView.addSubview(engTitleLabel)
         contentView.addSubview(gradeLabel)
         contentView.addSubview(totalViewerLabel)
         contentView.addSubview(todayViewerLabel)
+        contentView.addSubview(barcodeImageView)
     }
     
     override func configureConstraints() {
@@ -112,7 +133,7 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         leadingCustomView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.bottom.equalToSuperview().inset(50)
-            make.height.equalTo(100)
+            make.height.equalTo(110)
             make.width.equalTo(20)
         }
         
@@ -122,9 +143,14 @@ class RankCollectionViewCell: BaseCollectionViewCell {
             make.height.equalTo(300)
         }
         
+        poundKeyLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(30)
+            make.leading.equalToSuperview().inset(27)
+        }
+        
         rankLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(25)
-            make.leading.equalToSuperview().inset(27)
+            make.leading.equalTo(poundKeyLabel.snp.trailing).offset(1)
         }
         
         changeRankLabel.snp.makeConstraints { make in
@@ -137,8 +163,13 @@ class RankCollectionViewCell: BaseCollectionViewCell {
             make.centerX.equalToSuperview()
         }
         
+        engTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(6)
+            make.centerX.equalToSuperview()
+        }
+        
         gradeLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.top.equalTo(engTitleLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
         }
         
@@ -150,6 +181,13 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         todayViewerLabel.snp.makeConstraints { make in
             make.top.equalTo(totalViewerLabel.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
+        }
+        
+        barcodeImageView.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(15)
+            make.width.equalTo(60)
+            make.height.equalTo(90)
         }
     }
 }

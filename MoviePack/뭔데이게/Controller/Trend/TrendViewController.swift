@@ -54,18 +54,16 @@ class TrendViewController: UIViewController {
     
     func trendRequest() {
         view.makeToastActivity(.center)
-        TrendManager.shared.trendRequest(router: .trend) { trendResult, error in
-            if let error = error {
-                print("Error: \(error)")
-            } else {
-                guard let trendResult = trendResult else { self.view.hideToastActivity(); return }
+        NetworkManager.shared.networkRequest(router: .trend, type: TrendResult.self) { result in
+            switch result {
+            case .success(let success):
                 
-                self.trendArr = trendResult.results
-                self.creditsArr = Array(repeating: CreditsResult(), count: trendResult.results.count)
+                self.trendArr = success.results
+                self.creditsArr = Array(repeating: CreditsResult(), count: success.results.count)
                 
                 let dispatchGroup = DispatchGroup()
                 
-                for (index, result) in trendResult.results.enumerated() {
+                for (index, result) in success.results.enumerated() {
                     dispatchGroup.enter()
                     self.creditsRequest(id: result.id, index: index, dispatchGroup: dispatchGroup)
                 }
@@ -74,17 +72,19 @@ class TrendViewController: UIViewController {
                     self.view.hideToastActivity()
                     self.trendTableView.reloadData()
                 }
+            case .failure(let failure):
+                print(failure)
             }
         }
     }
     
     func creditsRequest(id: Int, index: Int, dispatchGroup: DispatchGroup) {
-        TrendManager.shared.creditRequest(router: .credit(id: id)) { trendResult, error in
-            if let error = error {
-                print("Error: \(error)")
-            } else {
-                guard let trendResult = trendResult else { dispatchGroup.leave(); return }
-                self.creditsArr[index] = trendResult
+        NetworkManager.shared.networkRequest(router: .credit(id: id), type: CreditsResult.self) { result in
+            switch result {
+            case .success(let success):
+                self.creditsArr[index] = success
+            case .failure(let failure):
+                print(failure)
             }
             dispatchGroup.leave()
         }
