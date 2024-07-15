@@ -9,7 +9,9 @@ import UIKit
 import Then
 import SnapKit
 
-class MovieInfoView: BaseView {
+final class MovieInfoView: BaseView {
+    
+    private var spread = false
     
     private lazy var movieInfoScrollView = UIScrollView().then {
         $0.contentInsetAdjustmentBehavior = .never
@@ -20,18 +22,25 @@ class MovieInfoView: BaseView {
         $0.backgroundColor = Colors.blackBackground
     }
     
+    private let posterLayout = UICollectionViewFlowLayout().then {
+        $0.itemSize = CGSize(width: MovieInfoView.screenSize.width, height: 360)
+        $0.scrollDirection = .horizontal
+        $0.minimumLineSpacing = 0
+    }
+    
+    lazy var posterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: posterLayout).then {
+        $0.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.identifier)
+        $0.contentInsetAdjustmentBehavior = .never
+        $0.isPagingEnabled = true
+        $0.decelerationRate = .fast
+        $0.backgroundColor = .clear
+        $0.showsHorizontalScrollIndicator = false
+    }
+    
     private let backgroundImageView = UIImageView().then {
         $0.image = UIImage(named: "베테랑")
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
-    }
-    
-    private lazy var gradientView = UIView().then {
-        $0.backgroundColor = .clear
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.width, height: 300))
-        gradientLayer.colors = [UIColor.clear.cgColor, Colors.blackBackground.cgColor]
-        $0.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     private let gardeTitleLabel = UILabel().then {
@@ -106,7 +115,7 @@ class MovieInfoView: BaseView {
     
     private let previewVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
-    private let previewButton = UIButton().then {
+    let previewButton = UIButton().then {
         $0.setTitle("PREVIEW NOW", for: .normal)
         $0.titleLabel?.font = .boldSystemFont(ofSize: 16)
         $0.setTitleColor(Colors.blackAccent, for: .normal)
@@ -140,7 +149,19 @@ class MovieInfoView: BaseView {
         $0.text = "Overviewdjkwajkd wajkdhkwadhwhdwajkdhwahkdhkjwakdjh wakjhdw adkwadhjk wahwalkdkwa dwalhdlwajd kwaj ddwahdjwkd wkajdh wkajdhwa jkd wajkdhjwak dhwakjd wakjdh awkjhd jwkad kajdh kjwadhwajkdhwakjd wakdj wakd wkad"
         $0.font = .boldSystemFont(ofSize: 16)
         $0.textColor = Colors.blackDescription
-        $0.numberOfLines = 0
+        $0.numberOfLines = 2
+    }
+    
+    private let spreadUpImage = UIImage(systemName: "chevron.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .bold))
+
+    private let spreadDownImage = UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .bold))
+    
+    private lazy var spreadButton = UIButton().then {
+        $0.setImage(spreadDownImage, for: .normal)
+        $0.tintColor = .white
+        $0.backgroundColor = Colors.blackDescription.withAlphaComponent(0.1)
+        $0.layer.cornerRadius = 22
+        $0.addTarget(self, action: #selector(spreadButtonClicked), for: .touchUpInside)
     }
     
     private let castTitleLabel = UILabel().then {
@@ -161,8 +182,9 @@ class MovieInfoView: BaseView {
     override func configureSubViews() {
         self.addSubview(movieInfoScrollView)
         movieInfoScrollView.addSubview(contentView)
-        contentView.addSubview(backgroundImageView)
-        contentView.addSubview(gradientView)
+        contentView.addSubview(posterCollectionView)
+        
+//        contentView.addSubview(backgroundImageView)
         contentView.addSubview(gardeTitleLabel)
         contentView.addSubview(gardeLabel)
         contentView.addSubview(titleLabel)
@@ -172,11 +194,12 @@ class MovieInfoView: BaseView {
         contentView.addSubview(thirdGenreLabel)
         contentView.addSubview(previewImageView)
         previewImageView.addSubview(previewVisualEffectView)
-        previewImageView.addSubview(previewButton)
+        contentView.addSubview(previewButton)
         contentView.addSubview(shareButton)
         contentView.addSubview(saveButton)
         contentView.addSubview(overviewTitleLabel)
         contentView.addSubview(overviewLabel)
+        contentView.addSubview(spreadButton)
         contentView.addSubview(castTitleLabel)
         contentView.addSubview(castTableView)
     }
@@ -188,22 +211,20 @@ class MovieInfoView: BaseView {
         
         contentView.snp.makeConstraints { make in
             make.edges.width.equalToSuperview()
-            make.height.equalTo(3000)
         }
         
-        backgroundImageView.snp.makeConstraints { make in
+        posterCollectionView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
             make.height.equalTo(360)
         }
         
-        gradientView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(backgroundImageView)
-            make.height.equalTo(300)
-        }
+//        backgroundImageView.snp.makeConstraints { make in
+//            make.top.horizontalEdges.equalToSuperview()
+//            make.height.equalTo(360)
+//        }
         
         gardeTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(gradientView.snp.bottom).inset(90)
+            make.top.equalTo(posterCollectionView.snp.bottom).inset(90)
             make.leading.equalToSuperview().inset(20)
             make.width.equalTo(40)
             make.height.equalTo(20)
@@ -220,7 +241,7 @@ class MovieInfoView: BaseView {
         }
         
         engTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.leading.equalToSuperview().inset(22)
         }
         
@@ -257,7 +278,7 @@ class MovieInfoView: BaseView {
         }
         
         previewButton.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalTo(previewImageView)
         }
         
         shareButton.snp.makeConstraints { make in
@@ -282,20 +303,40 @@ class MovieInfoView: BaseView {
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
+        spreadButton.snp.makeConstraints { make in
+            make.top.equalTo(overviewLabel.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.size.equalTo(44)
+        }
+        
         castTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(overviewLabel.snp.bottom).offset(30)
+            make.top.equalTo(spreadButton.snp.bottom).offset(30)
             make.leading.equalToSuperview().inset(20)
         }
         
         castTableView.snp.makeConstraints { make in
             make.top.equalTo(castTitleLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.height.equalTo(600)
+            make.bottom.equalToSuperview().offset(-120)
         }
     }
     
     override func configureNavigationController(_ vc: UIViewController) {
         vc.setCustomBackButton()
+    }
+    
+    @objc func spreadButtonClicked() {
+        UIView.animate(withDuration: 0.3) {
+            let image = self.spread ? self.spreadDownImage : self.spreadUpImage
+            let line = self.spread ? 2 : 0
+            
+            self.spreadButton.setImage(image, for: .normal)
+            self.overviewLabel.numberOfLines = line
+            self.layoutIfNeeded()
+            self.invalidateIntrinsicContentSize()
+            self.spread.toggle()
+        }
     }
 }
 

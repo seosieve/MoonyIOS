@@ -8,8 +8,9 @@
 import UIKit
 import Then
 import SnapKit
+import Kingfisher
 
-class RankCollectionViewCell: BaseCollectionViewCell {
+final class RankCollectionViewCell: BaseCollectionViewCell {
     
     private let backgroundImageView = UIImageView().then {
         $0.image = UIImage(named: "베테랑")
@@ -59,12 +60,15 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         $0.text = "인사이드 아웃 2"
         $0.font = UIFont(name: "BlackHanSans-Regular", size: 20)
         $0.textColor = .white
+        $0.textAlignment = .center
+        $0.numberOfLines = 2
     }
     
     private let engTitleLabel = UILabel().then {
         $0.text = "Inside Out 2"
         $0.font = UIFont(name: "StretchProRegular", size: 12)
         $0.textColor = Colors.blackDescription
+        $0.textAlignment = .center
     }
     
     let gradeLabel = UILabel().then {
@@ -160,11 +164,13 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(posterImageView.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview().inset(40)
             make.centerX.equalToSuperview()
         }
         
         engTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(6)
+            make.horizontalEdges.equalToSuperview().inset(60)
             make.centerX.equalToSuperview()
         }
         
@@ -174,7 +180,7 @@ class RankCollectionViewCell: BaseCollectionViewCell {
         }
         
         totalViewerLabel.snp.makeConstraints { make in
-            make.top.equalTo(gradeLabel.snp.bottom).offset(16)
+            make.top.equalTo(gradeLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
         }
         
@@ -190,4 +196,39 @@ class RankCollectionViewCell: BaseCollectionViewCell {
             make.height.equalTo(90)
         }
     }
+    
+    func configureCell(_ kobisRank: KobisRank) {
+        rankLabel.text = kobisRank.rank
+
+        switch kobisRank.rankInten {
+        case "0":
+            changeRankLabel.textColor = Colors.blackDescription
+            changeRankLabel.text = "◼︎"
+        case let value where value.hasPrefix("-"):
+            changeRankLabel.textColor = Colors.blueDescription
+            changeRankLabel.text = "⬇︎\(value.dropFirst())"
+        default:
+            changeRankLabel.textColor = Colors.redContent
+            changeRankLabel.text = "⬆︎\(kobisRank.rankInten)"
+        }
+        
+        titleLabel.text = kobisRank.movieNm
+        
+        totalViewerLabel.text = Int(kobisRank.audiAcc)!.formatted() + " 명"
+        todayViewerLabel.text = Int(kobisRank.audiCnt)!.formatted() + " 명"
+    }
+    
+    func configureCell(_ searchMovie: SearchMovie?) {
+        guard let searchMovie else { return }
+        
+        let url = URL(string: searchMovie.posterUrl)
+        posterImageView.kf.setImage(with: url)
+        engTitleLabel.text = searchMovie.title
+        
+        let grade = Int(round(searchMovie.grade ?? 0.0)) / 2
+        let fullStars = String(repeating: "★", count: grade)
+        let emptyStars = String(repeating: "☆", count: 5 - grade)
+        gradeLabel.text = fullStars + emptyStars
+    }
 }
+

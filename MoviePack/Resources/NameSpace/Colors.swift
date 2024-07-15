@@ -8,6 +8,8 @@
 import UIKit
 
 enum Colors {
+    static let redContent = UIColor("#EF4962")
+    
     static let blueContent = UIColor("#257F9A")
     static let blueDescription = UIColor("#2D9ABA")
     static let blueAccent = UIColor("#0FB2F8")
@@ -17,9 +19,6 @@ enum Colors {
     static let blackContent = UIColor("#2C2C2C")
     static let blackDescription = UIColor("#707070")
     static let blackAccent = UIColor("#CFCFCF")
-    
-    static let flagOrange = UIColor("#FF9933")
-    static let trashPink = UIColor("#EF4962")
 }
 
 //MARK: - UIColor with Hex

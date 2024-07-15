@@ -35,7 +35,7 @@ class SearchView: BaseView {
         layout.minimumInteritemSpacing = 20
         layout.minimumLineSpacing = 20
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        let screenWidth = UIScreen.main.bounds.width
+        let screenWidth = SearchView.screenSize.width
         let inset = layout.sectionInset.left + layout.sectionInset.right
         let spacing = layout.minimumInteritemSpacing
         let width = (screenWidth - inset - spacing * 2) / 3

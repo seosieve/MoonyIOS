@@ -7,8 +7,9 @@
 
 import UIKit
 
-class TrendCollectionViewCell: BaseCollectionViewCell {
+final class TrendCollectionViewCell: BaseCollectionViewCell {
     override func configureView() {
-        contentView.backgroundColor = .gray
+        contentView.backgroundColor = Colors.blackInterface
+        contentView.layer.cornerRadius = 20
     }
 }

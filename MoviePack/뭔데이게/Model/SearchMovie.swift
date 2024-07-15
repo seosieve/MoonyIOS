@@ -43,8 +43,10 @@ struct SearchMovie: Decodable, Results {
     let id: Int?
     let title: String?
     let backdropPath: String?
+    let posterPath: String?
+    let grade: Double?
     var posterUrl: String {
-        return "https://image.tmdb.org/t/p/w780/" + (backdropPath ?? "")
+        return "https://image.tmdb.org/t/p/w780/" + (backdropPath ?? posterPath ?? "")
     }
 }
 
@@ -54,6 +56,8 @@ extension SearchMovie {
         case id
         case title
         case backdropPath = "backdrop_path"
+        case posterPath = "poster_path"
+        case grade = "vote_average"
     }
 }
 

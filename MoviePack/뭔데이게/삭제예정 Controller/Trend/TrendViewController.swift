@@ -16,6 +16,12 @@ class TrendViewController: UIViewController {
     var trendArr: [Trend] = []
     var creditsArr: [CreditsResult] = []
     
+    var topContainerView = {
+        let view = UIView()
+        view.backgroundColor = Colors.blackBackground
+        return view
+    }()
+    
     lazy var trendTableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -33,7 +39,7 @@ class TrendViewController: UIViewController {
     }
     
     func setViews() {
-        view.backgroundColor = .white
+        self.view.backgroundColor = Colors.blackBackground
         let listButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: nil)
         navigationItem.leftBarButtonItem = listButton
         let searchButton = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: nil)
@@ -42,12 +48,19 @@ class TrendViewController: UIViewController {
     }
 
     func configureSubviews() {
+        view.addSubview(topContainerView)
         view.addSubview(trendTableView)
     }
     
     func configureConstraints() {
+        topContainerView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(200)
+        }
+        
         trendTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(30)
+            make.top.equalToSuperview()
             make.horizontalEdges.bottom.equalToSuperview()
         }
     }

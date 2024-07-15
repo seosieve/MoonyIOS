@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import Toast
 
-class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
+final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
     
     override func configureView() {
         ///Navigation Controller
@@ -17,6 +18,20 @@ class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
         baseView.trendCollectionView.dataSource = self
         ///Rank Card Clicked
         NotificationCenter.default.addObserver(self, selector: #selector(rankCardClicked), name: Names.Noti.rank, object: nil)
+    }
+    
+    override func bindData() {
+        view.makeToastActivity(.center)
+        viewModel.kobisBindingArr.bind { result in
+            guard !result.contains(where: { $0 == nil }) else { return }
+            self.baseView.rankCollectionView.reloadData()
+            self.view.hideToastActivity()
+        }
+        
+        viewModel.outputKobisDate.bind { result in
+            guard let result else { return }
+            self.baseView.dateLabel.text = result
+        }
     }
     
     @objc func rankCardClicked() {
@@ -29,7 +44,7 @@ class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == baseView.rankCollectionView {
-            return 10
+            return viewModel.kobisArr.value.count
         } else {
             return 20
         }
@@ -42,12 +57,16 @@ extension HomeViewController: UICollectionViewDataSource {
             guard let cell else { return UICollectionViewCell() }
             ///Carousel Animation
             indexPath.row == baseView.previousIndex ? baseView.increaseAnimation(zoomCell: cell) : baseView.decreaseAnimation(zoomCell: cell)
+            ///Configure Cell
+            let kobis = viewModel.kobisArr.value[indexPath.row]
+            let kobisBinding = viewModel.kobisBindingArr.value[indexPath.row]
+            cell.configureCell(kobis)
+            cell.configureCell(kobisBinding)
             return cell
         } else {
             let identifier = TrendCollectionViewCell.identifier
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? TrendCollectionViewCell
             guard let cell else { return UICollectionViewCell() }
-            
             return cell
         }
     }

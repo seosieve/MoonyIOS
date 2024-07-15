@@ -9,25 +9,52 @@ import UIKit
 import Then
 import SnapKit
 
-class HomeView: BaseView {
+final class HomeView: BaseView {
     
     var previousIndex = 0
     
-    lazy var filterButtonItem = {
-        let button = UIBarButtonItem()
-        button.image = UIImage(systemName: "ellipsis")
-        button.style = .plain
-        return button
-    }()
+    private lazy var dateOrder = UIAction(title: "오늘", state: .on, handler: updateActionStates)
+                                  
+    private lazy var titleOrder = UIAction(title: "3년 전", state: .off, handler: updateActionStates)
     
-    let rankLayout = UICollectionViewFlowLayout().then {
+    private lazy var priorityOrder = UIAction(title: "10년 전", state: .off, handler: updateActionStates)
+    
+    private lazy var updateActionStates: (UIAction) -> Void = { action in
+//        guard let index = self.sortArr.firstIndex(where: { $0.title == action.title }) else { return }
+//        
+//        let actions = self.actions
+//        actions.forEach { $0.state = ($0 == action) ? .on : .off }
+//        self.filterButtonItem.menu = UIMenu(options: .displayInline, children: actions)
+//        
+//        let sortName = self.sortArr[index]
+//        self.delegate?.sortList(sortName: sortName)
+    }
+    
+    lazy var filterButtonItem = UIBarButtonItem().then {
+        let config = UIImage.SymbolConfiguration(weight: .black)
+        let filterImage = UIImage(systemName: "ellipsis", withConfiguration: config)
+        $0.image = filterImage
+        $0.style = .plain
+        $0.menu = UIMenu(options: .displayInline, children: [dateOrder, titleOrder, priorityOrder])
+    }
+    
+    private lazy var homeScrollView = UIScrollView().then {
+        $0.contentInsetAdjustmentBehavior = .never
+        $0.showsVerticalScrollIndicator = false
+    }
+    
+    private let contentView = UIView().then {
+        $0.backgroundColor = Colors.blackBackground
+    }
+    
+    private let rankLayout = UICollectionViewFlowLayout().then {
         $0.itemSize = CGSize(width: 300, height: 550)
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = -30
     }
     
     lazy var rankCollectionView = UICollectionView(frame: .zero, collectionViewLayout: rankLayout).then {
-        let horizontalInset = (UIScreen.main.bounds.width - rankLayout.itemSize.width) / 2
+        let horizontalInset = (HomeView.screenSize.width - rankLayout.itemSize.width) / 2
         $0.contentInset = UIEdgeInsets(top: 0, left: horizontalInset, bottom: 0, right: horizontalInset)
         $0.register(RankCollectionViewCell.self, forCellWithReuseIdentifier: RankCollectionViewCell.identifier)
         $0.contentInsetAdjustmentBehavior = .never
@@ -38,19 +65,25 @@ class HomeView: BaseView {
         $0.delegate = self
     }
     
-    private let dateLabel = UILabel().then {
+    let dateLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14)
-        $0.text = "영화진흥위원회 2024.07.13일 기준"
         $0.textColor = Colors.blackContent
     }
     
-    let trendLayout = UICollectionViewFlowLayout().then {
-        $0.itemSize = CGSize(width: 100, height: 150)
+    private let trendTitleLabel = UILabel().then {
+        $0.text = "Trending For You"
+        $0.font = .systemFont(ofSize: 18, weight: .heavy)
+        $0.textColor = Colors.blackAccent
+    }
+    
+    private let trendLayout = UICollectionViewFlowLayout().then {
+        $0.itemSize = CGSize(width: 150, height: 200)
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 20
     }
     
     lazy var trendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: trendLayout).then {
+        $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         $0.register(TrendCollectionViewCell.self, forCellWithReuseIdentifier: TrendCollectionViewCell.identifier)
         $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
@@ -62,14 +95,25 @@ class HomeView: BaseView {
     }
     
     override func configureSubViews() {
-        self.addSubview(rankCollectionView)
-        self.addSubview(dateLabel)
-        self.addSubview(trendCollectionView)
+        self.addSubview(homeScrollView)
+        homeScrollView.addSubview(contentView)
+        contentView.addSubview(rankCollectionView)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(trendTitleLabel)
+        contentView.addSubview(trendCollectionView)
     }
     
     override func configureConstraints() {
+        homeScrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.width.equalToSuperview()
+        }
+        
         rankCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide)
+            make.top.equalToSuperview().inset(100)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(550)
         }
@@ -79,11 +123,17 @@ class HomeView: BaseView {
             make.trailing.equalToSuperview().inset(20)
         }
         
-//        trendCollectionView.snp.makeConstraints { make in
-//            make.top.equalTo(rankCollectionView.snp.bottom).offset(20)
-//            make.horizontalEdges.equalToSuperview()
-//            make.height.equalTo(200)
-//        }
+        trendTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(dateLabel.snp.bottom).offset(40)
+            make.leading.equalToSuperview().inset(20)
+        }
+        
+        trendCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(trendTitleLabel.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(200)
+            make.bottom.equalToSuperview().offset(-120)
+        }
     }
     
     override func configureNavigationController(_ vc: UIViewController) {
@@ -102,10 +152,11 @@ extension HomeView: UICollectionViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         guard let layout = rankCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         
-        let scrolledOffsetX = targetContentOffset.pointee.x + scrollView.contentInset.left
         let cellWidth = layout.itemSize.width + layout.minimumLineSpacing
-        let index = round(scrolledOffsetX / cellWidth)
-        targetContentOffset.pointee = CGPoint(x: index * cellWidth - scrollView.contentInset.left, y: 0)
+        let offsetX = targetContentOffset.pointee.x
+        let index = (offsetX + scrollView.contentInset.left) / cellWidth
+        let roundedIndex = round(index)
+        targetContentOffset.pointee = CGPoint(x: roundedIndex * cellWidth - scrollView.contentInset.left, y: 0)
     }
     
     ///Zoom Animation
@@ -114,7 +165,7 @@ extension HomeView: UICollectionViewDelegate {
         
         let cellWidth = layout.itemSize.width + layout.minimumLineSpacing
         let offsetX = rankCollectionView.contentOffset.x
-        let index = (offsetX + rankCollectionView.contentInset.left) / cellWidth
+        let index = (offsetX + scrollView.contentInset.left) / cellWidth
         let roundedIndex = round(index)
         let indexPath = IndexPath(item: Int(roundedIndex), section: 0)
         if let cell = rankCollectionView.cellForItem(at: indexPath) {

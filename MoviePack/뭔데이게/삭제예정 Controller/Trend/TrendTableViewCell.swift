@@ -8,12 +8,12 @@
 import UIKit
 import SnapKit
 
-class TrendTableViewCell: UITableViewCell {
+class TrendTableViewCell: BaseTableViewCell {
     
     let titleLabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 21, weight: .heavy)
-        label.textColor = .black
+        label.textColor = Colors.blackAccent
         label.text = "영화이름"
         return label
     }()
@@ -41,7 +41,7 @@ class TrendTableViewCell: UITableViewCell {
         let view = UIView()
         view.layer.cornerRadius = 14
         view.clipsToBounds = true
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.blackContent
         return view
     }()
     
@@ -93,8 +93,8 @@ class TrendTableViewCell: UITableViewCell {
     
     let movieTitleLabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.textColor = Colors.blackAccent
+        label.font = .systemFont(ofSize: 18, weight: .medium)
         label.text = "Alice in Borderland"
         return label
     }()
@@ -131,28 +131,12 @@ class TrendTableViewCell: UITableViewCell {
         button.contentHorizontalAlignment = .trailing
         return button
     }()
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setViews()
-        configureSubviews()
-        configureConstraints()
+    
+    override func configureView() {
+        backgroundColor = Colors.blackBackground
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        selectionAnimation()
-    }
-    
-    func setViews() {
-        backgroundColor = .white
-    }
-    
-    func configureSubviews() {
+    override func configureSubViews() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(dateLabel)
         contentView.addSubview(shadowView)
@@ -169,7 +153,7 @@ class TrendTableViewCell: UITableViewCell {
         
     }
     
-    func configureConstraints() {
+    override func configureConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.leading.equalToSuperview().inset(35)

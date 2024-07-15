@@ -22,18 +22,17 @@ final class CustomTabBarController: UITabBarController {
         homeNavigationController.tabBarItem.selectedImage = UIImage(systemName: "movieclapper.fill")
         
         let addlistViewController = UINavigationController(rootViewController: TrendViewController())
+        addlistViewController.setNavigationAppearance()
         addlistViewController.tabBarItem.image = UIImage(systemName: "list.bullet.clipboard")
         addlistViewController.tabBarItem.selectedImage = UIImage(systemName: "list.bullet.clipboard.fill")
         
-        let userViewController = SearchViewController(view: SearchView(), viewModel: HomeViewModel())
+        let userViewController = SearchViewController(view: SearchView(), viewModel: BaseViewModel())
         let userNavigationController = UINavigationController(rootViewController: userViewController)
         userNavigationController.tabBarItem.image = UIImage(systemName: "popcorn")
         userNavigationController.tabBarItem.selectedImage = UIImage(systemName: "popcorn.fill")
         
-//        let settingViewController = SettingViewController(view: SettingView(), viewModel: SettingViewModel())
-//        let settingNavigationController = UINavigationController(rootViewController: settingViewController)
-        
-        let settingNavigationController = MovieRankViewController()
+        let settingViewController = SettingViewController(view: SettingView(), viewModel: SettingViewModel())
+        let settingNavigationController = UINavigationController(rootViewController: settingViewController)
         settingNavigationController.tabBarItem.image = UIImage(systemName: "person")
         settingNavigationController.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
         

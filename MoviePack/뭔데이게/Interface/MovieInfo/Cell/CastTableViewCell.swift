@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class CastTableViewCell: BaseTableViewCell {
+final class CastTableViewCell: BaseTableViewCell {
     
     let castImageView = UIImageView().then {
         $0.backgroundColor = Colors.blackContent
@@ -33,6 +33,7 @@ class CastTableViewCell: BaseTableViewCell {
     }()
     
     override func configureView() {
+        self.selectionStyle = .none
         backgroundColor = Colors.blackBackground
     }
     

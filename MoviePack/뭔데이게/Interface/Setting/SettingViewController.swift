@@ -7,9 +7,9 @@
 
 import Foundation
 
-class SettingViewController: BaseViewController<SettingView, SettingViewModel> {
+final class SettingViewController: BaseViewController<SettingView, SettingViewModel> {
     
     override func configureView() {
-        
+        baseView.configureNavigationController(self)
     }
 }

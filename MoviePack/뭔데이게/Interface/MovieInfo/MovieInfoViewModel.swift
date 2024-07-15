@@ -7,6 +7,6 @@
 
 import Foundation
 
-class MovieInfoViewModel: BaseViewModel {
+final class MovieInfoViewModel: BaseViewModel {
     
 }

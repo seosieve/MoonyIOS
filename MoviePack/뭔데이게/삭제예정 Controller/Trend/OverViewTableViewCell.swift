@@ -16,7 +16,6 @@ class OverViewTableViewCell: UITableViewCell {
     
     let overViewLabel = {
         let label = UILabel()
-        label.text = "dawjkdwhdwhdlwaldwaldjwadwadlkjwalkdjkdjawlkjdklwajlwajlwadjdjwkldjwalkdjwadljkwakjdjwakldjawkldwakdkjwaldjawjdlkawjdlawkjdakwljdlkawjdklwajdlkawjdklawjdklwajdklawjdklwajdlkwjakldjklwajdlkawjdklwajdklawjdlkwjlkwajdlkawjdlkwadjlkawjdlkawjdlkjawlkdjwakldjlkawjdlwkajdlkwajdlakwjdlwadjhl"
         label.numberOfLines = 2
         return label
     }()
@@ -48,7 +47,7 @@ class OverViewTableViewCell: UITableViewCell {
     }
     
     func setViews() {
-        backgroundColor = .white
+        backgroundColor = Colors.blackBackground
     }
     
     func configureSubviews() {

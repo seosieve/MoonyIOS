@@ -7,4 +7,11 @@
 
 import Foundation
 
-class BaseViewModel { }
+class BaseViewModel {
+    
+    init() {
+        bindData()
+    }
+    
+    func bindData() { }
+}

@@ -8,10 +8,10 @@
 import Foundation
 
 struct KobisResult: Decodable {
-    let boxOfficeResult: boxOfficeResult
+    let boxOfficeResult: BoxOfficeResult
 }
 
-struct boxOfficeResult: Decodable {
+struct BoxOfficeResult: Decodable {
     let boxofficeType: String
     let showRange: String
     let dailyBoxOfficeList: [KobisRank]
@@ -22,6 +22,6 @@ struct KobisRank: Decodable {
     let rankInten: String
     let movieNm: String
     let openDt: String
-    let salesAcc: String
+    let audiAcc: String
     let audiCnt: String
 }

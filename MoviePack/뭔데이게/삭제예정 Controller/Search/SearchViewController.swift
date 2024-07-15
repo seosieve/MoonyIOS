@@ -10,7 +10,7 @@ import Alamofire
 import Kingfisher
 import Toast
 
-class SearchViewController: BaseViewController<SearchView, HomeViewModel> {
+class SearchViewController: BaseViewController<SearchView, BaseViewModel> {
     
     var searchMovieResult = SearchMovieResult()
     var previousWord = ""
