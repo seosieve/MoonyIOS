@@ -72,7 +72,7 @@ class TrendViewController: UIViewController {
             case .success(let success):
                 
                 self.trendArr = success.results
-                self.creditsArr = Array(repeating: CreditsResult(), count: success.results.count)
+//                self.creditsArr = Array(repeating: CreditsResult(), count: success.results.count)
                 
                 let dispatchGroup = DispatchGroup()
                 

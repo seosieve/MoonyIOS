@@ -14,7 +14,7 @@ class SearchDetailTableViewCell: BaseTableViewCell {
     
     var type: CollectionViewType = .similar
     
-    var resultsArr: [Results] = [Results]() {
+    var resultsArr: [Movie] = [Movie]() {
         didSet { self.searchDetailCollectionView.reloadData() }
     }
     
@@ -102,5 +102,5 @@ extension SearchDetailTableViewCell: UICollectionViewDataSourcePrefetching {
 }
 
 protocol TableViewCellDelegate: AnyObject {
-    func configureResult(type: CollectionViewType, completionHandler: @escaping ([Results]) -> Void)
+    func configureResult(type: CollectionViewType, completionHandler: @escaping ([Movie]) -> Void)
 }

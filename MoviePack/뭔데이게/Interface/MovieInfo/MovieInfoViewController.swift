@@ -6,17 +6,11 @@
 //
 
 import UIKit
-import MetricKit
+import Kingfisher
 
 final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfoViewModel> {
     
-    var list = [UIImage(named: "베테랑"), UIImage(named: "부산행"), UIImage(named: "서울의봄"), UIImage(named: "명량"), UIImage(named: "Movie")]
-    
     override func configureView() {
-        
-        list.insert(list[list.count-1], at: 0)
-        list.append(list[1])
-        
         ///Navigation Controller
         baseView.configureNavigationController(self)
         ///Preview Button
@@ -29,6 +23,25 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
         baseView.castTableView.dataSource = self
     }
     
+    override func bindData() {
+        viewModel.movieName.bind { result in
+            guard let result else { return }
+            self.baseView.titleLabel.text = result
+        }
+        
+        viewModel.posterResultArr.bind { result in
+            guard !result.isEmpty else { return }
+            print(result.count)
+            self.baseView.posterCollectionView.reloadData()
+            self.baseView.configureMovieInfo(self.viewModel.searchMovieResult.value)
+        }
+        
+        viewModel.movieOverview.bind { result in
+            guard let result else { return }
+            self.baseView.configureOverview(result)
+        }
+    }
+    
     @objc func previewButtonClicked() {
         let vc = MoviePreviewViewController(view: MoviePreviewView(), viewModel: MoviePreviewViewModel())
         self.navigationController?.pushViewController(vc, animated: true)
@@ -38,21 +51,21 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension MovieInfoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list.count
+        return viewModel.posterResultArr.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let identifier = PosterCollectionViewCell.identifier
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? PosterCollectionViewCell
         guard let cell else { return UICollectionViewCell() }
-        
-        cell.posterImageView.image = list[indexPath.row]
-        
+        let poster = viewModel.posterResultArr.value[indexPath.row]
+        let url = URL(string: poster.posterUrl)
+        cell.posterImageView.kf.setImage(with: url)
         return cell
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let count = list.count
+        let count = viewModel.posterResultArr.value.count
         let cellWidth = MovieInfoViewController.screenSize.width
         
         if scrollView.contentOffset.x == 0 {

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 struct TrendResult: Decodable {
     let results: [Trend]
@@ -37,25 +36,5 @@ struct Trend: Decodable {
     
     var posterUrl: String {
         return "https://image.tmdb.org/t/p/w780/\(backdrop_path)"
-    }
-}
-
-struct CreditsResult: Decodable {
-    let id: Int
-    let cast: [Credits]
-    
-    init(id: Int = 0, cast: [Credits] = []) {
-        self.id = id
-        self.cast = cast
-    }
-}
-
-struct Credits: Decodable {
-    let name: String
-    let original_name: String
-    let profile_path: String?
-    let character: String
-    var profileUrl: String {
-        return "https://image.tmdb.org/t/p/w780/\(profile_path ?? "")"
     }
 }

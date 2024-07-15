@@ -12,7 +12,7 @@ import Toast
 
 class SearchViewController: BaseViewController<SearchView, BaseViewModel> {
     
-    var searchMovieResult = SearchMovieResult()
+    var searchMovieResult: MovieResult?
     var previousWord = ""
     var page = 1
     
@@ -31,7 +31,7 @@ class SearchViewController: BaseViewController<SearchView, BaseViewModel> {
     //Wrapping with Additional Work
     func search(word: String) {
         view.makeToastActivity(.center)
-        NetworkManager.shared.networkRequest(router: Network.search(word: word, page: page), type: SearchMovieResult.self) { result in
+        NetworkManager.shared.networkRequest(router: Network.search(word: word, page: page), type: MovieResult.self) { result in
             switch result {
             case .success(let success):
                 self.baseView.configureView(isEmpty: true)
@@ -39,7 +39,7 @@ class SearchViewController: BaseViewController<SearchView, BaseViewModel> {
                 case 1:
                     self.searchMovieResult = success
                 default:
-                    self.searchMovieResult.results += success.results
+                    self.searchMovieResult?.results += success.results
                 }
                 self.baseView.searchCollectionView.reloadData()
                 self.view.hideToastActivity()
@@ -73,18 +73,18 @@ extension SearchViewController: UISearchBarDelegate {
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchMovieResult.results.count
+        return searchMovieResult?.results.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let movie = searchMovieResult.results[indexPath.row]
+        guard let movie = searchMovieResult?.results[indexPath.row] else { return UICollectionViewCell() }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.identifier, for: indexPath) as! SearchCollectionViewCell
         cell.configureCell(result: movie)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let id = searchMovieResult.results[indexPath.row].id, let title = searchMovieResult.results[indexPath.row].title else { return }
+        guard let id = searchMovieResult?.results[indexPath.row].id, let title = searchMovieResult?.results[indexPath.row].title else { return }
         let vc = SearchDetailViewController(id: id, title: title)
         let backBarButtonItem = UIBarButtonItem(title: "")
         self.navigationItem.backBarButtonItem = backBarButtonItem
@@ -102,9 +102,9 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
     
     func paginationAction(indexPath: IndexPath) {
         let item = indexPath.item
-        let movieCount = searchMovieResult.results.count - 1
+        let movieCount = searchMovieResult!.results.count - 1
         print(item, movieCount)
-        let totalPage = searchMovieResult.totalPages
+        let totalPage = searchMovieResult!.totalPages
         if movieCount == item && totalPage != page {
             guard let text = baseView.searchBar.text else { return }
             page += 1

@@ -145,7 +145,7 @@ final class HomeView: BaseView {
 //MARK: - UICollectionViewDelegate
 extension HomeView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        NotificationCenter.default.post(name: Names.Noti.rank, object: nil)
+        NotificationCenter.default.post(name: Names.Noti.rank, object: indexPath.row)
     }
     
     ///Paging Animation

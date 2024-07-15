@@ -37,7 +37,7 @@ enum CollectionViewType: Int {
 
 class SearchDetailViewController: BaseViewController<SearchDetailView, HomeViewModel> {
     
-    var resultsArr: [[Results]] = Array(repeating: [Results](), count: 3)
+    var resultsArr: [[Movie]] = Array(repeating: [Movie](), count: 3)
     var page: [Int] = [1,1]
     
     var id: Int!
@@ -68,7 +68,7 @@ class SearchDetailViewController: BaseViewController<SearchDetailView, HomeViewM
         let group = DispatchGroup()
         
         group.enter()
-        NetworkManager.shared.networkRequest(router: .similar(id: id, page: 1), type: SearchMovieResult.self) { result in
+        NetworkManager.shared.networkRequest(router: .similar(id: id, page: 1), type: MovieResult.self) { result in
             switch result {
             case .success(let success):
                 self.resultsArr[0] = success.results
@@ -80,7 +80,7 @@ class SearchDetailViewController: BaseViewController<SearchDetailView, HomeViewM
         }
         
         group.enter()
-        NetworkManager.shared.networkRequest(router: .recommend(id: id, page: 1), type: SearchMovieResult.self) { result in
+        NetworkManager.shared.networkRequest(router: .recommend(id: id, page: 1), type: MovieResult.self) { result in
             switch result {
             case .success(let success):
                 self.resultsArr[1] = success.results
@@ -95,7 +95,8 @@ class SearchDetailViewController: BaseViewController<SearchDetailView, HomeViewM
         NetworkManager.shared.networkRequest(router: .poster(id: id), type: PosterResult.self) { result in
             switch result {
             case .success(let success):
-                self.resultsArr[2] = success.backdrops
+                print(success)
+//                self.resultsArr[2] = success.backdrops
             case .failure(let failure):
                 print(failure)
             }
@@ -135,13 +136,13 @@ extension SearchDetailViewController: UITableViewDelegate, UITableViewDataSource
 }
 
 extension SearchDetailViewController: TableViewCellDelegate {
-    func configureResult(type: CollectionViewType, completionHandler: @escaping ([Results]) -> Void) {
+    func configureResult(type: CollectionViewType, completionHandler: @escaping ([Movie]) -> Void) {
         let index = type.rawValue
         page[index] += 1
         
         switch type {
         case .similar:
-            NetworkManager.shared.networkRequest(router: .similar(id: 940721, page: page[index]), type: SearchMovieResult.self) { result in
+            NetworkManager.shared.networkRequest(router: .similar(id: 940721, page: page[index]), type: MovieResult.self) { result in
                 switch result {
                 case .success(let success):
                     completionHandler(success.results)
@@ -150,7 +151,7 @@ extension SearchDetailViewController: TableViewCellDelegate {
                 }
             }
         case .recommend:
-            NetworkManager.shared.networkRequest(router: .recommend(id: 940721, page: page[index]), type: SearchMovieResult.self) { result in
+            NetworkManager.shared.networkRequest(router: .recommend(id: 940721, page: page[index]), type: MovieResult.self) { result in
                 switch result {
                 case .success(let success):
                     completionHandler(success.results)

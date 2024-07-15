@@ -13,6 +13,7 @@ enum Network {
     case kobisSearch(word: String, year: String)
     case search(word: String, page: Int)
     case trend
+    case detail(id: Int)
     case credit(id: Int)
     case similar(id: Int, page: Int)
     case recommend(id: Int, page: Int)
@@ -38,6 +39,8 @@ enum Network {
             return baseURL + "search/movie"
         case .trend:
             return baseURL + "trending/movie/week"
+        case .detail(let id):
+            return baseURL + "movie/\(id)"
         case .credit(let id):
             return baseURL + "movie/\(id)/credits"
         case .similar(let id, _):
@@ -64,6 +67,8 @@ enum Network {
         case .search(let word, let page):
             return ["api_key": APIKey.TMDBKey, "language": "ko-KR", "query": word, "page": page]
         case .trend:
+            return ["api_key": APIKey.TMDBKey, "language": "ko-KR"]
+        case .detail:
             return ["api_key": APIKey.TMDBKey, "language": "ko-KR"]
         case .credit:
             return ["api_key": APIKey.TMDBKey, "language": "ko-KR"]

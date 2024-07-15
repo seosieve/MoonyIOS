@@ -13,7 +13,6 @@ import Kingfisher
 final class RankCollectionViewCell: BaseCollectionViewCell {
     
     private let backgroundImageView = UIImageView().then {
-        $0.image = UIImage(named: "베테랑")
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 20
@@ -32,7 +31,6 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
     }
     
     private let posterImageView = UIImageView().then {
-        $0.image = UIImage(named: "베테랑")
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
@@ -218,10 +216,11 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
         todayViewerLabel.text = Int(kobisRank.audiCnt)!.formatted() + " 명"
     }
     
-    func configureCell(_ searchMovie: SearchMovie?) {
+    func configureCell(_ searchMovie: Movie?) {
         guard let searchMovie else { return }
         
         let url = URL(string: searchMovie.posterUrl)
+        backgroundImageView.kf.setImage(with: url)
         posterImageView.kf.setImage(with: url)
         engTitleLabel.text = searchMovie.title
         

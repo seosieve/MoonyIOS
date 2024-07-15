@@ -10,7 +10,7 @@ import Foundation
 final class HomeViewModel: BaseViewModel {
     
     let kobisArr: Observable<[KobisRank]> = Observable([KobisRank]())
-    let kobisBindingArr: Observable<[SearchMovie?]> = Observable(Array(repeating: nil, count: 10))
+    let kobisBindingArr: Observable<[Movie?]> = Observable(Array(repeating: nil, count: 10))
     
     let outputKobisDate: Observable<String?> = Observable(nil)
     
@@ -44,9 +44,13 @@ final class HomeViewModel: BaseViewModel {
         let date = configureCurrentDate()
         
         NetworkManager.shared.networkRequest(router: Network.kobis(date: date), type: KobisResult.self) { result in
-            guard let success = try? result.get() else { return }
-            let list = success.boxOfficeResult.dailyBoxOfficeList
-            self.kobisArr.value = list
+            switch result {
+            case .success(let success):
+                let list = success.boxOfficeResult.dailyBoxOfficeList
+                self.kobisArr.value = list
+            case .failure(let failure):
+                print(failure)
+            }
         }
     }
     
@@ -61,7 +65,7 @@ final class HomeViewModel: BaseViewModel {
     }
     
     private func configureSearchResult(word: String, year: String, index: Int) {
-        NetworkManager.shared.networkRequest(router: Network.kobisSearch(word: word, year: year), type: SearchMovieResult.self) { result in
+        NetworkManager.shared.networkRequest(router: Network.kobisSearch(word: word, year: year), type: MovieResult.self) { result in
             switch result {
             case .success(let success):
                 self.kobisBindingArr.value[index] = success.results.first ?? nil

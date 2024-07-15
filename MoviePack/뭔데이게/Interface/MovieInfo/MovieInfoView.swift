@@ -37,12 +37,6 @@ final class MovieInfoView: BaseView {
         $0.showsHorizontalScrollIndicator = false
     }
     
-    private let backgroundImageView = UIImageView().then {
-        $0.image = UIImage(named: "베테랑")
-        $0.contentMode = .scaleAspectFill
-        $0.clipsToBounds = true
-    }
-    
     private let gardeTitleLabel = UILabel().then {
         $0.text = "평점"
         $0.font = .systemFont(ofSize: 14, weight: .heavy)
@@ -53,59 +47,54 @@ final class MovieInfoView: BaseView {
         $0.layer.masksToBounds = true
     }
     
-    private let gardeLabel = UILabel().then {
+    private let gradeLabel = UILabel().then {
         $0.text = "4.2"
         $0.font = .systemFont(ofSize: 18, weight: .heavy)
         $0.textColor = Colors.blueContent
     }
     
-    private let titleLabel = UILabel().then {
-        $0.text = "인사이드 아웃 2"
+    let titleLabel = UILabel().then {
         $0.font = UIFont(name: "BlackHanSans-Regular", size: 26)
         $0.textColor = .white
     }
     
     private let engTitleLabel = UILabel().then {
-        $0.text = "Inside Out 2"
         $0.font = UIFont(name: "StretchProRegular", size: 16)
         $0.textColor = Colors.blackDescription
+        $0.numberOfLines = 2
     }
     
     private let firstGenreLabel = UILabel().then {
-        $0.text = "SF"
         $0.font = .systemFont(ofSize: 14, weight: .medium)
         $0.textColor = Colors.blueContent
         $0.textAlignment = .center
         $0.layer.cornerRadius = 12
-        $0.layer.borderWidth = 1
+        $0.layer.borderWidth = 0
         $0.layer.borderColor = Colors.blueContent.cgColor
         $0.layer.masksToBounds = true
     }
     
     private let secondGenreLabel = UILabel().then {
-        $0.text = "공포"
         $0.font = .systemFont(ofSize: 14, weight: .medium)
         $0.textColor = Colors.blueContent
         $0.textAlignment = .center
         $0.layer.cornerRadius = 12
-        $0.layer.borderWidth = 1
+        $0.layer.borderWidth = 0
         $0.layer.borderColor = Colors.blueContent.cgColor
         $0.layer.masksToBounds = true
     }
     
     private let thirdGenreLabel = UILabel().then {
-        $0.text = "액션"
         $0.font = .systemFont(ofSize: 14, weight: .medium)
         $0.textColor = Colors.blueContent
         $0.textAlignment = .center
         $0.layer.cornerRadius = 12
-        $0.layer.borderWidth = 1
+        $0.layer.borderWidth = 0
         $0.layer.borderColor = Colors.blueContent.cgColor
         $0.layer.masksToBounds = true
     }
     
-    private let previewImageView = UIImageView().then {
-        $0.image = UIImage(named: "베테랑")
+    let previewImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 22
         $0.layer.borderWidth = 1.5
@@ -139,7 +128,7 @@ final class MovieInfoView: BaseView {
         $0.layer.cornerRadius = 22
     }
     
-    private let overviewTitleLabel = UILabel().then {
+    let overviewTitleLabel = UILabel().then {
         $0.text = "Overview"
         $0.font = .systemFont(ofSize: 18, weight: .heavy)
         $0.textColor = Colors.blackAccent
@@ -183,10 +172,8 @@ final class MovieInfoView: BaseView {
         self.addSubview(movieInfoScrollView)
         movieInfoScrollView.addSubview(contentView)
         contentView.addSubview(posterCollectionView)
-        
-//        contentView.addSubview(backgroundImageView)
         contentView.addSubview(gardeTitleLabel)
-        contentView.addSubview(gardeLabel)
+        contentView.addSubview(gradeLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(engTitleLabel)
         contentView.addSubview(firstGenreLabel)
@@ -218,11 +205,6 @@ final class MovieInfoView: BaseView {
             make.height.equalTo(360)
         }
         
-//        backgroundImageView.snp.makeConstraints { make in
-//            make.top.horizontalEdges.equalToSuperview()
-//            make.height.equalTo(360)
-//        }
-        
         gardeTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(posterCollectionView.snp.bottom).inset(90)
             make.leading.equalToSuperview().inset(20)
@@ -230,39 +212,39 @@ final class MovieInfoView: BaseView {
             make.height.equalTo(20)
         }
         
-        gardeLabel.snp.makeConstraints { make in
+        gradeLabel.snp.makeConstraints { make in
             make.centerY.equalTo(gardeTitleLabel)
             make.leading.equalTo(gardeTitleLabel.snp.trailing).offset(8)
         }
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(gardeTitleLabel.snp.bottom).offset(14)
-            make.leading.equalToSuperview().inset(20)
+            make.horizontalEdges.equalToSuperview().inset(20)
         }
         
         engTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.leading.equalToSuperview().inset(22)
+            make.horizontalEdges.equalToSuperview().inset(22)
         }
         
         firstGenreLabel.snp.makeConstraints { make in
             make.top.equalTo(engTitleLabel.snp.bottom).offset(12)
             make.leading.equalToSuperview().inset(22)
-            make.width.equalTo(40)
+            make.width.equalTo(firstGenreLabel.intrinsicContentSize.width + 20)
             make.height.equalTo(24)
         }
         
         secondGenreLabel.snp.makeConstraints { make in
             make.top.equalTo(engTitleLabel.snp.bottom).offset(12)
             make.leading.equalTo(firstGenreLabel.snp.trailing).offset(8)
-            make.width.equalTo(40)
+            make.width.equalTo(secondGenreLabel.intrinsicContentSize.width + 20)
             make.height.equalTo(24)
         }
         
         thirdGenreLabel.snp.makeConstraints { make in
             make.top.equalTo(engTitleLabel.snp.bottom).offset(12)
             make.leading.equalTo(secondGenreLabel.snp.trailing).offset(8)
-            make.width.equalTo(40)
+            make.width.equalTo(thirdGenreLabel.intrinsicContentSize.width + 20)
             make.height.equalTo(24)
         }
         
@@ -337,6 +319,29 @@ final class MovieInfoView: BaseView {
             self.invalidateIntrinsicContentSize()
             self.spread.toggle()
         }
+    }
+    
+    func configureMovieInfo(_ movie: Movie?) {
+        guard let movie, let genreID = movie.genreID else { return }
+        
+        let url = URL(string: movie.posterUrl)
+        previewImageView.kf.setImage(with: url)
+        let labels = [firstGenreLabel, secondGenreLabel, thirdGenreLabel]
+        let genres = genreID.compactMap{$0}
+        for (index, genreID) in genres.prefix(3).enumerated() {
+            let genreName = Names.Genre.dictionary[genreID]
+            labels[index].text = genreName
+            labels[index].layer.borderWidth = 1
+            labels[index].snp.updateConstraints { make in
+                make.width.equalTo(labels[index].intrinsicContentSize.width + 20)
+            }
+        }
+        engTitleLabel.text = movie.title
+        gradeLabel.text = String(format: "%.1f", movie.grade ?? 0.0)
+    }
+    
+    func configureOverview(_ overview: String) {
+        overviewLabel.text = overview
     }
 }
 

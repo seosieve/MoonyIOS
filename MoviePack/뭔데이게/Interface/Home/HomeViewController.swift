@@ -17,7 +17,7 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
         baseView.rankCollectionView.dataSource = self
         baseView.trendCollectionView.dataSource = self
         ///Rank Card Clicked
-        NotificationCenter.default.addObserver(self, selector: #selector(rankCardClicked), name: Names.Noti.rank, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(rankCardClicked(_:)), name: Names.Noti.rank, object: nil)
     }
     
     override func bindData() {
@@ -34,8 +34,12 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
         }
     }
     
-    @objc func rankCardClicked() {
-        let vc = MovieInfoViewController(view: MovieInfoView(), viewModel: MovieInfoViewModel())
+    @objc func rankCardClicked(_ notification: Notification) {
+        guard let index = notification.object as? Int else { return }
+        let viewModel = MovieInfoViewModel()
+        viewModel.movieName.value = self.viewModel.kobisArr.value[index].movieNm
+        viewModel.searchMovieResult.value = self.viewModel.kobisBindingArr.value[index]
+        let vc = MovieInfoViewController(view: MovieInfoView(), viewModel: viewModel)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

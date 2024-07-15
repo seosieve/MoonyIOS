@@ -11,7 +11,6 @@ import SnapKit
 
 final class PosterCollectionViewCell: BaseCollectionViewCell {
     let posterImageView = UIImageView().then {
-        $0.image = UIImage(named: "베테랑")
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
     }
@@ -25,7 +24,7 @@ final class PosterCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureView() {
-        contentView.backgroundColor = .yellow
+        contentView.backgroundColor = Colors.blackBackground
     }
     
     override func configureSubViews() {
