@@ -13,7 +13,7 @@ import Kingfisher
 class TrendViewController: UIViewController {
     
     let identifier = TrendTableViewCell.identifier
-    var trendArr: [Trend] = []
+    var trendArr: [Movie] = []
     var creditsArr: [CreditsResult] = []
     
     var topContainerView = {
@@ -65,7 +65,7 @@ class TrendViewController: UIViewController {
     
     func trendRequest() {
         view.makeToastActivity(.center)
-        NetworkManager.shared.networkRequest(router: .trend, type: TrendResult.self) { result in
+        NetworkManager.shared.networkRequest(router: .trend(type: "movie"), type: TrendResult<Movie>.self) { result in
             switch result {
             case .success(let success):
                 

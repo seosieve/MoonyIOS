@@ -12,7 +12,7 @@ import Toast
 
 class SearchViewController: BaseViewController<SearchView, BaseViewModel> {
     
-    var searchMovieResult: MovieResult?
+    var searchMovieResult: SearchResult?
     var previousWord = ""
     var page = 1
     
@@ -31,7 +31,7 @@ class SearchViewController: BaseViewController<SearchView, BaseViewModel> {
     //Wrapping with Additional Work
     func search(word: String) {
         view.makeToastActivity(.center)
-        NetworkManager.shared.networkRequest(router: Network.search(word: word, page: page), type: MovieResult.self) { result in
+        NetworkManager.shared.networkRequest(router: Network.search(word: word, page: page), type: SearchResult.self) { result in
             switch result {
             case .success(let success):
                 self.baseView.configureView(isEmpty: true)

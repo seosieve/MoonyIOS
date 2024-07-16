@@ -230,12 +230,12 @@ class TrendTableViewCell: BaseTableViewCell {
         }
     }
     
-    func configureCell(trend: Trend) {
+    func configureCell(trend: Movie) {
         titleLabel.text = trend.title
-        dateLabel.text = trend.formattedDate
-        scoreLabel.text = trend.formattedScore
-        movieTitleLabel.text = trend.original_title
-        let url = URL(string: trend.posterUrl)
+        dateLabel.text = trend.releaseDate
+        scoreLabel.text = String(format: "%.1f", trend.grade ?? 0.0)
+        movieTitleLabel.text = trend.originalTitle
+        let url = URL(string: trend.imageUrl)
         trendImageView.kf.setImage(with: url)
     }
 }

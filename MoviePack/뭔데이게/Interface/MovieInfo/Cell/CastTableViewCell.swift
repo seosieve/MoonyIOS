@@ -62,10 +62,10 @@ final class CastTableViewCell: BaseTableViewCell {
         }
     }
     
-    func configureCell(credits: Credits) {
-        let url = URL(string: credits.profileUrl)
+    func configureCell(person: Person) {
+        let url = URL(string: person.imageUrl)
         castImageView.kf.setImage(with: url)
-        actorNameLabel.text = credits.name
-        castNameLabel.text = "\(credits.original_name) / \"\(credits.character)\""
+        actorNameLabel.text = person.name
+        castNameLabel.text = "\(person.originalName) / \"\(person.character)\""
     }
 }

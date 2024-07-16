@@ -324,7 +324,7 @@ final class MovieInfoView: BaseView {
     func configureMovieInfo(_ movie: Movie?) {
         guard let movie, let genreID = movie.genreID else { return }
         
-        let url = URL(string: movie.posterUrl)
+        let url = URL(string: movie.imageUrl)
         previewImageView.kf.setImage(with: url)
         let labels = [firstGenreLabel, secondGenreLabel, thirdGenreLabel]
         let genres = genreID.compactMap{$0}

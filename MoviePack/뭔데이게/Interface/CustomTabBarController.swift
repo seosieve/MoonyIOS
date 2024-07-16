@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Then
+import SnapKit
 
 final class CustomTabBarController: UITabBarController {
     override func viewDidLoad() {
@@ -40,6 +42,18 @@ final class CustomTabBarController: UITabBarController {
     }
     
     func configureTabBar(space: CGFloat, addHeight: CGFloat) {
+        ///Gradient View
+        let gradientView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: tabBar.frame.width, height: 100)))
+        gradientView.backgroundColor = .clear
+
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = gradientView.bounds
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
+        gradientView.layer.insertSublayer(gradientLayer, at: 0)
+
+        tabBar.insertSubview(gradientView, at: 0)
+        
+        ///Draw Custom TabBar
         let layer = CAShapeLayer()
         let x: CGFloat = space
         let width: CGFloat = tabBar.bounds.width - (x * 2)
@@ -58,7 +72,7 @@ final class CustomTabBarController: UITabBarController {
         layer.shadowRadius = 5.0
         layer.shadowOpacity = 0.5
         
-        self.tabBar.layer.insertSublayer(layer, at: 0)
+        self.tabBar.layer.insertSublayer(layer, at: 1)
         ///Item Color
         self.tabBar.tintColor = Colors.blueAccent
         self.tabBar.unselectedItemTintColor = Colors.blackDescription

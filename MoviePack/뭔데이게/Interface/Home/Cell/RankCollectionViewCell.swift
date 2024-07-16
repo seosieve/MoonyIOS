@@ -222,7 +222,7 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
     func configureCell(_ searchMovie: Movie?) {
         guard let searchMovie else { return }
         
-        let url = URL(string: searchMovie.posterUrl)
+        let url = URL(string: searchMovie.imageUrl)
         backgroundImageView.kf.setImage(with: url)
         posterImageView.kf.setImage(with: url)
         engTitleLabel.text = searchMovie.title

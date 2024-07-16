@@ -11,14 +11,21 @@ final class HomeViewModel: BaseViewModel {
     
     let kobisArr: Observable<[KobisRank]> = Observable([KobisRank]())
     let kobisBindingArr: Observable<[Movie?]> = Observable(Array(repeating: nil, count: 10))
-    let trendArr: Observable<[Trend]> = Observable([Trend]())
+    var trendMovieArr: [Movie] = [Movie]()
+    var trendPersonArr: [Person] = [Person]()
+    var trendTVArr: [TV] = [TV]()
+    
+    let inputTypeButtonTrigger: Observable<Int?> = Observable(nil)
     
     let outputKobisDate: Observable<String?> = Observable(nil)
     
     override func bindData() {
         configureKobisDate()
         configureKobisArr()
-        configureTrendArr()
+        
+        configureTrendMovie()
+        configureTrendPerson()
+        configureTrendTV()
         
         kobisArr.bind { result in
             guard !result.isEmpty else { return }
@@ -66,7 +73,7 @@ final class HomeViewModel: BaseViewModel {
     }
     
     private func configureSearchResult(word: String, year: String, index: Int) {
-        NetworkManager.shared.networkRequest(router: Network.kobisSearch(word: word, year: year), type: MovieResult.self) { result in
+        NetworkManager.shared.networkRequest(router: Network.kobisSearch(word: word, year: year), type: SearchResult.self) { result in
             switch result {
             case .success(let success):
                 self.kobisBindingArr.value[index] = success.results.first ?? nil
@@ -76,11 +83,34 @@ final class HomeViewModel: BaseViewModel {
         }
     }
     
-    private func configureTrendArr() {
-        NetworkManager.shared.networkRequest(router: .trend, type: TrendResult.self) { result in
+    private func configureTrendMovie() {
+        NetworkManager.shared.networkRequest(router: .trend(type: "movie"), type: TrendResult<Movie>.self) { result in
             switch result {
             case .success(let success):
-                self.trendArr.value = success.results
+                self.trendMovieArr = success.results
+                self.inputTypeButtonTrigger.value = 0
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+    }
+    
+    private func configureTrendPerson() {
+        NetworkManager.shared.networkRequest(router: .trend(type: "person"), type: TrendResult<Person>.self) { result in
+            switch result {
+            case .success(let success):
+                self.trendPersonArr = success.results
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+    }
+    
+    private func configureTrendTV() {
+        NetworkManager.shared.networkRequest(router: .trend(type: "tv"), type: TrendResult<TV>.self) { result in
+            switch result {
+            case .success(let success):
+                self.trendTVArr = success.results
             case .failure(let failure):
                 print(failure)
             }

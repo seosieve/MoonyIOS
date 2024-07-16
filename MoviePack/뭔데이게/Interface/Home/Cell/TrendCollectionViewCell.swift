@@ -57,11 +57,27 @@ final class TrendCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func configureCell(_ trend: Trend) {
-        let url = URL(string: trend.posterUrl)
+    func configureCell(_ trend: Movie) {
+        let url = URL(string: trend.imageUrl)
         trendImageView.kf.setImage(with: url)
         
         titleLabel.text = trend.title
-        engTitleLabel.text = trend.original_title
+        engTitleLabel.text = trend.originalTitle
+    }
+    
+    func configureCell(_ trend: Person) {
+        let url = URL(string: trend.imageUrl)
+        trendImageView.kf.setImage(with: url)
+        
+        titleLabel.text = trend.name
+        engTitleLabel.text = trend.originalName
+    }
+    
+    func configureCell(_ trend: TV) {
+        let url = URL(string: trend.imageUrl)
+        trendImageView.kf.setImage(with: url)
+        
+        titleLabel.text = trend.name
+        engTitleLabel.text = trend.originalName
     }
 }

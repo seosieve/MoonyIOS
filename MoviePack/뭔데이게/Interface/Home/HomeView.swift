@@ -83,34 +83,35 @@ final class HomeView: BaseView {
         $0.textColor = Colors.blackAccent
     }
     
-    private let viewAllButton = UIButton().then {
-        $0.setTitle("View All", for: .normal)
-        $0.titleLabel?.font = .boldSystemFont(ofSize: 15)
-        $0.setTitleColor(Colors.blueContent, for: .normal)
-    }
-    
-    private let movieButton = UIButton().then {
+    let movieButton = UIButton().then {
         $0.setTitle("Movie", for: .normal)
         $0.titleLabel?.font = .boldSystemFont(ofSize: 15)
-        $0.setTitleColor(Colors.blackDescription, for: .normal)
-        $0.layer.cornerRadius = 15
-        $0.backgroundColor = Colors.blackInterface
+        $0.setTitleColor(Colors.blackAccent, for: .normal)
+        $0.layer.cornerRadius = 17
+        $0.backgroundColor = Colors.blackContent
+        $0.layer.borderColor = Colors.blackDescription.cgColor
+        $0.layer.borderWidth = 2
+        $0.tag = 0
     }
     
-    private let peopleButton = UIButton().then {
+    let peopleButton = UIButton().then {
         $0.setTitle("People", for: .normal)
         $0.titleLabel?.font = .boldSystemFont(ofSize: 15)
         $0.setTitleColor(Colors.blackDescription, for: .normal)
-        $0.layer.cornerRadius = 15
+        $0.layer.cornerRadius = 17
         $0.backgroundColor = Colors.blackInterface
+        $0.layer.borderColor = Colors.blackDescription.cgColor
+        $0.tag = 1
     }
     
-    private let tvButton = UIButton().then {
+    let tvButton = UIButton().then {
         $0.setTitle("TV", for: .normal)
         $0.titleLabel?.font = .boldSystemFont(ofSize: 15)
         $0.setTitleColor(Colors.blackDescription, for: .normal)
-        $0.layer.cornerRadius = 15
+        $0.layer.cornerRadius = 17
         $0.backgroundColor = Colors.blackInterface
+        $0.layer.borderColor = Colors.blackDescription.cgColor
+        $0.tag = 2
     }
     
     private let trendLayout = UICollectionViewFlowLayout().then {
@@ -138,7 +139,6 @@ final class HomeView: BaseView {
         contentView.addSubview(dateLabel)
         contentView.addSubview(progressView)
         contentView.addSubview(trendTitleLabel)
-        contentView.addSubview(viewAllButton)
         contentView.addSubview(movieButton)
         contentView.addSubview(peopleButton)
         contentView.addSubview(tvButton)
@@ -161,7 +161,7 @@ final class HomeView: BaseView {
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(rankCollectionView.snp.bottom).offset(10)
+            make.top.equalTo(rankCollectionView.snp.bottom).offset(14)
             make.trailing.equalToSuperview().inset(20)
         }
         
@@ -177,30 +177,25 @@ final class HomeView: BaseView {
             make.leading.equalToSuperview().inset(20)
         }
         
-        viewAllButton.snp.makeConstraints { make in
-            make.centerY.equalTo(trendTitleLabel)
-            make.trailing.equalToSuperview().inset(20)
-        }
-        
         movieButton.snp.makeConstraints { make in
-            make.top.equalTo(trendTitleLabel.snp.bottom).offset(8)
+            make.top.equalTo(trendTitleLabel.snp.bottom).offset(16)
             make.leading.equalToSuperview().inset(20)
-            make.width.equalTo(movieButton.intrinsicContentSize.width + 25)
-            make.height.equalTo(30)
+            make.width.equalTo(movieButton.intrinsicContentSize.width + 28)
+            make.height.equalTo(34)
         }
         
         peopleButton.snp.makeConstraints { make in
             make.top.equalTo(movieButton)
             make.leading.equalTo(movieButton.snp.trailing).offset(8)
-            make.width.equalTo(peopleButton.intrinsicContentSize.width + 25)
-            make.height.equalTo(30)
+            make.width.equalTo(peopleButton.intrinsicContentSize.width + 28)
+            make.height.equalTo(34)
         }
         
         tvButton.snp.makeConstraints { make in
             make.top.equalTo(movieButton)
             make.leading.equalTo(peopleButton.snp.trailing).offset(8)
-            make.width.equalTo(tvButton.intrinsicContentSize.width + 25)
-            make.height.equalTo(30)
+            make.width.equalTo(tvButton.intrinsicContentSize.width + 28)
+            make.height.equalTo(34)
         }
         
         trendCollectionView.snp.makeConstraints { make in
@@ -214,6 +209,18 @@ final class HomeView: BaseView {
     override func configureNavigationController(_ vc: UIViewController) {
         vc.navigationItem.rightBarButtonItem = filterButtonItem
         vc.navigationController?.navigationBar.tintColor = Colors.blackDescription
+    }
+    
+    func trendTypeButtonAnimation(_ index: Int) {
+        let buttonArr = [movieButton, peopleButton, tvButton]
+        let selectedButton = buttonArr[index]
+        
+        buttonArr.forEach { button in
+            let isSelected = button == selectedButton
+            button.setTitleColor(isSelected ? Colors.blackAccent : Colors.blackDescription, for: .normal)
+            button.backgroundColor = isSelected ? Colors.blackContent : Colors.blackInterface
+            button.layer.borderWidth = isSelected ? 2 : 0
+        }
     }
 }
 

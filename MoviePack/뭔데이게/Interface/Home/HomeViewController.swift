@@ -18,6 +18,10 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
         baseView.trendCollectionView.dataSource = self
         ///Rank Card Clicked
         NotificationCenter.default.addObserver(self, selector: #selector(rankCardClicked(_:)), name: Names.Noti.rank, object: nil)
+        ///Trend Type Button
+        baseView.movieButton.addTarget(self, action: #selector(trendTypeButtonClicked), for: .touchUpInside)
+        baseView.peopleButton.addTarget(self, action: #selector(trendTypeButtonClicked), for: .touchUpInside)
+        baseView.tvButton.addTarget(self, action: #selector(trendTypeButtonClicked), for: .touchUpInside)
     }
     
     override func bindData() {
@@ -33,8 +37,8 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
             self.baseView.dateLabel.text = result
         }
         
-        viewModel.trendArr.bind { result in
-            guard !result.isEmpty else { return }
+        viewModel.inputTypeButtonTrigger.bind { result in
+            guard result != nil else { return }
             self.baseView.trendCollectionView.reloadData()
         }
     }
@@ -47,6 +51,11 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
         let vc = MovieInfoViewController(view: MovieInfoView(), viewModel: viewModel)
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @objc func trendTypeButtonClicked(_ sender: UIButton) {
+        baseView.trendTypeButtonAnimation(sender.tag)
+        viewModel.inputTypeButtonTrigger.value = sender.tag
+    }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -55,7 +64,7 @@ extension HomeViewController: UICollectionViewDataSource {
         if collectionView == baseView.rankCollectionView {
             return viewModel.kobisArr.value.count
         } else {
-            return viewModel.trendArr.value.count
+            return 20
         }
     }
     
@@ -77,8 +86,19 @@ extension HomeViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? TrendCollectionViewCell
             guard let cell else { return UICollectionViewCell() }
             ///Configure Cell
-            let trend = viewModel.trendArr.value[indexPath.row]
-            cell.configureCell(trend)
+            switch viewModel.inputTypeButtonTrigger.value {
+            case 0:
+                let movie = viewModel.trendMovieArr[indexPath.row]
+                cell.configureCell(movie)
+            case 1:
+                let person = viewModel.trendPersonArr[indexPath.row]
+                cell.configureCell(person)
+            case 2:
+                let tv = viewModel.trendTVArr[indexPath.row]
+                cell.configureCell(tv)
+            default:
+                break
+            }
             return cell
         }
     }

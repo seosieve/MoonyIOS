@@ -14,12 +14,12 @@ class TrendDetailViewController: UIViewController {
     let overViewIdentifier = OverViewTableViewCell.identifier
     let castIdentifier = CastTableViewCell.identifier
     
-    var trend: Trend?
+    var trend: Movie?
     var creditsResult: CreditsResult?
     
     lazy var detailImageView = {
         let imageView = UIImageView()
-        let url = URL(string: trend?.posterUrl ?? "")
+        let url = URL(string: trend?.imageUrl ?? "")
         imageView.kf.setImage(with: url)
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
@@ -61,7 +61,7 @@ class TrendDetailViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .darkGray
         navigationController?.navigationBar.topItem?.title = ""
         self.title = "출연/제작"
-        let url = URL(string: trend?.posterUrl ?? "")
+        let url = URL(string: trend?.imageUrl ?? "")
         detailImageView.kf.setImage(with: url)
     }
     
@@ -127,9 +127,9 @@ extension TrendDetailViewController: UITableViewDelegate, UITableViewDataSource 
             cell.overViewLabel.text = trend?.overview
             return cell
         } else {
-            guard let credits = creditsResult?.cast[indexPath.row] else { return UITableViewCell() }
+            guard let person = creditsResult?.cast[indexPath.row] else { return UITableViewCell() }
             let cell = tableView.dequeueReusableCell(withIdentifier: castIdentifier, for: indexPath) as! CastTableViewCell
-            cell.configureCell(credits: credits)
+            cell.configureCell(person: person)
             return cell
         }
     }

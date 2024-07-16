@@ -68,7 +68,7 @@ class SearchDetailViewController: BaseViewController<SearchDetailView, HomeViewM
         let group = DispatchGroup()
         
         group.enter()
-        NetworkManager.shared.networkRequest(router: .similar(id: id, page: 1), type: MovieResult.self) { result in
+        NetworkManager.shared.networkRequest(router: .similar(id: id, page: 1), type: SearchResult.self) { result in
             switch result {
             case .success(let success):
                 self.resultsArr[0] = success.results
@@ -80,7 +80,7 @@ class SearchDetailViewController: BaseViewController<SearchDetailView, HomeViewM
         }
         
         group.enter()
-        NetworkManager.shared.networkRequest(router: .recommend(id: id, page: 1), type: MovieResult.self) { result in
+        NetworkManager.shared.networkRequest(router: .recommend(id: id, page: 1), type: SearchResult.self) { result in
             switch result {
             case .success(let success):
                 self.resultsArr[1] = success.results
@@ -142,7 +142,7 @@ extension SearchDetailViewController: TableViewCellDelegate {
         
         switch type {
         case .similar:
-            NetworkManager.shared.networkRequest(router: .similar(id: 940721, page: page[index]), type: MovieResult.self) { result in
+            NetworkManager.shared.networkRequest(router: .similar(id: 940721, page: page[index]), type: SearchResult.self) { result in
                 switch result {
                 case .success(let success):
                     completionHandler(success.results)
@@ -151,7 +151,7 @@ extension SearchDetailViewController: TableViewCellDelegate {
                 }
             }
         case .recommend:
-            NetworkManager.shared.networkRequest(router: .recommend(id: 940721, page: page[index]), type: MovieResult.self) { result in
+            NetworkManager.shared.networkRequest(router: .recommend(id: 940721, page: page[index]), type: SearchResult.self) { result in
                 switch result {
                 case .success(let success):
                     completionHandler(success.results)

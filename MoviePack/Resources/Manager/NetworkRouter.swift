@@ -12,7 +12,7 @@ enum Network {
     case kobis(date: String)
     case kobisSearch(word: String, year: String)
     case search(word: String, page: Int)
-    case trend
+    case trend(type: String)
     case detail(id: Int)
     case credit(id: Int)
     case similar(id: Int, page: Int)
@@ -37,8 +37,8 @@ enum Network {
             return baseURL + "search/movie"
         case .search:
             return baseURL + "search/movie"
-        case .trend:
-            return baseURL + "trending/movie/week"
+        case .trend(let type):
+            return baseURL + "trending/\(type)/week"
         case .detail(let id):
             return baseURL + "movie/\(id)"
         case .credit(let id):
