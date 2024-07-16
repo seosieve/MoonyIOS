@@ -8,7 +8,7 @@
 import UIKit
 import Then
 
-extension UIViewController {
+extension UIViewController: UIGestureRecognizerDelegate {
     //Custom Round Shape BackButton
     func setCustomBackButton() {
         let backButton = UIButton(type: .system).then {

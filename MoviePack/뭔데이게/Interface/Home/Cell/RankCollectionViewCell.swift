@@ -34,6 +34,8 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = Colors.blackDescription.cgColor
     }
     
     private let poundKeyLabel = UILabel().then {
@@ -67,6 +69,7 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
         $0.font = UIFont(name: "StretchProRegular", size: 12)
         $0.textColor = Colors.blackDescription
         $0.textAlignment = .center
+        $0.numberOfLines = 2
     }
     
     let gradeLabel = UILabel().then {
@@ -83,14 +86,14 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
     
     let todayViewerLabel = UILabel().then {
         $0.text = "30,931 명"
-        $0.font = .boldSystemFont(ofSize: 14)
+        $0.font = .systemFont(ofSize: 13)
         $0.textColor = Colors.blackDescription
     }
     
     let barcodeImageView = UIImageView().then {
         $0.image = UIImage(named: "barcode")
         $0.contentMode = .scaleAspectFill
-        $0.tintColor = Colors.blackContent
+        $0.tintColor = Colors.blackDescription.withAlphaComponent(0.2)
     }
     
     override func configureView() {
@@ -167,7 +170,7 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
         }
         
         engTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(6)
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.horizontalEdges.equalToSuperview().inset(60)
             make.centerX.equalToSuperview()
         }
@@ -178,12 +181,12 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
         }
         
         totalViewerLabel.snp.makeConstraints { make in
-            make.top.equalTo(gradeLabel.snp.bottom).offset(12)
+            make.top.equalTo(gradeLabel.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
         }
         
         todayViewerLabel.snp.makeConstraints { make in
-            make.top.equalTo(totalViewerLabel.snp.bottom).offset(5)
+            make.top.equalTo(totalViewerLabel.snp.bottom).offset(2)
             make.centerX.equalToSuperview()
         }
         

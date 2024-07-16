@@ -32,6 +32,11 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
             guard let result else { return }
             self.baseView.dateLabel.text = result
         }
+        
+        viewModel.trendArr.bind { result in
+            guard !result.isEmpty else { return }
+            self.baseView.trendCollectionView.reloadData()
+        }
     }
     
     @objc func rankCardClicked(_ notification: Notification) {
@@ -50,7 +55,7 @@ extension HomeViewController: UICollectionViewDataSource {
         if collectionView == baseView.rankCollectionView {
             return viewModel.kobisArr.value.count
         } else {
-            return 20
+            return viewModel.trendArr.value.count
         }
     }
     
@@ -71,6 +76,9 @@ extension HomeViewController: UICollectionViewDataSource {
             let identifier = TrendCollectionViewCell.identifier
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? TrendCollectionViewCell
             guard let cell else { return UICollectionViewCell() }
+            ///Configure Cell
+            let trend = viewModel.trendArr.value[indexPath.row]
+            cell.configureCell(trend)
             return cell
         }
     }

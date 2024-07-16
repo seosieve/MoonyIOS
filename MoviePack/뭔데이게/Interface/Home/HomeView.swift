@@ -70,24 +70,61 @@ final class HomeView: BaseView {
         $0.textColor = Colors.blackContent
     }
     
+    private let progressView = UIProgressView().then {
+        $0.progressViewStyle = .default
+        $0.progressTintColor = Colors.blackContent
+        $0.trackTintColor = Colors.blackInterface
+        $0.progress = 0.1
+    }
+    
     private let trendTitleLabel = UILabel().then {
         $0.text = "Trending For You"
         $0.font = .systemFont(ofSize: 18, weight: .heavy)
         $0.textColor = Colors.blackAccent
     }
     
+    private let viewAllButton = UIButton().then {
+        $0.setTitle("View All", for: .normal)
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 15)
+        $0.setTitleColor(Colors.blueContent, for: .normal)
+    }
+    
+    private let movieButton = UIButton().then {
+        $0.setTitle("Movie", for: .normal)
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 15)
+        $0.setTitleColor(Colors.blackDescription, for: .normal)
+        $0.layer.cornerRadius = 15
+        $0.backgroundColor = Colors.blackInterface
+    }
+    
+    private let peopleButton = UIButton().then {
+        $0.setTitle("People", for: .normal)
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 15)
+        $0.setTitleColor(Colors.blackDescription, for: .normal)
+        $0.layer.cornerRadius = 15
+        $0.backgroundColor = Colors.blackInterface
+    }
+    
+    private let tvButton = UIButton().then {
+        $0.setTitle("TV", for: .normal)
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 15)
+        $0.setTitleColor(Colors.blackDescription, for: .normal)
+        $0.layer.cornerRadius = 15
+        $0.backgroundColor = Colors.blackInterface
+    }
+    
     private let trendLayout = UICollectionViewFlowLayout().then {
-        $0.itemSize = CGSize(width: 150, height: 200)
+        $0.itemSize = CGSize(width: 140, height: 240)
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 20
     }
     
     lazy var trendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: trendLayout).then {
-        $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         $0.register(TrendCollectionViewCell.self, forCellWithReuseIdentifier: TrendCollectionViewCell.identifier)
         $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
-        $0.delegate = self
+//        $0.delegate = self
     }
     
     override func configureView() {
@@ -99,7 +136,12 @@ final class HomeView: BaseView {
         homeScrollView.addSubview(contentView)
         contentView.addSubview(rankCollectionView)
         contentView.addSubview(dateLabel)
+        contentView.addSubview(progressView)
         contentView.addSubview(trendTitleLabel)
+        contentView.addSubview(viewAllButton)
+        contentView.addSubview(movieButton)
+        contentView.addSubview(peopleButton)
+        contentView.addSubview(tvButton)
         contentView.addSubview(trendCollectionView)
     }
     
@@ -119,19 +161,52 @@ final class HomeView: BaseView {
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(rankCollectionView.snp.bottom).offset(20)
+            make.top.equalTo(rankCollectionView.snp.bottom).offset(10)
             make.trailing.equalToSuperview().inset(20)
         }
         
+        progressView.snp.makeConstraints { make in
+            make.top.equalTo(dateLabel.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(5)
+            make.width.equalTo(100)
+        }
+        
         trendTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(dateLabel.snp.bottom).offset(40)
+            make.top.equalTo(progressView.snp.bottom).offset(30)
             make.leading.equalToSuperview().inset(20)
         }
         
+        viewAllButton.snp.makeConstraints { make in
+            make.centerY.equalTo(trendTitleLabel)
+            make.trailing.equalToSuperview().inset(20)
+        }
+        
+        movieButton.snp.makeConstraints { make in
+            make.top.equalTo(trendTitleLabel.snp.bottom).offset(8)
+            make.leading.equalToSuperview().inset(20)
+            make.width.equalTo(movieButton.intrinsicContentSize.width + 25)
+            make.height.equalTo(30)
+        }
+        
+        peopleButton.snp.makeConstraints { make in
+            make.top.equalTo(movieButton)
+            make.leading.equalTo(movieButton.snp.trailing).offset(8)
+            make.width.equalTo(peopleButton.intrinsicContentSize.width + 25)
+            make.height.equalTo(30)
+        }
+        
+        tvButton.snp.makeConstraints { make in
+            make.top.equalTo(movieButton)
+            make.leading.equalTo(peopleButton.snp.trailing).offset(8)
+            make.width.equalTo(tvButton.intrinsicContentSize.width + 25)
+            make.height.equalTo(30)
+        }
+        
         trendCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(trendTitleLabel.snp.bottom).offset(20)
+            make.top.equalTo(movieButton.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(200)
+            make.height.equalTo(240)
             make.bottom.equalToSuperview().offset(-120)
         }
     }
@@ -148,7 +223,7 @@ extension HomeView: UICollectionViewDelegate {
         NotificationCenter.default.post(name: Names.Noti.rank, object: indexPath.row)
     }
     
-    ///Paging Animation
+    ///Paging & Progress Animation
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         guard let layout = rankCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         
@@ -157,6 +232,8 @@ extension HomeView: UICollectionViewDelegate {
         let index = (offsetX + scrollView.contentInset.left) / cellWidth
         let roundedIndex = round(index)
         targetContentOffset.pointee = CGPoint(x: roundedIndex * cellWidth - scrollView.contentInset.left, y: 0)
+        
+        progressAnimation(roundedIndex)
     }
     
     ///Zoom Animation
@@ -191,5 +268,12 @@ extension HomeView: UICollectionViewDelegate {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
             zoomCell.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         }, completion: nil)
+    }
+    
+    func progressAnimation(_ roundedIndex: CGFloat) {
+        UIView.animate(withDuration: 0.3) {
+            self.progressView.progress = Float(roundedIndex / 10) + 0.1
+            self.layoutIfNeeded()
+        }
     }
 }

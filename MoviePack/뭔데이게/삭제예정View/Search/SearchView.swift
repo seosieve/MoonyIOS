@@ -46,7 +46,7 @@ class SearchView: BaseView {
     
     lazy var searchCollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = Colors.blackBackground
         collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
         return collectionView
     }()

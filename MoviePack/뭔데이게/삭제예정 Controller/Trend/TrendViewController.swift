@@ -54,9 +54,7 @@ class TrendViewController: UIViewController {
     
     func configureConstraints() {
         topContainerView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(200)
+            make.edges.equalToSuperview()
         }
         
         trendTableView.snp.makeConstraints { make in
@@ -72,7 +70,7 @@ class TrendViewController: UIViewController {
             case .success(let success):
                 
                 self.trendArr = success.results
-//                self.creditsArr = Array(repeating: CreditsResult(), count: success.results.count)
+                self.creditsArr = Array(repeating: CreditsResult(id: 0, cast: []), count: success.results.count)
                 
                 let dispatchGroup = DispatchGroup()
                 

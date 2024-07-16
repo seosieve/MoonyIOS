@@ -133,7 +133,9 @@ class TrendTableViewCell: BaseTableViewCell {
     }()
     
     override func configureView() {
+        contentView.backgroundColor = Colors.blackBackground
         backgroundColor = Colors.blackBackground
+        self.selectionStyle = .none
     }
     
     override func configureSubViews() {

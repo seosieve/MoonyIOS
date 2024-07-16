@@ -75,7 +75,22 @@
 		4ED9C5642C4556CC0090320E /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5632C4556CC0090320E /* Poster.swift */; };
 		4ED9C5662C4557210090320E /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5652C4557210090320E /* Video.swift */; };
 		4ED9C5682C45575B0090320E /* Credits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED9C5672C45575B0090320E /* Credits.swift */; };
+		4ED9C5692C4560800090320E /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 4ED9C5132C4270080090320E /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4ED9C56A2C4560800090320E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4ED9C5692C4560800090320E /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4E7D09E32C296102000A9FF2 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -445,6 +460,7 @@
 				4E8657702C0F1F4400FF4D6D /* Sources */,
 				4E8657712C0F1F4400FF4D6D /* Frameworks */,
 				4E8657722C0F1F4400FF4D6D /* Resources */,
+				4ED9C56A2C4560800090320E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

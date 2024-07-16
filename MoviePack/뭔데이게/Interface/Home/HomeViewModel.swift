@@ -11,12 +11,14 @@ final class HomeViewModel: BaseViewModel {
     
     let kobisArr: Observable<[KobisRank]> = Observable([KobisRank]())
     let kobisBindingArr: Observable<[Movie?]> = Observable(Array(repeating: nil, count: 10))
+    let trendArr: Observable<[Trend]> = Observable([Trend]())
     
     let outputKobisDate: Observable<String?> = Observable(nil)
     
     override func bindData() {
         configureKobisDate()
         configureKobisArr()
+        configureTrendArr()
         
         kobisArr.bind { result in
             guard !result.isEmpty else { return }
@@ -59,7 +61,6 @@ final class HomeViewModel: BaseViewModel {
             let word = $0.element.movieNm
             let year = String($0.element.openDt.prefix(4))
             let offset = $0.offset
-            
             configureSearchResult(word: word, year: year, index: offset)
         }
     }
@@ -69,6 +70,17 @@ final class HomeViewModel: BaseViewModel {
             switch result {
             case .success(let success):
                 self.kobisBindingArr.value[index] = success.results.first ?? nil
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+    }
+    
+    private func configureTrendArr() {
+        NetworkManager.shared.networkRequest(router: .trend, type: TrendResult.self) { result in
+            switch result {
+            case .success(let success):
+                self.trendArr.value = success.results
             case .failure(let failure):
                 print(failure)
             }
