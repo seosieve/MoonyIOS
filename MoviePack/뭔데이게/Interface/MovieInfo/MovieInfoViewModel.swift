@@ -11,14 +11,17 @@ final class MovieInfoViewModel: BaseViewModel {
     
     let movieName: Observable<String?> = Observable(nil)
     let searchMovieResult: Observable<Movie?> = Observable(nil)
-    let posterResultArr: Observable<[Poster]> = Observable([Poster]())
+    
+    let moviePosterArr: Observable<[Poster]> = Observable([Poster]())
     let movieOverview: Observable<String?> = Observable(nil)
+    let movieCreditArr: Observable<[Person]> = Observable([Person]())
     
     override func bindData() {
         searchMovieResult.bind { result in
             guard let id = result?.id else { return }
             self.configurePoster(id: id)
             self.configureOverview(id: id)
+            self.configureCastArr(id: id)
         }
     }
     
@@ -33,12 +36,12 @@ final class MovieInfoViewModel: BaseViewModel {
                     var list = success.posters
                     list.insert(list[list.count-1], at: 0)
                     list.append(list[1])
-                    self.posterResultArr.value = list
+                    self.moviePosterArr.value = list
                 } else {
                     var list = success.backdrops
                     list.insert(list[list.count-1], at: 0)
                     list.append(list[1])
-                    self.posterResultArr.value = list
+                    self.moviePosterArr.value = list
                 }
             case .failure(let failure):
                 print(failure)
@@ -51,6 +54,17 @@ final class MovieInfoViewModel: BaseViewModel {
             switch result {
             case .success(let success):
                 self.movieOverview.value = success.overview
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+    }
+    
+    private func configureCastArr(id: Int) {
+        NetworkManager.shared.networkRequest(router: Network.credit(id: id), type: CreditsResult.self) { result in
+            switch result {
+            case .success(let success):
+                self.movieCreditArr.value = success.cast
             case .failure(let failure):
                 print(failure)
             }

@@ -10,7 +10,7 @@ import Alamofire
 
 enum Network {
     case kobis(date: String)
-    case kobisSearch(word: String, year: String)
+    case kobisSearch(word: String)
     case search(word: String, page: Int)
     case trend(type: String)
     case detail(id: Int)
@@ -62,8 +62,8 @@ enum Network {
         switch self {
         case .kobis(let date):
             return ["key": APIKey.kobisKey, "targetDt": date]
-        case .kobisSearch(let word, let year):
-            return ["api_key": APIKey.TMDBKey, "language": "en-US", "query": word, "year": year]
+        case .kobisSearch(let word):
+            return ["api_key": APIKey.TMDBKey, "language": "en-US", "query": word]
         case .search(let word, let page):
             return ["api_key": APIKey.TMDBKey, "language": "ko-KR", "query": word, "page": page]
         case .trend:

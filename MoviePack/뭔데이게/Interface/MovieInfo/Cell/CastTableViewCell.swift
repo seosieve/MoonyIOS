@@ -13,7 +13,6 @@ final class CastTableViewCell: BaseTableViewCell {
     
     let castImageView = UIImageView().then {
         $0.backgroundColor = Colors.blackContent
-        $0.contentMode = .scaleAspectFill
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 12
     }
@@ -21,16 +20,13 @@ final class CastTableViewCell: BaseTableViewCell {
     let actorNameLabel = UILabel().then {
         $0.textColor = Colors.blackAccent
         $0.font = .systemFont(ofSize: 20, weight: .medium)
-        $0.text = "Lee Jung-jae"
     }
     
-    let castNameLabel = {
-        let label = UILabel()
-        label.textColor = .systemGray2
-        label.font = .systemFont(ofSize: 16, weight: .regular)
-        label.text = "Seong Gi-hun / \"No.073\""
-        return label
-    }()
+    let castNameLabel = UILabel().then {
+        $0.textColor = Colors.blackContent
+        $0.font = .systemFont(ofSize: 16, weight: .medium)
+        $0.numberOfLines = 2
+    }
     
     override func configureView() {
         self.selectionStyle = .none
@@ -52,20 +48,34 @@ final class CastTableViewCell: BaseTableViewCell {
         }
         
         actorNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(castImageView).inset(2)
             make.leading.equalTo(castImageView.snp.trailing).offset(20)
-            make.bottom.equalTo(contentView.snp.centerY).offset(-8)
+            make.trailing.equalToSuperview().inset(20)
         }
         
         castNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(actorNameLabel.snp.bottom).offset(4)
             make.leading.equalTo(castImageView.snp.trailing).offset(20)
-            make.top.equalTo(contentView.snp.centerY).offset(4)
+            make.trailing.equalToSuperview().inset(20)
         }
     }
     
     func configureCell(person: Person) {
-        let url = URL(string: person.imageUrl)
-        castImageView.kf.setImage(with: url)
-        actorNameLabel.text = person.name
-        castNameLabel.text = "\(person.originalName) / \"\(person.character)\""
+        if person.profilePath != nil {
+            ///Profile Image Exists
+            let url = URL(string: person.imageUrl)
+            castImageView.kf.setImage(with: url)
+            castImageView.contentMode = .scaleAspectFill
+        } else {
+            ///Profile Image Not Exists
+            let config = UIImage.SymbolConfiguration(pointSize: 34)
+            let image = UIImage(systemName: "person.fill", withConfiguration: config)
+            castImageView.image = image
+            castImageView.tintColor = Colors.blackDescription.withAlphaComponent(0.2)
+            castImageView.contentMode = .center
+        }
+        actorNameLabel.text = person.originalName
+        let characterName = person.character ?? ""
+        castNameLabel.text = "\(characterName) 역"
     }
 }

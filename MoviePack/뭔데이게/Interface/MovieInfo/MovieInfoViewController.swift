@@ -29,16 +29,24 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
             self.baseView.titleLabel.text = result
         }
         
-        viewModel.posterResultArr.bind { result in
+        viewModel.moviePosterArr.bind { result in
             guard !result.isEmpty else { return }
             print(result.count)
             self.baseView.posterCollectionView.reloadData()
-            self.baseView.configureMovieInfo(self.viewModel.searchMovieResult.value)
         }
         
         viewModel.movieOverview.bind { result in
             guard let result else { return }
             self.baseView.configureOverview(result)
+            self.baseView.configureMovieInfo(self.viewModel.searchMovieResult.value)
+        }
+        
+        viewModel.movieCreditArr.bind { result in
+            guard !result.isEmpty else { return }
+            self.baseView.castTableView.reloadData()
+            self.baseView.castTableView.snp.updateConstraints { make in
+                make.height.equalTo(self.viewModel.movieCreditArr.value.count * 120)
+            }
         }
     }
     
@@ -51,21 +59,21 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension MovieInfoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.posterResultArr.value.count
+        return viewModel.moviePosterArr.value.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let identifier = PosterCollectionViewCell.identifier
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? PosterCollectionViewCell
         guard let cell else { return UICollectionViewCell() }
-        let poster = viewModel.posterResultArr.value[indexPath.row]
+        let poster = viewModel.moviePosterArr.value[indexPath.row]
         let url = URL(string: poster.posterUrl)
         cell.posterImageView.kf.setImage(with: url)
         return cell
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let count = viewModel.posterResultArr.value.count
+        let count = viewModel.moviePosterArr.value.count
         let cellWidth = MovieInfoViewController.screenSize.width
         
         if scrollView.contentOffset.x == 0 {
@@ -82,13 +90,17 @@ extension MovieInfoViewController: UICollectionViewDelegate, UICollectionViewDat
 //MARK: - UITableViewDelegate, UITableViewDataSource
 extension MovieInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        print(viewModel.movieCreditArr.value.count)
+        return viewModel.movieCreditArr.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = CastTableViewCell.identifier
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? CastTableViewCell
         guard let cell else { return UITableViewCell() }
+        ///Configure Cell
+        let person = viewModel.movieCreditArr.value[indexPath.row]
+        cell.configureCell(person: person)
         return cell
     }
     

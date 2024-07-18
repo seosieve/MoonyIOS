@@ -48,7 +48,6 @@ final class MovieInfoView: BaseView {
     }
     
     private let gradeLabel = UILabel().then {
-        $0.text = "4.2"
         $0.font = .systemFont(ofSize: 18, weight: .heavy)
         $0.textColor = Colors.blueContent
     }
@@ -135,7 +134,6 @@ final class MovieInfoView: BaseView {
     }
     
     private let overviewLabel = UILabel().then {
-        $0.text = "Overviewdjkwajkd wajkdhkwadhwhdwajkdhwahkdhkjwakdjh wakjhdw adkwadhjk wahwalkdkwa dwalhdlwajd kwaj ddwahdjwkd wkajdh wkajdhwa jkd wajkdhjwak dhwakjd wakjdh awkjhd jwkad kajdh kjwadhwajkdhwakjd wakdj wakd wkad"
         $0.font = .boldSystemFont(ofSize: 16)
         $0.textColor = Colors.blackDescription
         $0.numberOfLines = 2
@@ -161,6 +159,7 @@ final class MovieInfoView: BaseView {
     
     lazy var castTableView = UITableView().then {
         $0.rowHeight = 120
+        $0.isScrollEnabled = false
         $0.register(CastTableViewCell.self, forCellReuseIdentifier: CastTableViewCell.identifier)
     }
     
@@ -299,7 +298,7 @@ final class MovieInfoView: BaseView {
         castTableView.snp.makeConstraints { make in
             make.top.equalTo(castTitleLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(600)
+            make.height.equalTo(0)
             make.bottom.equalToSuperview().offset(-120)
         }
     }

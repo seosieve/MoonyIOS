@@ -68,12 +68,12 @@ final class HomeViewModel: BaseViewModel {
             let word = $0.element.movieNm
             let year = String($0.element.openDt.prefix(4))
             let offset = $0.offset
-            configureSearchResult(word: word, year: year, index: offset)
+            configureSearchResult(word: word, index: offset)
         }
     }
     
-    private func configureSearchResult(word: String, year: String, index: Int) {
-        NetworkManager.shared.networkRequest(router: Network.kobisSearch(word: word, year: year), type: SearchResult.self) { result in
+    private func configureSearchResult(word: String, index: Int) {
+        NetworkManager.shared.networkRequest(router: Network.kobisSearch(word: word), type: SearchResult.self) { result in
             switch result {
             case .success(let success):
                 self.kobisBindingArr.value[index] = success.results.first ?? nil

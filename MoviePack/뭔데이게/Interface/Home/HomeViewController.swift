@@ -40,6 +40,7 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
         viewModel.inputTypeButtonTrigger.bind { result in
             guard result != nil else { return }
             self.baseView.trendCollectionView.reloadData()
+            self.baseView.trendCollectionView.scrollToItem(at: [0,0], at: .left, animated: true)
         }
     }
     
