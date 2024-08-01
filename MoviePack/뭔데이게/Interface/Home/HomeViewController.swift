@@ -27,7 +27,6 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
     override func bindData() {
         view.makeToastActivity(.center)
         viewModel.kobisBindingArr.bind { result in
-            guard !result.contains(where: { $0 == nil }) else { return }
             self.baseView.rankCollectionView.reloadData()
             self.view.hideToastActivity()
         }
@@ -63,7 +62,8 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == baseView.rankCollectionView {
-            return viewModel.kobisArr.value.count
+            let count = viewModel.kobisArr.value.compactMap{$0}.count
+            return count
         } else {
             return 20
         }

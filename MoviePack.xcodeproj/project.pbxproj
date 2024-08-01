@@ -191,7 +191,7 @@
 				4ED9C54D2C43F7CD0090320E /* Font */,
 				4ED9C5312C42B1DF0090320E /* NameSpace */,
 				4E8657DD2C11C62700FF4D6D /* Extension */,
-				4ED9C54C2C43F7980090320E /* Manager */,
+				4ED9C54C2C43F7980090320E /* Network */,
 				4ED9C5542C4431360090320E /* Observable */,
 				4E8657802C0F1F4600FF4D6D /* Assets.xcassets */,
 				4E8657852C0F1F4600FF4D6D /* Info.plist */,
@@ -433,14 +433,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		4ED9C54C2C43F7980090320E /* Manager */ = {
+		4ED9C54C2C43F7980090320E /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				4E8657D32C1076C900FF4D6D /* APIKey.swift */,
 				4E7D0A352C32DDEB000A9FF2 /* NetworkRouter.swift */,
 				4ED9C5502C43FA7E0090320E /* NetworkManager.swift */,
 			);
-			path = Manager;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		4ED9C54D2C43F7CD0090320E /* Font */ = {

@@ -56,6 +56,7 @@ final class HomeViewModel: BaseViewModel {
             switch result {
             case .success(let success):
                 let list = success.boxOfficeResult.dailyBoxOfficeList
+                print(list)
                 self.kobisArr.value = list
             case .failure(let failure):
                 print(failure)
@@ -66,7 +67,6 @@ final class HomeViewModel: BaseViewModel {
     private func configureKobisBindingArr() {
         kobisArr.value.enumerated().forEach {
             let word = $0.element.movieNm
-            let year = String($0.element.openDt.prefix(4))
             let offset = $0.offset
             configureSearchResult(word: word, index: offset)
         }
@@ -76,6 +76,8 @@ final class HomeViewModel: BaseViewModel {
         NetworkManager.shared.networkRequest(router: Network.kobisSearch(word: word), type: SearchResult.self) { result in
             switch result {
             case .success(let success):
+                print(success.results)
+                print("😍😍😍")
                 self.kobisBindingArr.value[index] = success.results.first ?? nil
             case .failure(let failure):
                 print(failure)
