@@ -56,7 +56,6 @@ final class HomeViewModel: BaseViewModel {
             switch result {
             case .success(let success):
                 let list = success.boxOfficeResult.dailyBoxOfficeList
-                print(list)
                 self.kobisArr.value = list
             case .failure(let failure):
                 print(failure)
@@ -76,8 +75,6 @@ final class HomeViewModel: BaseViewModel {
         NetworkManager.shared.networkRequest(router: Network.kobisSearch(word: word), type: SearchResult.self) { result in
             switch result {
             case .success(let success):
-                print(success.results)
-                print("😍😍😍")
                 self.kobisBindingArr.value[index] = success.results.first ?? nil
             case .failure(let failure):
                 print(failure)

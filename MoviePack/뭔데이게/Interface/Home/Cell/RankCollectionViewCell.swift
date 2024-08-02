@@ -198,8 +198,8 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func configureCell(_ kobisRank: KobisRank) {
-        rankLabel.text = kobisRank.rank
+    func configureCell(_ kobisRank: KobisRank, index: Int) {
+        rankLabel.text = String(index+1)
 
         switch kobisRank.rankInten {
         case "0":

@@ -27,6 +27,9 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
     override func bindData() {
         view.makeToastActivity(.center)
         viewModel.kobisBindingArr.bind { result in
+            ///Ignore Initial Value
+            guard result.contains(where: { $0 != nil }) else { return }
+            
             self.baseView.rankCollectionView.reloadData()
             self.view.hideToastActivity()
         }
@@ -46,8 +49,9 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
     @objc func rankCardClicked(_ notification: Notification) {
         guard let index = notification.object as? Int else { return }
         let viewModel = MovieInfoViewModel()
-        viewModel.movieName.value = self.viewModel.kobisArr.value[index].movieNm
-        viewModel.searchMovieResult.value = self.viewModel.kobisBindingArr.value[index]
+        let safeRank = safeRank()
+        viewModel.movieName.value = safeRank.kobis[index].movieNm
+        viewModel.searchMovieResult.value = safeRank.kobisBinding[index]
         let vc = MovieInfoViewController(view: MovieInfoView(), viewModel: viewModel)
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -56,13 +60,28 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
         baseView.trendTypeButtonAnimation(sender.tag)
         viewModel.inputTypeButtonTrigger.value = sender.tag
     }
+    
+    func safeRank() -> (kobis: [KobisRank], kobisBinding: [Movie]) {
+        //TMDB에 없는 영화가 있는지 확인
+        let nilIndex = viewModel.kobisBindingArr.value.enumerated().compactMap { (index, element) in element == nil ? index : nil }
+        var kobis = viewModel.kobisArr.value
+        var kobisBinding = viewModel.kobisBindingArr.value
+        //Index가 꼬이지 않도록 역순으로 제거
+        for index in nilIndex.sorted(by: >) {
+            kobis.remove(at: index)
+        }
+        //kobisBinding이 옵셔널이므로, compactMap을 통해 옵셔널 바인딩
+        let safeKobisBinding = kobisBinding.compactMap { $0 }
+        return (kobis: kobis, kobisBinding: safeKobisBinding)
+    }
 }
 
 //MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == baseView.rankCollectionView {
-            let count = viewModel.kobisArr.value.compactMap{$0}.count
+            ///Ignore Nil Value
+            let count = viewModel.kobisBindingArr.value.compactMap{ $0 }.count
             return count
         } else {
             return 20
@@ -77,10 +96,9 @@ extension HomeViewController: UICollectionViewDataSource {
             ///Carousel Animation
             indexPath.row == baseView.previousIndex ? baseView.increaseAnimation(zoomCell: cell) : baseView.decreaseAnimation(zoomCell: cell)
             ///Configure Cell
-            let kobis = viewModel.kobisArr.value[indexPath.row]
-            let kobisBinding = viewModel.kobisBindingArr.value[indexPath.row]
-            cell.configureCell(kobis)
-            cell.configureCell(kobisBinding)
+            let safeRank = safeRank()
+            cell.configureCell(safeRank.kobis[indexPath.item], index: indexPath.item)
+            cell.configureCell(safeRank.kobisBinding[indexPath.item])
             return cell
         } else {
             let identifier = TrendCollectionViewCell.identifier
