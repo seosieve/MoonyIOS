@@ -23,7 +23,7 @@ final class MovieInfoView: BaseView {
     }
     
     private let posterLayout = UICollectionViewFlowLayout().then {
-        $0.itemSize = CGSize(width: MovieInfoView.screenSize.width, height: 360)
+        $0.itemSize = CGSize(width: MovieInfoView.screenSize.width, height: 420)
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 0
     }
@@ -201,7 +201,7 @@ final class MovieInfoView: BaseView {
         
         posterCollectionView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.height.equalTo(360)
+            make.height.equalTo(420)
         }
         
         gardeTitleLabel.snp.makeConstraints { make in

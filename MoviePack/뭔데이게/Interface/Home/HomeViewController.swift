@@ -62,17 +62,18 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
     }
     
     func safeRank() -> (kobis: [KobisRank], kobisBinding: [Movie]) {
-        //TMDB에 없는 영화가 있는지 확인
-        let nilIndex = viewModel.kobisBindingArr.value.enumerated().compactMap { (index, element) in element == nil ? index : nil }
-        var kobis = viewModel.kobisArr.value
-        var kobisBinding = viewModel.kobisBindingArr.value
+        //TMDB에 없는 영화가 있는지 확인하여 nil index 추출
+        let nilIndices = viewModel.kobisBindingArr.value.enumerated().compactMap { $0.element == nil ? $0.offset : nil }
+        
         //Index가 꼬이지 않도록 역순으로 제거
-        for index in nilIndex.sorted(by: >) {
+        var kobis = viewModel.kobisArr.value
+        for index in nilIndices.sorted(by: >) {
             kobis.remove(at: index)
         }
+        
         //kobisBinding이 옵셔널이므로, compactMap을 통해 옵셔널 바인딩
-        let safeKobisBinding = kobisBinding.compactMap { $0 }
-        return (kobis: kobis, kobisBinding: safeKobisBinding)
+        let kobisBinding = viewModel.kobisBindingArr.value.compactMap { $0 }
+        return (kobis: kobis, kobisBinding: kobisBinding)
     }
 }
 
