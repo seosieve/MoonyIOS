@@ -9,8 +9,8 @@ import Foundation
 
 struct Movie: Decodable, BaseType {
     let id: Int
-    let title: String?
-    let originalTitle: String?
+    let name: String?
+    let originalName: String?
     let overview: String?
     let releaseDate: String?
     let grade: Double?
@@ -26,8 +26,8 @@ struct Movie: Decodable, BaseType {
 extension Movie {
     enum CodingKeys: String, CodingKey {
         case id
-        case title
-        case originalTitle = "original_title"
+        case name = "title"
+        case originalName = "original_title"
         case overview
         case releaseDate = "release_date"
         case grade = "vote_average"

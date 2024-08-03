@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Then
-import SnapKit
 
 final class PosterCollectionViewCell: BaseCollectionViewCell {
     let posterImageView = UIImageView().then {

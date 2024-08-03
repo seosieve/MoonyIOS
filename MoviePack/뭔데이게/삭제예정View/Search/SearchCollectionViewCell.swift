@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class SearchCollectionViewCell: UICollectionViewCell {
     
@@ -79,7 +78,7 @@ class SearchCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(result: Movie) {
-        titleLabel.text = result.title
+        titleLabel.text = result.name
         let url = URL(string: result.imageUrl)
         searchImageView.kf.setImage(with: url)
     }

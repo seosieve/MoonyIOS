@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E019E0B2C5E11F00082B732 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 4E019E0A2C5E11F00082B732 /* SkeletonView */; };
 		4E7D09E42C296102000A9FF2 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D09E32C296102000A9FF2 /* UIView+Extension.swift */; };
 		4E7D09EC2C296FE9000A9FF2 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D09EB2C296FE9000A9FF2 /* BaseView.swift */; };
 		4E7D09EE2C29712E000A9FF2 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D09ED2C29712E000A9FF2 /* SearchView.swift */; };
@@ -176,6 +177,7 @@
 				4ED9C5232C4271220090320E /* YoutubePlayer-in-WKWebView in Frameworks */,
 				4ED9C5172C4270180090320E /* Alamofire in Frameworks */,
 				4ED9C51A2C4270250090320E /* SnapKit in Frameworks */,
+				4E019E0B2C5E11F00082B732 /* SkeletonView in Frameworks */,
 				4ED9C5142C4270080090320E /* RealmSwift in Frameworks */,
 				4ED9C5112C426FD90090320E /* Then in Frameworks */,
 				4ED9C51D2C4270CF0090320E /* Kingfisher in Frameworks */,
@@ -495,6 +497,7 @@
 				4ED9C51C2C4270CF0090320E /* Kingfisher */,
 				4ED9C51F2C4270F90090320E /* Toast */,
 				4ED9C5222C4271220090320E /* YoutubePlayer-in-WKWebView */,
+				4E019E0A2C5E11F00082B732 /* SkeletonView */,
 			);
 			productName = MoviePack;
 			productReference = 4E8657742C0F1F4400FF4D6D /* MoviePack.app */;
@@ -532,6 +535,7 @@
 				4ED9C51B2C4270CF0090320E /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				4ED9C51E2C4270F90090320E /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				4ED9C5212C4271220090320E /* XCRemoteSwiftPackageReference "YoutubePlayer-in-WKWebView" */,
+				4E019E092C5E11F00082B732 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 4E8657752C0F1F4400FF4D6D /* Products */;
 			projectDirPath = "";
@@ -846,6 +850,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4E019E092C5E11F00082B732 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.31.0;
+			};
+		};
 		4ED9C50F2C426FD90090320E /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then.git";
@@ -905,6 +917,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4E019E0A2C5E11F00082B732 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E019E092C5E11F00082B732 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
 		4ED9C5102C426FD90090320E /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4ED9C50F2C426FD90090320E /* XCRemoteSwiftPackageReference "Then" */;

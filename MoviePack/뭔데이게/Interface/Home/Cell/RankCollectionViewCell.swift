@@ -6,13 +6,12 @@
 //
 
 import UIKit
-import Then
-import SnapKit
 import Kingfisher
 
 final class RankCollectionViewCell: BaseCollectionViewCell {
     
     private let backgroundImageView = UIImageView().then {
+        $0.backgroundColor = Colors.blackInterface
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 20
@@ -36,6 +35,8 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
         $0.layer.cornerRadius = 10
         $0.layer.borderWidth = 1
         $0.layer.borderColor = Colors.blackDescription.cgColor
+        $0.isSkeletonable = true
+        $0.showAnimatedGradientSkeleton()
     }
     
     private let poundKeyLabel = UILabel().then {
@@ -221,11 +222,18 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
     
     func configureCell(_ searchMovie: Movie?) {
         guard let searchMovie else { return }
+        ///Show Skeleton View
+        posterImageView.showAnimatedGradientSkeleton()
         
         let url = URL(string: searchMovie.imageUrl)
         backgroundImageView.kf.setImage(with: url)
-        posterImageView.kf.setImage(with: url)
-        engTitleLabel.text = searchMovie.title
+        posterImageView.kf.setImage(with: url) { [weak self] _ in
+            ///Hide Skeleton View
+            self?.posterImageView.stopSkeletonAnimation()
+            self?.posterImageView.hideSkeleton()
+        }
+        
+        engTitleLabel.text = searchMovie.name
         
         let grade = Int(round(searchMovie.grade ?? 0.0)) / 2
         let fullStars = String(repeating: "★", count: grade)

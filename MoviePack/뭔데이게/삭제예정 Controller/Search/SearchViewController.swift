@@ -84,7 +84,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let id = searchMovieResult?.results[indexPath.row].id, let title = searchMovieResult?.results[indexPath.row].title else { return }
+        guard let id = searchMovieResult?.results[indexPath.row].id, let title = searchMovieResult?.results[indexPath.row].name else { return }
         let vc = SearchDetailViewController(id: id, title: title)
         let backBarButtonItem = UIBarButtonItem(title: "")
         self.navigationItem.backBarButtonItem = backBarButtonItem

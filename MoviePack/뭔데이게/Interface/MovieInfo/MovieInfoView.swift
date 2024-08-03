@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Then
-import SnapKit
 
 final class MovieInfoView: BaseView {
     
@@ -235,14 +233,14 @@ final class MovieInfoView: BaseView {
         
         secondGenreLabel.snp.makeConstraints { make in
             make.top.equalTo(engTitleLabel.snp.bottom).offset(12)
-            make.leading.equalTo(firstGenreLabel.snp.trailing).offset(8)
+            make.leading.equalTo(firstGenreLabel.snp.trailing).offset(6)
             make.width.equalTo(secondGenreLabel.intrinsicContentSize.width + 20)
             make.height.equalTo(24)
         }
         
         thirdGenreLabel.snp.makeConstraints { make in
             make.top.equalTo(engTitleLabel.snp.bottom).offset(12)
-            make.leading.equalTo(secondGenreLabel.snp.trailing).offset(8)
+            make.leading.equalTo(secondGenreLabel.snp.trailing).offset(6)
             make.width.equalTo(thirdGenreLabel.intrinsicContentSize.width + 20)
             make.height.equalTo(24)
         }
@@ -335,7 +333,7 @@ final class MovieInfoView: BaseView {
                 make.width.equalTo(labels[index].intrinsicContentSize.width + 20)
             }
         }
-        engTitleLabel.text = movie.title
+        engTitleLabel.text = movie.name
         gradeLabel.text = String(format: "%.1f", movie.grade ?? 0.0)
     }
     

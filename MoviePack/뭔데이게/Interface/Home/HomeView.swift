@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Then
-import SnapKit
 
 final class HomeView: BaseView {
     
@@ -125,7 +123,6 @@ final class HomeView: BaseView {
         $0.register(TrendCollectionViewCell.self, forCellWithReuseIdentifier: TrendCollectionViewCell.identifier)
         $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
-//        $0.delegate = self
     }
     
     override func configureView() {

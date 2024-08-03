@@ -10,6 +10,13 @@ import Kingfisher
 
 final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfoViewModel> {
     
+    override func viewDidLayoutSubviews() {
+      super.viewDidLayoutSubviews()
+        ///Set Infinite Scroll First Index
+        let cellWidth = MovieInfoViewController.screenSize.width
+        baseView.posterCollectionView.setContentOffset(CGPoint(x: cellWidth, y: 0), animated: false)
+    }
+    
     override func configureView() {
         ///Navigation Controller
         baseView.configureNavigationController(self)
@@ -31,7 +38,6 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
         
         viewModel.moviePosterArr.bind { result in
             guard !result.isEmpty else { return }
-            print(result.count)
             self.baseView.posterCollectionView.reloadData()
         }
         
@@ -90,7 +96,6 @@ extension MovieInfoViewController: UICollectionViewDelegate, UICollectionViewDat
 //MARK: - UITableViewDelegate, UITableViewDataSource
 extension MovieInfoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(viewModel.movieCreditArr.value.count)
         return viewModel.movieCreditArr.value.count
     }
     

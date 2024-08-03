@@ -6,25 +6,25 @@
 //
 
 import UIKit
-import Then
-import SnapKit
 import Kingfisher
 
 final class TrendCollectionViewCell: BaseCollectionViewCell {
     
     private let trendImageView = UIImageView().then {
-        $0.backgroundColor = Colors.blackAccent
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 20
+        $0.isSkeletonable = true
     }
     
     private let titleLabel = UILabel().then {
+        $0.text = "title"
         $0.font = .boldSystemFont(ofSize: 15)
         $0.textColor = Colors.blackDescription
     }
 
     private let engTitleLabel = UILabel().then {
+        $0.text = "english title"
         $0.font = .systemFont(ofSize: 13)
         $0.textColor = Colors.blackContent
         $0.numberOfLines = 2
@@ -61,13 +61,23 @@ final class TrendCollectionViewCell: BaseCollectionViewCell {
         let url = URL(string: trend.imageUrl)
         trendImageView.kf.setImage(with: url)
         
-        titleLabel.text = trend.title
-        engTitleLabel.text = trend.originalTitle
+        titleLabel.text = trend.name
+        engTitleLabel.text = trend.originalName
+        
+        trendImageView.stopSkeletonAnimation()
+        trendImageView.hideSkeleton()
     }
     
     func configureCell(_ trend: Person) {
+        ///Show Skeleton View
+        trendImageView.showAnimatedGradientSkeleton()
+        
         let url = URL(string: trend.imageUrl)
-        trendImageView.kf.setImage(with: url)
+        trendImageView.kf.setImage(with: url) { [weak self] _ in
+            ///Hide Skeleton View
+            self?.trendImageView.stopSkeletonAnimation()
+            self?.trendImageView.hideSkeleton(transition: .none)
+        }
         
         titleLabel.text = trend.name
         engTitleLabel.text = trend.originalName
@@ -79,5 +89,8 @@ final class TrendCollectionViewCell: BaseCollectionViewCell {
         
         titleLabel.text = trend.name
         engTitleLabel.text = trend.originalName
+        
+        trendImageView.stopSkeletonAnimation()
+        trendImageView.hideSkeleton()
     }
 }

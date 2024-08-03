@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 import Toast
 
 class MovieRankViewController: UIViewController {

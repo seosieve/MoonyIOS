@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 import Kingfisher
 
 class TrendDetailViewController: UIViewController {
@@ -36,7 +35,7 @@ class TrendDetailViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 23, weight: .black)
         label.textColor = .white
-        label.text = trend?.title
+        label.text = trend?.name
         return label
     }()
     

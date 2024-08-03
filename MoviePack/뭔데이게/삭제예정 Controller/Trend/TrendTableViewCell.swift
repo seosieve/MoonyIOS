@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class TrendTableViewCell: BaseTableViewCell {
     
@@ -231,10 +230,10 @@ class TrendTableViewCell: BaseTableViewCell {
     }
     
     func configureCell(trend: Movie) {
-        titleLabel.text = trend.title
+        titleLabel.text = trend.name
         dateLabel.text = trend.releaseDate
         scoreLabel.text = String(format: "%.1f", trend.grade ?? 0.0)
-        movieTitleLabel.text = trend.originalTitle
+        movieTitleLabel.text = trend.originalName
         let url = URL(string: trend.imageUrl)
         trendImageView.kf.setImage(with: url)
     }

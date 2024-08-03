@@ -29,20 +29,22 @@ final class MovieInfoViewModel: BaseViewModel {
         NetworkManager.shared.networkRequest(router: Network.poster(id: id), type: PosterResult.self) { result in
             switch result {
             case .success(let success):
+                var list: [Poster]
+                
                 ///backdrops가 하나도 없을 때
                 if success.backdrops.isEmpty {
                     ///posters도 하나도 없을 때
                     guard !success.posters.isEmpty else { return }
-                    var list = success.posters
-                    list.insert(list[list.count-1], at: 0)
-                    list.append(list[1])
-                    self.moviePosterArr.value = list
+                    list = success.posters
                 } else {
-                    var list = success.backdrops
-                    list.insert(list[list.count-1], at: 0)
-                    list.append(list[1])
-                    self.moviePosterArr.value = list
+                    list = success.backdrops
                 }
+                
+                ///Infinite Scroll을 위해 첫번째와 마지막 요소 추가
+                list.insert(list[list.count-1], at: 0)
+                list.append(list[1])
+                self.moviePosterArr.value = list
+                
             case .failure(let failure):
                 print(failure)
             }
