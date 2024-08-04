@@ -41,25 +41,25 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
     
     private let poundKeyLabel = UILabel().then {
         $0.text = "#"
-        $0.font = UIFont(name: "StretchProRegular", size: 25)
+        $0.font = Fonts.stretch(25)
         $0.textColor = Colors.blackAccent
     }
     
     private let rankLabel = UILabel().then {
         $0.text = "1"
-        $0.font = UIFont(name: "StretchProRegular", size: 30)
+        $0.font = Fonts.stretch(30)
         $0.textColor = .white
     }
     
     private let changeRankLabel = UILabel().then {
         $0.text = "⬆︎4"
-        $0.font = UIFont(name: "StretchProRegular", size: 15)
+        $0.font = Fonts.stretch(15)
         $0.textColor = Colors.blackDescription
     }
     
     private let titleLabel = UILabel().then {
         $0.text = "인사이드 아웃 2"
-        $0.font = UIFont(name: "BlackHanSans-Regular", size: 20)
+        $0.font = Fonts.han(20)
         $0.textColor = .white
         $0.textAlignment = .center
         $0.numberOfLines = 2
@@ -67,7 +67,7 @@ final class RankCollectionViewCell: BaseCollectionViewCell {
     
     private let engTitleLabel = UILabel().then {
         $0.text = "Inside Out 2"
-        $0.font = UIFont(name: "StretchProRegular", size: 12)
+        $0.font = Fonts.stretch(12)
         $0.textColor = Colors.blackDescription
         $0.textAlignment = .center
         $0.numberOfLines = 2
