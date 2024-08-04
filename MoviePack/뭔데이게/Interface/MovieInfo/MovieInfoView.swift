@@ -51,12 +51,12 @@ final class MovieInfoView: BaseView {
     }
     
     let titleLabel = UILabel().then {
-        $0.font = UIFont(name: "BlackHanSans-Regular", size: 26)
+        $0.font = Fonts.han(26)
         $0.textColor = .white
     }
     
     private let engTitleLabel = UILabel().then {
-        $0.font = UIFont(name: "StretchProRegular", size: 16)
+        $0.font = Fonts.stretch(16)
         $0.textColor = Colors.blackDescription
         $0.numberOfLines = 2
     }

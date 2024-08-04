@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Then
 
 class SearchView: BaseView {
     

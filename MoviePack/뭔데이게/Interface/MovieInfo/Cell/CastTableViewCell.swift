@@ -55,6 +55,7 @@ final class CastTableViewCell: BaseTableViewCell {
             make.top.equalTo(actorNameLabel.snp.bottom).offset(4)
             make.leading.equalTo(castImageView.snp.trailing).offset(20)
             make.trailing.equalToSuperview().inset(20)
+            
         }
     }
     
@@ -72,8 +73,15 @@ final class CastTableViewCell: BaseTableViewCell {
             castImageView.tintColor = Colors.blackDescription.withAlphaComponent(0.2)
             castImageView.contentMode = .center
         }
+        
+        if let castName = person.character, !castName.isEmpty {
+            ///CastName Exists
+            castNameLabel.text = "\(castName) 역"
+        } else {
+            ///CastName Not Exists
+            castNameLabel.text = "배역 이름이 없어요"
+        }
+        
         actorNameLabel.text = person.originalName
-        let characterName = person.character ?? ""
-        castNameLabel.text = "\(characterName) 역"
     }
 }

@@ -16,6 +16,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = CustomTabBarController()
         window?.makeKeyAndVisible()
+        ///Set Global Nav Style
+        setNavigationBarAppearance()
+    }
+    
+    func setNavigationBarAppearance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.titleTextAttributes = [.font: Fonts.stretch(16), .foregroundColor: Colors.blueAccent]
+        
+        let navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.tintColor = Colors.blackInterface
+        navigationBarAppearance.standardAppearance = appearance
+        navigationBarAppearance.scrollEdgeAppearance = appearance
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

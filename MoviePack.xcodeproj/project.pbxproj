@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4E019E0B2C5E11F00082B732 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 4E019E0A2C5E11F00082B732 /* SkeletonView */; };
+		4E019E0F2C5EFC480082B732 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E019E0E2C5EFC480082B732 /* Fonts.swift */; };
 		4E7D09E42C296102000A9FF2 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D09E32C296102000A9FF2 /* UIView+Extension.swift */; };
 		4E7D09EC2C296FE9000A9FF2 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D09EB2C296FE9000A9FF2 /* BaseView.swift */; };
 		4E7D09EE2C29712E000A9FF2 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D09ED2C29712E000A9FF2 /* SearchView.swift */; };
@@ -98,6 +99,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4E019E0E2C5EFC480082B732 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		4E7D09E32C296102000A9FF2 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		4E7D09EB2C296FE9000A9FF2 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		4E7D09ED2C29712E000A9FF2 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -187,6 +189,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E019E0D2C5EF9840082B732 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4E7D0A182C312A18000A9FF2 /* SearchDetailTableViewCell.swift */,
+				4E9330542C1837BC00D1E91C /* SearchCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		4E7D09E72C296EEA000A9FF2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,7 +228,6 @@
 		4E7D09E92C296F22000A9FF2 /* 삭제예정 View */ = {
 			isa = PBXGroup;
 			children = (
-				4E7D0A372C32E37C000A9FF2 /* Search */,
 			);
 			name = "삭제예정 View";
 			path = "삭제예정View";
@@ -239,9 +249,9 @@
 			isa = PBXGroup;
 			children = (
 				4E7D09ED2C29712E000A9FF2 /* SearchView.swift */,
+				4E9330562C1837C700D1E91C /* SearchViewController.swift */,
 				4E7D09F32C299595000A9FF2 /* SearchDetailView.swift */,
-				4E9330542C1837BC00D1E91C /* SearchCollectionViewCell.swift */,
-				4E7D0A182C312A18000A9FF2 /* SearchDetailTableViewCell.swift */,
+				4E019E0D2C5EF9840082B732 /* Cell */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -330,7 +340,6 @@
 		4E9330532C1837AB00D1E91C /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				4E9330562C1837C700D1E91C /* SearchViewController.swift */,
 				4E7D09F12C29917E000A9FF2 /* SearchDetailViewController.swift */,
 			);
 			path = Search;
@@ -365,6 +374,7 @@
 				4ED9C5032C426D180090320E /* Home */,
 				4ED9C53C2C439BAD0090320E /* MovieInfo */,
 				4ED9C5572C44B1EA0090320E /* MoviePreview */,
+				4E7D0A372C32E37C000A9FF2 /* Search */,
 				4ED9C52A2C42AF8E0090320E /* Setting */,
 			);
 			path = Interface;
@@ -402,6 +412,7 @@
 			children = (
 				4ED9C5322C42B1E80090320E /* Colors.swift */,
 				4ED9C5432C439ECC0090320E /* Names.swift */,
+				4E019E0E2C5EFC480082B732 /* Fonts.swift */,
 			);
 			path = NameSpace;
 			sourceTree = "<group>";
@@ -589,6 +600,7 @@
 				4E8658352C1710C600FF4D6D /* OverViewTableViewCell.swift in Sources */,
 				4E7D0A192C312A18000A9FF2 /* SearchDetailTableViewCell.swift in Sources */,
 				4ED9C5302C42AFB80090320E /* SettingViewModel.swift in Sources */,
+				4E019E0F2C5EFC480082B732 /* Fonts.swift in Sources */,
 				4E7D09F42C299595000A9FF2 /* SearchDetailView.swift in Sources */,
 				4ED9C5482C43B1310090320E /* UINavigationController + Extension.swift in Sources */,
 				4E86577A2C0F1F4400FF4D6D /* SceneDelegate.swift in Sources */,

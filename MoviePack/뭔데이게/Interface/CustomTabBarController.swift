@@ -17,12 +17,10 @@ final class CustomTabBarController: UITabBarController {
     func configureTabBarItems() {
         let homeViewController = HomeViewController(view: HomeView(), viewModel: HomeViewModel())
         let homeNavigationController = UINavigationController(rootViewController: homeViewController)
-        homeNavigationController.setNavigationAppearance()
         homeNavigationController.tabBarItem.image = UIImage(systemName: "movieclapper")
         homeNavigationController.tabBarItem.selectedImage = UIImage(systemName: "movieclapper.fill")
         
         let addlistViewController = UINavigationController(rootViewController: TrendViewController())
-        addlistViewController.setNavigationAppearance()
         addlistViewController.tabBarItem.image = UIImage(systemName: "list.bullet.clipboard")
         addlistViewController.tabBarItem.selectedImage = UIImage(systemName: "list.bullet.clipboard.fill")
         

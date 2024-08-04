@@ -17,8 +17,7 @@ class SearchViewController: BaseViewController<SearchView, BaseViewModel> {
     var page = 1
     
     override func configureView() {
-        let listButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .plain, target: self, action: nil)
-        navigationItem.rightBarButtonItem = listButton
+
         navigationController?.navigationBar.tintColor = .gray
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationItem.title = "SEARCH"
