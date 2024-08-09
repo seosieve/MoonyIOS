@@ -14,7 +14,7 @@ import RxCocoa
 
 final class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
     
-    let data = ["dawdwaawd", "ss", "adad", "dawdwad", "aadda", "2"]
+    let data = Observable.just(["dawdwaawd", "ss", "adad", "dawdwad", "aadda", "2"])
     var dataSource: UICollectionViewDiffableDataSource<String, Movie>!
     
     let prefetchItem = PublishSubject<Int>()
@@ -28,13 +28,11 @@ final class SearchViewController: BaseViewController<SearchView, SearchViewModel
         baseView.configureInitialMenu()
         ///Keyboard Down When Tapped
         hideKeyboardWhenTappedAround()
-        ///Word Collection View
+        ///Word Collection View Delegate
         baseView.wordCollectionView.delegate = self
-        baseView.wordCollectionView.dataSource = self
         ///Diffable DataSource
         configureDataSource()
-        ///Search Collection View
-        baseView.searchCollectionView.delegate = self
+        ///Search Collection View Prefetching
         baseView.searchCollectionView.prefetchDataSource = self
     }
     
@@ -70,14 +68,13 @@ final class SearchViewController: BaseViewController<SearchView, SearchViewModel
             }
             .disposed(by: disposeBag)
         
-        
-        
-        baseView.searchCollectionView.rx.itemSelected
-            .subscribe(with: self, onNext: { owner, value in
-                
-            })
+        data
+            .bind(to: baseView.wordCollectionView.rx.items(cellIdentifier: WordCollectionViewCell.description(), cellType: WordCollectionViewCell.self)) { row, element, cell in
+                cell.configureCell(word: element)
+            }
             .disposed(by: disposeBag)
         
+
         
 
     }
@@ -120,36 +117,21 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        ///Make Reusable Cell
-        let identifier = WordCollectionViewCell.description()
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? WordCollectionViewCell
-        guard let cell else { return UICollectionViewCell() }
-        ///Configure Cell
-        cell.configureCell(word: data[indexPath.item])
-        return cell
-    }
-    
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == baseView.wordCollectionView {
-            let text = data[indexPath.item]
-            
-            // 텍스트에 따른 라벨 크기 계산
-            let size = (text as NSString).boundingRect(
-                with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 44),
-                options: .usesLineFragmentOrigin,
-                attributes: [.font: UIFont.systemFont(ofSize: 16)],
-                context: nil
-            ).size
-            
-            return CGSize(width: size.width + 30, height: 36)
-        } else {
-            return CGSize(width: 400, height: 36)
-        }
+        var text: String = ""
+        
+        data
+            .subscribe(onNext: { array in
+                text = array[indexPath.row]
+            })
+            .disposed(by: disposeBag)
+        
+        ///Get Text Size
+        let size = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 36)
+        let attribures: [NSAttributedString.Key : Any] = [.font: UIFont.systemFont(ofSize: 16)]
+        let textSize = (text as NSString).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attribures, context: nil).size
+        
+        return CGSize(width: textSize.width + 50, height: 36)
     }
 }

@@ -170,7 +170,7 @@ final class SearchView: BaseView {
     }
     
     func configureInitialMenu() {
-        var sortArr = [twoColum, threeColum, fourColum]
+        let sortArr = [twoColum, threeColum, fourColum]
         sortArr[searchSort - 2].state = .on
         sortButtonItem.menu = UIMenu(options: .displayInline, children: sortArr)
     }

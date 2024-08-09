@@ -16,8 +16,17 @@ class WordCollectionViewCell: BaseCollectionViewCell {
     }
     
     private let searchedWordLabel = UILabel().then {
-        $0.textColor = Colors.blackAccent
+        $0.textColor = Colors.blackDescription
+        $0.font = .systemFont(ofSize: 16)
         $0.textAlignment = .center
+    }
+    
+    let deleteButton = UIButton().then {
+        let config = UIImage.SymbolConfiguration(weight: .black)
+        $0.setImage(Images.xmark?.withConfiguration(config), for: .normal)
+        $0.backgroundColor = Colors.blackInterface
+        $0.tintColor = Colors.blackContent
+        $0.layer.cornerRadius = 12
     }
     
     override func configureView() {
@@ -27,6 +36,7 @@ class WordCollectionViewCell: BaseCollectionViewCell {
     override func configureSubViews() {
         contentView.addSubview(wordBackgroundView)
         wordBackgroundView.addSubview(searchedWordLabel)
+        wordBackgroundView.addSubview(deleteButton)
     }
     
     override func configureConstraints() {
@@ -37,7 +47,13 @@ class WordCollectionViewCell: BaseCollectionViewCell {
         searchedWordLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(6)
             make.centerY.equalToSuperview()
+            make.trailing.equalTo(deleteButton.snp.leading).offset(-6)
+        }
+        
+        deleteButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(6)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(24)
         }
     }
     
