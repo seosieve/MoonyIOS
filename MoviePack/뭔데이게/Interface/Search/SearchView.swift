@@ -50,13 +50,6 @@ class SearchView: BaseView {
         return collectionView
     }()
     
-    var emptyImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "noImage")
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-    
     var emptyLabel = {
         let label = UILabel()
         label.text = "검색 결과가 없어요\n검색어를 입력해주세요"
@@ -74,7 +67,6 @@ class SearchView: BaseView {
     override func configureSubViews() {
         self.addSubview(searchBar)
         self.addSubview(searchCollectionView)
-        self.addSubview(emptyImageView)
         self.addSubview(emptyLabel)
     }
     
@@ -90,20 +82,16 @@ class SearchView: BaseView {
             make.horizontalEdges.bottom.equalToSuperview()
         }
         
-        emptyImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(-50)
-            make.centerX.equalToSuperview()
-            make.size.equalTo(280)
-        }
-        
         emptyLabel.snp.makeConstraints { make in
-            make.top.equalTo(emptyImageView.snp.bottom)
-            make.centerX.equalToSuperview()
+            make.center.equalToSuperview()
         }
     }
     
     func configureView(isEmpty: Bool) {
-        emptyImageView.isHidden = isEmpty
         emptyLabel.isHidden = isEmpty
+    }
+    
+    override func configureNavigationController(_ vc: UIViewController) {
+        vc.navigationItem.title = "SEARCCH"
     }
 }

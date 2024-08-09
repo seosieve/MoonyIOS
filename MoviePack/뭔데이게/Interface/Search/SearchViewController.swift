@@ -17,10 +17,9 @@ class SearchViewController: BaseViewController<SearchView, BaseViewModel> {
     var page = 1
     
     override func configureView() {
-
-        navigationController?.navigationBar.tintColor = .gray
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationItem.title = "SEARCH"
+        ///Navigation Controller
+        baseView.configureNavigationController(self)
+        
         baseView.searchBar.delegate = self
         baseView.searchCollectionView.delegate = self
         baseView.searchCollectionView.dataSource = self
