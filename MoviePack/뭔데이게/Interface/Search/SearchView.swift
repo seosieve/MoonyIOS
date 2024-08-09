@@ -7,48 +7,56 @@
 
 import UIKit
 
-class SearchView: BaseView {
+final class SearchView: BaseView {
     
-//    lazy var searchBar = {
-//        let searchBar = UISearchBar()
-//        searchBar.placeholder = "영화 제목을 검색해보세요."
-//        searchBar.barTintColor = .black
-//        searchBar.searchTextField.backgroundColor = .darkGray
-//        searchBar.searchTextField.tintColor = .white
-//        searchBar.searchTextField.textColor = .white
-//        searchBar.setSearchTextFieldItemColor(to: .systemGray2)
-//        return searchBar
-//    }()
-    
-    lazy var searchBar = UISearchBar().then {
-        $0.placeholder = "영화 제목을 검색해보세요."
-        $0.barTintColor = .black
-        $0.searchTextField.backgroundColor = .darkGray
-        $0.searchTextField.tintColor = .white
-        $0.searchTextField.textColor = .white
-        $0.setSearchTextFieldItemColor(to: .systemGray2)
+    private let searchBackgroundView = UIView().then {
+        $0.backgroundColor = Colors.blackInterface
+        $0.layer.cornerRadius = 18
+        $0.clipsToBounds = true
     }
     
-    let flowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 20
-        layout.minimumLineSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        let screenWidth = SearchView.screenSize.width
-        let inset = layout.sectionInset.left + layout.sectionInset.right
-        let spacing = layout.minimumInteritemSpacing
-        let width = (screenWidth - inset - spacing * 2) / 3
-        let height = width + 40
-        layout.itemSize = CGSize(width: width, height: height)
+    private let magnifierImageView = UIImageView().then {
+        $0.image = Images.magnifier
+        $0.tintColor = Colors.blackDescription
+        $0.contentMode = .scaleAspectFill
+    }
+    
+    let searchTextField = UITextField().then {
+        $0.placeholder = Names.PlaceHolder.search
+        $0.setPlaceholderColor(color: Colors.blackDescription.withAlphaComponent(0.5))
+    }
+    
+    private let wordLayout = UICollectionViewFlowLayout().then {
+        $0.scrollDirection = .horizontal
+    }
+    
+    lazy var wordCollectionView = UICollectionView(frame: .zero, collectionViewLayout: wordLayout).then {
+        $0.register(WordCollectionViewCell.self, forCellWithReuseIdentifier: WordCollectionViewCell.description())
+        $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        $0.backgroundColor = .clear
+        $0.showsHorizontalScrollIndicator = false
+    }
+    
+    private lazy var movieLayout: UICollectionViewLayout = {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(250))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.interItemSpacing = .fixed(4)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 4
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }()
     
-    lazy var searchCollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = Colors.blackBackground
-        collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
-        return collectionView
-    }()
+    lazy var movieCollectionView = UICollectionView(frame: .zero, collectionViewLayout: movieLayout).then {
+        $0.backgroundColor = .clear
+        $0.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 40, right: 0)
+    }
     
     var emptyLabel = {
         let label = UILabel()
@@ -61,24 +69,45 @@ class SearchView: BaseView {
     }()
     
     override func configureView() {
-        self.hideKeyboardWhenTappedAround()
+        self.backgroundColor = Colors.blackBackground
     }
     
     override func configureSubViews() {
-        self.addSubview(searchBar)
-        self.addSubview(searchCollectionView)
+        self.addSubview(searchBackgroundView)
+        searchBackgroundView.addSubview(magnifierImageView)
+        searchBackgroundView.addSubview(searchTextField)
+        self.addSubview(wordCollectionView)
+        self.addSubview(movieCollectionView)
         self.addSubview(emptyLabel)
     }
     
     override func configureConstraints() {
-        searchBar.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
-            make.horizontalEdges.equalToSuperview().inset(8)
-            make.height.equalTo(44)
+        searchBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide).offset(8)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.height.equalTo(36)
         }
         
-        searchCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(20)
+        magnifierImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(12)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(20)
+        }
+        
+        searchTextField.snp.makeConstraints { make in
+            make.leading.equalTo(magnifierImageView.snp.trailing).offset(12)
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(20)
+        }
+        
+        wordCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchBackgroundView.snp.bottom).offset(14)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(36)
+        }
+        
+        movieCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(wordCollectionView.snp.bottom).offset(20)
             make.horizontalEdges.bottom.equalToSuperview()
         }
         

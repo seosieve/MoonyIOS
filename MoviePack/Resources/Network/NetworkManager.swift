@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import RxSwift
 
 final class NetworkManager {
     
@@ -24,4 +25,23 @@ final class NetworkManager {
             }
         }
     }
+    
+    ///Network Request with RxSwift
+//    func rxNetworkRequest<T: Decodable>(router: Network, type: T.Type) -> Observable<T> {
+//        
+//        Observable<T>.create {
+//            
+//        }
+//        
+//        
+//        
+//        AF.request(router.endPoint, method: router.method, parameters: router.parameters).responseDecodable(of: T.self) { response in
+//            switch response.result {
+//            case .success(let value):
+//                completion(.success(value))
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
 }

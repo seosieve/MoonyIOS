@@ -9,7 +9,7 @@ import UIKit
 import Then
 
 extension UIViewController: UIGestureRecognizerDelegate {
-    //Custom Round Shape BackButton
+    ///Custom Round Shape BackButton
     func setCustomBackButton() {
         let backButton = UIButton(type: .system).then {
             $0.frame = CGRect(origin: .zero, size: CGSize(width: 40, height: 40))
@@ -28,5 +28,16 @@ extension UIViewController: UIGestureRecognizerDelegate {
     
     @objc func backButtonClicked() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    ///Keyboard Down When Tapped
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        self.view.endEditing(true)
     }
 }

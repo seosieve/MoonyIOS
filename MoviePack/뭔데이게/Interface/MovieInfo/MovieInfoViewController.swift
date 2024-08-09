@@ -30,7 +30,7 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
         baseView.castTableView.dataSource = self
     }
     
-    override func bindData() {
+    override func configureRx() {
         viewModel.movieName.bind { result in
             guard let result else { return }
             self.baseView.titleLabel.text = result

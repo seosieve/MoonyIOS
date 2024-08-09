@@ -1,5 +1,5 @@
 //
-//  UITableViewCell+Extension.swift
+//  UITableViewCell + Extension.swift
 //  MoviePack
 //
 //  Created by 서충원 on 6/6/24.

@@ -9,12 +9,12 @@ import Foundation
 
 final class MovieInfoViewModel: BaseViewModel {
     
-    let movieName: Observable<String?> = Observable(nil)
-    let searchMovieResult: Observable<Movie?> = Observable(nil)
+    let movieName: CustomObservable<String?> = CustomObservable(nil)
+    let searchMovieResult: CustomObservable<Movie?> = CustomObservable(nil)
     
-    let moviePosterArr: Observable<[Poster]> = Observable([Poster]())
-    let movieOverview: Observable<String?> = Observable(nil)
-    let movieCreditArr: Observable<[Person]> = Observable([Person]())
+    let moviePosterArr: CustomObservable<[Poster]> = CustomObservable([Poster]())
+    let movieOverview: CustomObservable<String?> = CustomObservable(nil)
+    let movieCreditArr: CustomObservable<[Person]> = CustomObservable([Person]())
     
     override func bindData() {
         searchMovieResult.bind { result in

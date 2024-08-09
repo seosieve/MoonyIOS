@@ -24,7 +24,7 @@ final class CustomTabBarController: UITabBarController {
         addlistViewController.tabBarItem.image = UIImage(systemName: "list.bullet.clipboard")
         addlistViewController.tabBarItem.selectedImage = UIImage(systemName: "list.bullet.clipboard.fill")
         
-        let userViewController = SearchViewController(view: SearchView(), viewModel: BaseViewModel())
+        let userViewController = SearchViewController(view: SearchView(), viewModel: SearchViewModel())
         let userNavigationController = UINavigationController(rootViewController: userViewController)
         userNavigationController.tabBarItem.image = UIImage(systemName: "popcorn")
         userNavigationController.tabBarItem.selectedImage = UIImage(systemName: "popcorn.fill")

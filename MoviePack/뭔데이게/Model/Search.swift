@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SearchResult: Decodable {
+struct SearchResult: Decodable, Hashable {
     let page: Int?
     var results: [Movie]
     let totalPages: Int

@@ -30,10 +30,10 @@ class BaseViewController<View: BaseView, ViewModel: BaseViewModel>: UIViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        bindData()
+        configureRx()
     }
     
     func configureView() { }
     
-    func bindData() { }
+    func configureRx() { }
 }

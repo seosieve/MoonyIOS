@@ -81,8 +81,7 @@ class MovieRankViewController: UIViewController {
     
     func setViews() {
         view.backgroundColor = .white
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGestureRecognizer)
+        self.dismissKeyboard()
         movieRequest(date: yesterdayDate)
     }
     
@@ -128,11 +127,7 @@ class MovieRankViewController: UIViewController {
             make.horizontalEdges.bottom.equalToSuperview()
         }
     }
-    
-    @objc func dismissKeyboard() {
-        dateTextField.endEditing(true)
-    }
-    
+
     @objc func searchButtonPressed() {
         searchAction()
     }

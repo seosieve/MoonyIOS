@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Decodable, BaseType {
+struct Movie: Decodable, BaseType, Hashable {
     let id: Int
     let name: String?
     let originalName: String?

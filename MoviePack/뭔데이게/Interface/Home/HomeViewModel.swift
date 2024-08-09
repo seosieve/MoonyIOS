@@ -9,15 +9,15 @@ import Foundation
 
 final class HomeViewModel: BaseViewModel {
     
-    let kobisArr: Observable<[KobisRank]> = Observable([KobisRank]())
-    let kobisBindingArr: Observable<[Movie?]> = Observable(Array(repeating: nil, count: 10))
+    let kobisArr: CustomObservable<[KobisRank]> = CustomObservable([KobisRank]())
+    let kobisBindingArr: CustomObservable<[Movie?]> = CustomObservable(Array(repeating: nil, count: 10))
     var trendMovieArr: [Movie] = [Movie]()
     var trendPersonArr: [Person] = [Person]()
     var trendTVArr: [TV] = [TV]()
     
-    let inputTypeButtonTrigger: Observable<Int?> = Observable(nil)
+    let inputTypeButtonTrigger: CustomObservable<Int?> = CustomObservable(nil)
     
-    let outputKobisDate: Observable<String?> = Observable(nil)
+    let outputKobisDate: CustomObservable<String?> = CustomObservable(nil)
     
     override func bindData() {
         configureKobisDate()

@@ -9,8 +9,15 @@ import UIKit
 import Alamofire
 import Kingfisher
 import Toast
+import RxSwift
+import RxCocoa
 
-class SearchViewController: BaseViewController<SearchView, BaseViewModel> {
+final class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
+    
+    let data = ["dawdwaawd", "ss", "adad", "dawdwad", "aadda", "2"]
+    var dataSource: UICollectionViewDiffableDataSource<String, Movie>!
+    
+    let disposeBag = DisposeBag()
     
     var searchMovieResult: SearchResult?
     var previousWord = ""
@@ -19,65 +26,45 @@ class SearchViewController: BaseViewController<SearchView, BaseViewModel> {
     override func configureView() {
         ///Navigation Controller
         baseView.configureNavigationController(self)
+        ///Keyboard Down When Tapped
+        hideKeyboardWhenTappedAround()
+        ///Word Collection View
+        baseView.wordCollectionView.delegate = self
+        baseView.wordCollectionView.dataSource = self
         
-        baseView.searchBar.delegate = self
-        baseView.searchCollectionView.delegate = self
-        baseView.searchCollectionView.dataSource = self
-        baseView.searchCollectionView.prefetchDataSource = self
+        ///Diffable DataSource
+//        configureDataSource()
+//        updateSnapshot([])
+        ///Search Collection View
+        baseView.movieCollectionView.delegate = self
+//        baseView.movieCollectionView.prefetchDataSource = self
     }
     
-    //Wrapping with Additional Work
-    func search(word: String) {
-        view.makeToastActivity(.center)
-        NetworkManager.shared.networkRequest(router: Network.search(word: word, page: page), type: SearchResult.self) { result in
-            switch result {
-            case .success(let success):
-                self.baseView.configureView(isEmpty: true)
-                switch self.page {
-                case 1:
-                    self.searchMovieResult = success
-                default:
-                    self.searchMovieResult?.results += success.results
-                }
-                self.baseView.searchCollectionView.reloadData()
-                self.view.hideToastActivity()
-                
-                if self.page == 1 {
-                    if success.totalResults == 0 {
-                        self.baseView.configureView(isEmpty: false)
-                    } else {
-                        self.baseView.searchCollectionView.scrollToItem(at: [0,0], at: .top, animated: true)
-                    }
-                }
-            case .failure(let failure):
-                print(failure)
-            }
-        }
-    }
-}
-
-//MARK: - UISearchBarDelegate
-extension SearchViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchBar.text else { return }
-        guard previousWord != text else { return }
-        previousWord = text
-        page = 1
-        search(word: text)
-        view.endEditing(true)
+    override func configureRx() {
+        baseView.searchTextField.rx.controlEvent(.editingDidEndOnExit)
+            .withLatestFrom(baseView.searchTextField.rx.text.orEmpty)
+            .subscribe(onNext: { value in
+                let value = value.replacingOccurrences(of: " ", with: "")
+                print(value)
+                self.baseView.endEditing(true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchMovieResult?.results.count ?? 0
+        return data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let movie = searchMovieResult?.results[indexPath.row] else { return UICollectionViewCell() }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.identifier, for: indexPath) as! SearchCollectionViewCell
-        cell.configureCell(result: movie)
+        ///Make Reusable Cell
+        let identifier = WordCollectionViewCell.description()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? WordCollectionViewCell
+        guard let cell else { return UICollectionViewCell() }
+        ///Configure Cell
+        cell.configureCell(word: data[indexPath.item])
         return cell
     }
     
@@ -88,25 +75,22 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         self.navigationItem.backBarButtonItem = backBarButtonItem
         navigationController?.pushViewController(vc, animated: true)
     }
-}
-
-//MARK: - UICollectionViewDataSourcePrefetching
-extension SearchViewController: UICollectionViewDataSourcePrefetching {
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            paginationAction(indexPath: indexPath)
-        }
-    }
     
-    func paginationAction(indexPath: IndexPath) {
-        let item = indexPath.item
-        let movieCount = searchMovieResult!.results.count - 1
-        print(item, movieCount)
-        let totalPage = searchMovieResult!.totalPages
-        if movieCount == item && totalPage != page {
-            guard let text = baseView.searchBar.text else { return }
-            page += 1
-            search(word: text)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == baseView.wordCollectionView {
+            let text = data[indexPath.item]
+            
+            // 텍스트에 따른 라벨 크기 계산
+            let size = (text as NSString).boundingRect(
+                with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 44),
+                options: .usesLineFragmentOrigin,
+                attributes: [.font: UIFont.systemFont(ofSize: 16)],
+                context: nil
+            ).size
+            
+            return CGSize(width: size.width + 30, height: 36)
+        } else {
+            return CGSize(width: 400, height: 36)
         }
     }
 }

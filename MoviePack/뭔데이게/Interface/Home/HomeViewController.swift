@@ -25,7 +25,7 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
         baseView.tvButton.addTarget(self, action: #selector(trendTypeButtonClicked), for: .touchUpInside)
     }
     
-    override func bindData() {
+    override func configureRx() {
         view.makeToastActivity(.center)
         viewModel.kobisBindingArr.bind { result in
             ///Ignore Initial Value

@@ -1,5 +1,5 @@
 //
-//  Observable.swift
+//  CustomObservable.swift
 //  MoviePack
 //
 //  Created by 서충원 on 7/15/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Observable<T> {
+class CustomObservable<T> {
     private var closure: ((T) -> Void)?
     
     var value: T {
