@@ -10,6 +10,7 @@ import UIKit
 enum Images {
     
     static let magnifier = UIImage(systemName: "magnifyingglass")
+    static let ellipsis = UIImage(systemName: "ellipsis")
     
     static func profile(_ number: Int) -> UIImage? {
         return UIImage(named: "profile_\(number)")

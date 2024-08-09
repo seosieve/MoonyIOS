@@ -7,46 +7,29 @@
 
 import UIKit
 
-class SearchCollectionViewCell: UICollectionViewCell {
+class SearchCollectionViewCell: BaseCollectionViewCell {
     
     var gradientLayer: CAGradientLayer?
     
-    let searchImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .darkGray
-        imageView.image = UIImage(named: "Movie")
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 8
-        imageView.layer.masksToBounds = true
-        return imageView
-    }()
-    
-    let titleLabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .black)
-        label.textAlignment = .center
-        label.textColor = .white.withAlphaComponent(0.8)
-        label.numberOfLines = 2
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureSubviews()
-        configureConstraints()
-        addGradient()
+    let searchImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 8
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    let titleLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15, weight: .heavy)
+        $0.textAlignment = .center
+        $0.textColor = Colors.blackAccent
+        $0.numberOfLines = 2
     }
     
-    func configureSubviews() {
+    override func configureSubViews() {
         contentView.addSubview(searchImageView)
         contentView.addSubview(titleLabel)
     }
     
-    func configureConstraints() {
+    override func configureConstraints() {
         searchImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -58,12 +41,18 @@ class SearchCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        removeGradient()
+        addGradient()
+    }
+    
     func addGradient() {
         contentView.layoutIfNeeded()
         let gradientLayer = CAGradientLayer()
+        
         gradientLayer.frame = searchImageView.bounds
-        let colors: [CGColor] = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.9).cgColor]
-        gradientLayer.colors = colors
+        gradientLayer.colors = [UIColor.clear.cgColor, Colors.blackBackground.cgColor]
         searchImageView.layer.addSublayer(gradientLayer)
         
         // 새로 추가된 gradientLayer를 저장

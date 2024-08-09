@@ -31,24 +31,71 @@ final class SearchViewController: BaseViewController<SearchView, SearchViewModel
         ///Word Collection View
         baseView.wordCollectionView.delegate = self
         baseView.wordCollectionView.dataSource = self
-        
         ///Diffable DataSource
-//        configureDataSource()
-//        updateSnapshot([])
+        configureDataSource()
         ///Search Collection View
-        baseView.movieCollectionView.delegate = self
+        baseView.searchCollectionView.delegate = self
 //        baseView.movieCollectionView.prefetchDataSource = self
     }
     
     override func configureRx() {
-        baseView.searchTextField.rx.controlEvent(.editingDidEndOnExit)
-            .withLatestFrom(baseView.searchTextField.rx.text.orEmpty)
-            .subscribe(onNext: { value in
-                let value = value.replacingOccurrences(of: " ", with: "")
-                print(value)
-                self.baseView.endEditing(true)
+        ///Input
+        let input = SearchViewModel.Input(searchButtonTap: baseView.searchTextField.rx.controlEvent(.editingDidEndOnExit),
+                                          searchText: baseView.searchTextField.rx.text.orEmpty)
+        ///Output
+        let output = viewModel.transform(input: input)
+        
+        output.movieList
+            .bind(with: self) { owner, value in
+                owner.updateSnapshot(value)
+            }
+            .disposed(by: disposeBag)
+        
+        output.emptyText
+            .bind(with: self) { owner, value in
+                owner.view.makeToast(Names.PlaceHolder.emptyText, position: .center)
+            }
+            .disposed(by: disposeBag)
+        
+        output.emptyResult
+            .bind(to: baseView.emptyLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        baseView.searchCollectionView.rx.itemSelected
+            .subscribe(with: self, onNext: { owner, value in
+                
             })
             .disposed(by: disposeBag)
+        
+        
+
+    }
+}
+
+//MARK: - Diffable DataSource
+extension SearchViewController {
+    //Configure Cell
+    private func photoCellRegistration() -> UICollectionView.CellRegistration<SearchCollectionViewCell, Movie> {
+        return UICollectionView.CellRegistration{ cell, indexPath, itemIdentifier in
+            cell.configureCell(result: itemIdentifier)
+        }
+    }
+    
+    private func configureDataSource() {
+        let collectionView = baseView.searchCollectionView
+        let cellRegistration = photoCellRegistration()
+        
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+            collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        }
+    }
+    
+    //Snapshot
+    private func updateSnapshot(_ photoList: [Movie]) {
+        var snapshot = NSDiffableDataSourceSnapshot<String, Movie>()
+        snapshot.appendSections(["main"])
+        snapshot.appendItems(photoList, toSection: "main")
+        dataSource.apply(snapshot)
     }
 }
 

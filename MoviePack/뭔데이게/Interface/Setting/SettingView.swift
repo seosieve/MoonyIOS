@@ -30,6 +30,5 @@ final class SettingView: BaseView {
     
     override func configureNavigationController(_ vc: UIViewController) {
         vc.navigationItem.rightBarButtonItem = settingButtonItem
-        vc.navigationController?.navigationBar.tintColor = Colors.blackDescription
     }
 }

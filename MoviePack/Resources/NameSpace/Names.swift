@@ -21,5 +21,7 @@ enum Names {
     ///Literal PlaceHolder Strings
     enum PlaceHolder {
         static let search = "찾고 싶은 영화를 검색해보세요."
+        static let emptyText = "검색어를 입력해주세요."
+        static let emptyResult = "찾고 싶은 영화에 대한\n검색어를 입력해주세요."
     }
 }

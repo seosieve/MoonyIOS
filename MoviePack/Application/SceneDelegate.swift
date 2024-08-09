@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appearance.titleTextAttributes = [.font: Fonts.stretch(16), .foregroundColor: Colors.blueAccent]
         
         let navigationBarAppearance = UINavigationBar.appearance()
-        navigationBarAppearance.tintColor = Colors.blackInterface
+        navigationBarAppearance.tintColor = Colors.blackDescription
         navigationBarAppearance.standardAppearance = appearance
         navigationBarAppearance.scrollEdgeAppearance = appearance
     }

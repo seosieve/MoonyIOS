@@ -9,6 +9,35 @@ import UIKit
 
 final class SearchView: BaseView {
     
+    private lazy var twoColum = UIAction(title: "두 줄 정렬", state: .on, handler: updateActionStates)
+                                  
+    private lazy var threeColum = UIAction(title: "세 줄 정렬", state: .off, handler: updateActionStates)
+    
+    private lazy var fourColum = UIAction(title: "네 줄 정렬", state: .off, handler: updateActionStates)
+    
+    private lazy var updateActionStates: (UIAction) -> Void = { action in
+        ///ReGenerate Menu
+        var sortArr = [self.twoColum, self.threeColum, self.fourColum]
+        sortArr.forEach { $0.state = ($0 == action) ? .on : .off }
+        self.sortButtonItem.menu = UIMenu(options: .displayInline, children: sortArr)
+        ///Selected Index
+        guard let index = sortArr.firstIndex(where: { $0.title == action.title }) else { return }
+        let sortName = sortArr[index]
+        print(sortName)
+        self.sortLayout(colum: index+2)
+    }
+    
+    func sortLayout(colum: Int) {
+        searchCollectionView.setCollectionViewLayout(searchLayout(colum: CGFloat(colum)), animated: true)
+    }
+    
+    lazy var sortButtonItem = UIBarButtonItem().then {
+        let config = UIImage.SymbolConfiguration(weight: .black)
+        $0.image = Images.ellipsis?.withConfiguration(config)
+        $0.style = .plain
+        $0.menu = UIMenu(options: .displayInline, children: [twoColum, threeColum, fourColum])
+    }
+    
     private let searchBackgroundView = UIView().then {
         $0.backgroundColor = Colors.blackInterface
         $0.layer.cornerRadius = 18
@@ -37,11 +66,17 @@ final class SearchView: BaseView {
         $0.showsHorizontalScrollIndicator = false
     }
     
-    private lazy var movieLayout: UICollectionViewLayout = {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1))
+    private let searchDivider = UIView().then {
+        $0.backgroundColor = Colors.blackInterface
+    }
+    
+    private func searchLayout(colum: CGFloat) -> UICollectionViewLayout {
+        let itemHeight = CGFloat(3.0 / 4.0)
+        
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1 / colum), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(250))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1 / colum * 5 / 3))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.interItemSpacing = .fixed(4)
         
@@ -51,22 +86,21 @@ final class SearchView: BaseView {
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
-    }()
+    }
     
-    lazy var movieCollectionView = UICollectionView(frame: .zero, collectionViewLayout: movieLayout).then {
+    lazy var searchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: searchLayout(colum: 3)).then {
         $0.backgroundColor = .clear
         $0.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 40, right: 0)
     }
     
-    var emptyLabel = {
-        let label = UILabel()
-        label.text = "검색 결과가 없어요\n검색어를 입력해주세요"
-        label.textColor = .systemGray
-        label.numberOfLines = 2
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16)
-        return label
-    }()
+    var emptyLabel = UILabel().then {
+        $0.text = Names.PlaceHolder.emptyResult
+        $0.withLineSpacing(8)
+        $0.textColor = Colors.blackContent
+        $0.numberOfLines = 2
+        $0.textAlignment = .center
+        $0.font = .boldSystemFont(ofSize: 18)
+    }
     
     override func configureView() {
         self.backgroundColor = Colors.blackBackground
@@ -77,7 +111,8 @@ final class SearchView: BaseView {
         searchBackgroundView.addSubview(magnifierImageView)
         searchBackgroundView.addSubview(searchTextField)
         self.addSubview(wordCollectionView)
-        self.addSubview(movieCollectionView)
+        self.addSubview(searchDivider)
+        self.addSubview(searchCollectionView)
         self.addSubview(emptyLabel)
     }
     
@@ -101,26 +136,30 @@ final class SearchView: BaseView {
         }
         
         wordCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchBackgroundView.snp.bottom).offset(14)
+            make.top.equalTo(searchBackgroundView.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(36)
         }
         
-        movieCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(wordCollectionView.snp.bottom).offset(20)
+        searchDivider.snp.makeConstraints { make in
+            make.top.equalTo(wordCollectionView.snp.bottom).offset(10)
+            make.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
+            make.height.equalTo(1)
+        }
+        
+        searchCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchDivider.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
         }
         
         emptyLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(30)
         }
     }
     
-    func configureView(isEmpty: Bool) {
-        emptyLabel.isHidden = isEmpty
-    }
-    
     override func configureNavigationController(_ vc: UIViewController) {
+        vc.navigationItem.rightBarButtonItem = sortButtonItem
         vc.navigationItem.title = "SEARCCH"
     }
 }

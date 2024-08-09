@@ -18,20 +18,19 @@ final class HomeView: BaseView {
     private lazy var priorityOrder = UIAction(title: "10년 전", state: .off, handler: updateActionStates)
     
     private lazy var updateActionStates: (UIAction) -> Void = { action in
-//        guard let index = self.sortArr.firstIndex(where: { $0.title == action.title }) else { return }
-//        
-//        let actions = self.actions
-//        actions.forEach { $0.state = ($0 == action) ? .on : .off }
-//        self.filterButtonItem.menu = UIMenu(options: .displayInline, children: actions)
-//        
-//        let sortName = self.sortArr[index]
-//        self.delegate?.sortList(sortName: sortName)
+        ///ReGenerate Menu
+        var sortArr = [self.dateOrder, self.titleOrder, self.priorityOrder]
+        sortArr.forEach { $0.state = ($0 == action) ? .on : .off }
+        self.filterButtonItem.menu = UIMenu(options: .displayInline, children: sortArr)
+        ///Selected Index
+        guard let index = sortArr.firstIndex(where: { $0.title == action.title }) else { return }
+        let sortName = sortArr[index]
+        print(sortName)
     }
     
     lazy var filterButtonItem = UIBarButtonItem().then {
         let config = UIImage.SymbolConfiguration(weight: .black)
-        let filterImage = UIImage(systemName: "ellipsis", withConfiguration: config)
-        $0.image = filterImage
+        $0.image = Images.ellipsis?.withConfiguration(config)
         $0.style = .plain
         $0.menu = UIMenu(options: .displayInline, children: [dateOrder, titleOrder, priorityOrder])
     }
@@ -205,7 +204,6 @@ final class HomeView: BaseView {
     
     override func configureNavigationController(_ vc: UIViewController) {
         vc.navigationItem.rightBarButtonItem = filterButtonItem
-        vc.navigationController?.navigationBar.tintColor = Colors.blackDescription
     }
     
     func trendTypeButtonAnimation(_ index: Int) {
