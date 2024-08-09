@@ -9,9 +9,9 @@ import UIKit
 
 final class SearchView: BaseView {
     
-    let sortCount = UserDefaultsManager.shared.searchSort
+    private let searchSort = UserDefaultsManager.shared.searchSort
     
-    private lazy var twoColum = UIAction(title: "두 줄 정렬", state: .on, handler: updateActionStates)
+    private lazy var twoColum = UIAction(title: "두 줄 정렬", state: .off, handler: updateActionStates)
                                   
     private lazy var threeColum = UIAction(title: "세 줄 정렬", state: .off, handler: updateActionStates)
     
@@ -26,11 +26,12 @@ final class SearchView: BaseView {
         guard let index = sortArr.firstIndex(where: { $0.title == action.title }) else { return }
         let sortName = sortArr[index]
         self.sortLayout(column: index+2)
+        ///Set UserDefaults
         UserDefaultsManager.shared.searchSort = index+2
     }
     
-    func sortLayout(column: Int) {
-        searchCollectionView.setCollectionViewLayout(searchLayout(column: CGFloat(column)), animated: true)
+    private func sortLayout(column: Int) {
+        searchCollectionView.setCollectionViewLayout(searchLayout(column: column), animated: true)
     }
     
     lazy var sortButtonItem = UIBarButtonItem().then {
@@ -72,9 +73,11 @@ final class SearchView: BaseView {
         $0.backgroundColor = Colors.blackInterface
     }
     
-    private func searchLayout(column: CGFloat) -> UICollectionViewLayout {
+    private func searchLayout(column: Int) -> UICollectionViewLayout {
         ///Set Item Ratio
         let itemAspectRatio: CGFloat = 4.0 / 3.0
+        ///Set Column
+        let column = CGFloat(column)
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1 / column), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -91,7 +94,7 @@ final class SearchView: BaseView {
         return layout
     }
     
-    lazy var searchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: searchLayout(column: CGFloat(sortCount))).then {
+    lazy var searchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: searchLayout(column: searchSort)).then {
         $0.backgroundColor = .clear
         $0.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 40, right: 0)
     }
@@ -164,5 +167,11 @@ final class SearchView: BaseView {
     override func configureNavigationController(_ vc: UIViewController) {
         vc.navigationItem.rightBarButtonItem = sortButtonItem
         vc.navigationItem.title = "SEARCCH"
+    }
+    
+    func configureInitialMenu() {
+        var sortArr = [twoColum, threeColum, fourColum]
+        sortArr[searchSort - 2].state = .on
+        sortButtonItem.menu = UIMenu(options: .displayInline, children: sortArr)
     }
 }

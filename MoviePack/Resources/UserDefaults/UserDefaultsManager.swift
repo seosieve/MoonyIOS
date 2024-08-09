@@ -28,14 +28,11 @@ class UserDefaultsManager {
     let userdefaults = UserDefaults.standard
     
     private enum Keys: String {
-        case userExist
-        case profileImage
-        case nickname
-        case mbti
+        case searchSort
     }
     
     // User
-    @UserDefaultsWrapper(key: Keys.userExist.rawValue, defaultValue: 2)
+    @UserDefaultsWrapper(key: Keys.searchSort.rawValue, defaultValue: 2)
     var searchSort: Int
     
     func deleteAll() {

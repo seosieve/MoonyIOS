@@ -24,6 +24,8 @@ final class SearchViewController: BaseViewController<SearchView, SearchViewModel
     override func configureView() {
         ///Navigation Controller
         baseView.configureNavigationController(self)
+        ///Initialize UI Menu
+        baseView.configureInitialMenu()
         ///Keyboard Down When Tapped
         hideKeyboardWhenTappedAround()
         ///Word Collection View
