@@ -17,11 +17,9 @@ final class SearchViewController: BaseViewController<SearchView, SearchViewModel
     let data = ["dawdwaawd", "ss", "adad", "dawdwad", "aadda", "2"]
     var dataSource: UICollectionViewDiffableDataSource<String, Movie>!
     
-    let disposeBag = DisposeBag()
+    let prefetchItem = PublishSubject<Int>()
     
-    var searchMovieResult: SearchResult?
-    var previousWord = ""
-    var page = 1
+    let disposeBag = DisposeBag()
     
     override func configureView() {
         ///Navigation Controller
@@ -35,13 +33,14 @@ final class SearchViewController: BaseViewController<SearchView, SearchViewModel
         configureDataSource()
         ///Search Collection View
         baseView.searchCollectionView.delegate = self
-//        baseView.movieCollectionView.prefetchDataSource = self
+        baseView.searchCollectionView.prefetchDataSource = self
     }
     
     override func configureRx() {
         ///Input
         let input = SearchViewModel.Input(searchButtonTap: baseView.searchTextField.rx.controlEvent(.editingDidEndOnExit),
-                                          searchText: baseView.searchTextField.rx.text.orEmpty)
+                                          searchText: baseView.searchTextField.rx.text.orEmpty,
+                                          prefetchItem: prefetchItem)
         ///Output
         let output = viewModel.transform(input: input)
         
@@ -52,7 +51,7 @@ final class SearchViewController: BaseViewController<SearchView, SearchViewModel
             .disposed(by: disposeBag)
         
         output.emptyText
-            .bind(with: self) { owner, value in
+            .bind(with: self) { owner, _ in
                 owner.view.makeToast(Names.PlaceHolder.emptyText, position: .center)
             }
             .disposed(by: disposeBag)
@@ -60,6 +59,16 @@ final class SearchViewController: BaseViewController<SearchView, SearchViewModel
         output.emptyResult
             .bind(to: baseView.emptyLabel.rx.isHidden)
             .disposed(by: disposeBag)
+        
+        output.searchButtonTap
+            .bind(with: self) { owner, value in
+                //Ignore when List is Empty
+                guard !output.movieList.value.isEmpty else { return }
+                owner.baseView.searchCollectionView.scrollToItem(at: [0,0], at: .top, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        
         
         baseView.searchCollectionView.rx.itemSelected
             .subscribe(with: self, onNext: { owner, value in
@@ -99,6 +108,15 @@ extension SearchViewController {
     }
 }
 
+//MARK: - UICollectionViewDataSourcePrefetching
+extension SearchViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            prefetchItem.onNext(indexPath.item)
+        }
+    }
+}
+
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -113,14 +131,6 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         ///Configure Cell
         cell.configureCell(word: data[indexPath.item])
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let id = searchMovieResult?.results[indexPath.row].id, let title = searchMovieResult?.results[indexPath.row].name else { return }
-        let vc = SearchDetailViewController(id: id, title: title)
-        let backBarButtonItem = UIBarButtonItem(title: "")
-        self.navigationItem.backBarButtonItem = backBarButtonItem
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

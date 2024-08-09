@@ -77,7 +77,6 @@ extension SearchDetailTableViewCell: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.identifier, for: indexPath) as? SearchCollectionViewCell
         guard let cell = cell else { return UICollectionViewCell() }
-        cell.removeGradient()
         cell.configureCell(result: resultsArr[indexPath.row])
         
         return cell

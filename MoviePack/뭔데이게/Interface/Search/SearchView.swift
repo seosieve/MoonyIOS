@@ -9,6 +9,8 @@ import UIKit
 
 final class SearchView: BaseView {
     
+    let sortCount = UserDefaultsManager.shared.searchSort
+    
     private lazy var twoColum = UIAction(title: "두 줄 정렬", state: .on, handler: updateActionStates)
                                   
     private lazy var threeColum = UIAction(title: "세 줄 정렬", state: .off, handler: updateActionStates)
@@ -23,12 +25,12 @@ final class SearchView: BaseView {
         ///Selected Index
         guard let index = sortArr.firstIndex(where: { $0.title == action.title }) else { return }
         let sortName = sortArr[index]
-        print(sortName)
-        self.sortLayout(colum: index+2)
+        self.sortLayout(column: index+2)
+        UserDefaultsManager.shared.searchSort = index+2
     }
     
-    func sortLayout(colum: Int) {
-        searchCollectionView.setCollectionViewLayout(searchLayout(colum: CGFloat(colum)), animated: true)
+    func sortLayout(column: Int) {
+        searchCollectionView.setCollectionViewLayout(searchLayout(column: CGFloat(column)), animated: true)
     }
     
     lazy var sortButtonItem = UIBarButtonItem().then {
@@ -70,13 +72,14 @@ final class SearchView: BaseView {
         $0.backgroundColor = Colors.blackInterface
     }
     
-    private func searchLayout(colum: CGFloat) -> UICollectionViewLayout {
-        let itemHeight = CGFloat(3.0 / 4.0)
+    private func searchLayout(column: CGFloat) -> UICollectionViewLayout {
+        ///Set Item Ratio
+        let itemAspectRatio: CGFloat = 4.0 / 3.0
         
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1 / colum), heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1 / column), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1 / colum * 5 / 3))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1 / column * itemAspectRatio))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.interItemSpacing = .fixed(4)
         
@@ -88,7 +91,7 @@ final class SearchView: BaseView {
         return layout
     }
     
-    lazy var searchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: searchLayout(colum: 3)).then {
+    lazy var searchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: searchLayout(column: CGFloat(sortCount))).then {
         $0.backgroundColor = .clear
         $0.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 40, right: 0)
     }

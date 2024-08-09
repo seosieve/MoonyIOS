@@ -7,14 +7,17 @@
 
 import UIKit
 
-class SearchCollectionViewCell: BaseCollectionViewCell {
+final class SearchCollectionViewCell: BaseCollectionViewCell {
     
-    var gradientLayer: CAGradientLayer?
-    
-    let searchImageView = UIImageView().then {
+    private let searchImageView = UIImageView().then {
+        $0.backgroundColor = Colors.blackInterface
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 8
+    }
+    
+    private let dimView = UIView().then {
+        $0.backgroundColor = Colors.blackBackground.withAlphaComponent(0.4)
     }
     
     let titleLabel = UILabel().then {
@@ -26,43 +29,23 @@ class SearchCollectionViewCell: BaseCollectionViewCell {
     
     override func configureSubViews() {
         contentView.addSubview(searchImageView)
+        contentView.addSubview(dimView)
         contentView.addSubview(titleLabel)
     }
     
     override func configureConstraints() {
         searchImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.horizontalEdges.equalToSuperview()
+        }
+        
+        dimView.snp.makeConstraints { make in
+            make.edges.horizontalEdges.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(10)
             make.horizontalEdges.equalToSuperview().inset(10)
             make.centerX.equalToSuperview()
-        }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        removeGradient()
-        addGradient()
-    }
-    
-    func addGradient() {
-        contentView.layoutIfNeeded()
-        let gradientLayer = CAGradientLayer()
-        
-        gradientLayer.frame = searchImageView.bounds
-        gradientLayer.colors = [UIColor.clear.cgColor, Colors.blackBackground.cgColor]
-        searchImageView.layer.addSublayer(gradientLayer)
-        
-        // 새로 추가된 gradientLayer를 저장
-        self.gradientLayer = gradientLayer
-    }
-    
-    func removeGradient() {
-        if let gradientLayer = self.gradientLayer {
-            gradientLayer.removeFromSuperlayer()
-            self.gradientLayer = nil
         }
     }
     
