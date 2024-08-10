@@ -20,6 +20,6 @@ struct Poster: Decodable {
     }
     
     var posterUrl: String {
-        return "https://image.tmdb.org/t/p/w780/" + (backdropPath ?? "")
+        return "https://image.tmdb.org/t/p/original/" + (backdropPath ?? "")
     }
 }

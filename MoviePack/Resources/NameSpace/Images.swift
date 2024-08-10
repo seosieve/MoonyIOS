@@ -12,6 +12,7 @@ enum Images {
     static let magnifier = UIImage(systemName: "magnifyingglass")
     static let ellipsis = UIImage(systemName: "ellipsis")
     static let xmark = UIImage(systemName: "xmark")
+    static let gear = UIImage(systemName: "gearshape")
     
     static func profile(_ number: Int) -> UIImage? {
         return UIImage(named: "profile_\(number)")

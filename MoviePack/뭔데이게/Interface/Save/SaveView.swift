@@ -1,5 +1,5 @@
 //
-//  SettingView.swift
+//  SaveView.swift
 //  MoviePack
 //
 //  Created by 서충원 on 7/13/24.
@@ -7,12 +7,11 @@
 
 import UIKit
 
-final class SettingView: BaseView {
+final class SaveView: BaseView {
     
     lazy var settingButtonItem = UIBarButtonItem().then {
         let config = UIImage.SymbolConfiguration(weight: .bold)
-        let settingImage = UIImage(systemName: "gearshape", withConfiguration: config)
-        $0.image = settingImage
+        $0.image = Images.gear?.withConfiguration(config)
         $0.style = .plain
     }
     

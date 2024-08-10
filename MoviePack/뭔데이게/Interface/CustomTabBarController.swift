@@ -20,21 +20,22 @@ final class CustomTabBarController: UITabBarController {
         homeNavigationController.tabBarItem.image = UIImage(systemName: "movieclapper")
         homeNavigationController.tabBarItem.selectedImage = UIImage(systemName: "movieclapper.fill")
         
-        let addlistViewController = UINavigationController(rootViewController: TrendViewController())
-        addlistViewController.tabBarItem.image = UIImage(systemName: "list.bullet.clipboard")
-        addlistViewController.tabBarItem.selectedImage = UIImage(systemName: "list.bullet.clipboard.fill")
+        let upcomingViewController = UpcomingViewController(view: UpcomingView(), viewModel: UpcomingViewModel())
+        let upcomingNavigationController = UINavigationController(rootViewController: upcomingViewController)
+        upcomingNavigationController.tabBarItem.image = UIImage(systemName: "list.bullet.clipboard")
+        upcomingNavigationController.tabBarItem.selectedImage = UIImage(systemName: "list.bullet.clipboard.fill")
         
-        let userViewController = SearchViewController(view: SearchView(), viewModel: SearchViewModel())
-        let userNavigationController = UINavigationController(rootViewController: userViewController)
-        userNavigationController.tabBarItem.image = UIImage(systemName: "popcorn")
-        userNavigationController.tabBarItem.selectedImage = UIImage(systemName: "popcorn.fill")
+        let searchViewController = SearchViewController(view: SearchView(), viewModel: SearchViewModel())
+        let searchNavigationController = UINavigationController(rootViewController: searchViewController)
+        searchNavigationController.tabBarItem.image = UIImage(systemName: "popcorn")
+        searchNavigationController.tabBarItem.selectedImage = UIImage(systemName: "popcorn.fill")
         
-        let settingViewController = SettingViewController(view: SettingView(), viewModel: SettingViewModel())
-        let settingNavigationController = UINavigationController(rootViewController: settingViewController)
-        settingNavigationController.tabBarItem.image = UIImage(systemName: "person")
-        settingNavigationController.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
+        let saveViewController = SaveViewController(view: SaveView(), viewModel: SaveViewModel())
+        let saveNavigationController = UINavigationController(rootViewController: saveViewController)
+        saveNavigationController.tabBarItem.image = UIImage(systemName: "person")
+        saveNavigationController.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
         
-        viewControllers = [homeNavigationController, addlistViewController, userNavigationController, settingNavigationController]
+        viewControllers = [homeNavigationController, upcomingNavigationController, searchNavigationController, saveNavigationController]
     }
     
     func configureTabBar(space: CGFloat, addHeight: CGFloat) {

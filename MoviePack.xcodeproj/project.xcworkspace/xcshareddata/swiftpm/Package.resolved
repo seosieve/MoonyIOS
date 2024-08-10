@@ -1,5 +1,5 @@
 {
-  "originHash" : "d2e7e87fc2a9bc3a9698bd7c3b5f2cf343c46786017c67e67c38e7aacf7dc7d5",
+  "originHash" : "73e8a8e8ac9581be1711892b4ab0e5b5ae9754b6d6893171ac76e4a1f8cb2027",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -80,6 +80,15 @@
       "state" : {
         "revision" : "ddccd20d6fb718448d9b179c454c561653fda7d5",
         "version" : "5.1.1"
+      }
+    },
+    {
+      "identity" : "visualeffectview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/efremidze/VisualEffectView.git",
+      "state" : {
+        "revision" : "df0121bbd2bb99c1ccd8eed5c5b932fb1648dfe4",
+        "version" : "4.1.5"
       }
     },
     {
