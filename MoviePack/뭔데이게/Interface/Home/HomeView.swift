@@ -13,9 +13,9 @@ final class HomeView: BaseView {
     
     private lazy var dateOrder = UIAction(title: "오늘", state: .on, handler: updateActionStates)
                                   
-    private lazy var titleOrder = UIAction(title: "3년 전", state: .off, handler: updateActionStates)
+    private lazy var titleOrder = UIAction(title: "3년 전 오늘", state: .off, handler: updateActionStates)
     
-    private lazy var priorityOrder = UIAction(title: "10년 전", state: .off, handler: updateActionStates)
+    private lazy var priorityOrder = UIAction(title: "10년 전 오늘", state: .off, handler: updateActionStates)
     
     private lazy var updateActionStates: (UIAction) -> Void = { action in
         ///ReGenerate Menu

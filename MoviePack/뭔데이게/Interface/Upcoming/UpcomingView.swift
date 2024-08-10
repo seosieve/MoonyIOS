@@ -6,18 +6,25 @@
 //
 
 import UIKit
+import RxSwift
 
 final class UpcomingView: BaseView {
     
-    private lazy var dateOrder = UIAction(title: "날짜 순", state: .off, handler: updateActionStates)
+    let sortChange = BehaviorSubject<Int>(value: 0)
     
-    private lazy var expectationOrder = UIAction(title: "기대 순", state: .off, handler: updateActionStates)
+    private lazy var dateOrder = UIAction(title: "날짜 순", state: .on, handler: updateActionStates)
     
-    private lazy var updateActionStates: (UIAction) -> Void = { action in
+    private lazy var expectationOrder = UIAction(title: "인기도 순", state: .off, handler: updateActionStates)
+    
+    private lazy var updateActionStates: (UIAction) -> Void = { [weak self] action in
+        guard let self else { return }
         ///ReGenerate Menu
         var sortArr = [self.dateOrder, self.expectationOrder]
         sortArr.forEach { $0.state = ($0 == action) ? .on : .off }
         self.sortButtonItem.menu = UIMenu(options: .displayInline, children: sortArr)
+        ///Selected Index
+        guard let index = sortArr.firstIndex(where: { $0.title == action.title }) else { return }
+        self.sortChange.onNext(index)
     }
     
     lazy var sortButtonItem = UIBarButtonItem().then {
@@ -47,7 +54,7 @@ final class UpcomingView: BaseView {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1.2))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1.4))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)

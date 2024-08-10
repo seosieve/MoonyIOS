@@ -14,6 +14,7 @@ struct Movie: Decodable, BaseType, Hashable {
     let overview: String?
     let releaseDate: String?
     let grade: Double?
+    let popularity: Double?
     let genreID: [Int?]?
     let backdropPath: String?
     let posterPath: String?
@@ -31,6 +32,7 @@ extension Movie {
         case overview
         case releaseDate = "release_date"
         case grade = "vote_average"
+        case popularity
         case genreID = "genre_ids"
         case backdropPath = "backdrop_path"
         case posterPath = "poster_path"

@@ -17,14 +17,14 @@ final class SearchView: BaseView {
     
     private lazy var fourColum = UIAction(title: "네 줄 정렬", state: .off, handler: updateActionStates)
     
-    private lazy var updateActionStates: (UIAction) -> Void = { action in
+    private lazy var updateActionStates: (UIAction) -> Void = { [weak self] action in
+        guard let self else { return }
         ///ReGenerate Menu
         var sortArr = [self.twoColum, self.threeColum, self.fourColum]
         sortArr.forEach { $0.state = ($0 == action) ? .on : .off }
         self.sortButtonItem.menu = UIMenu(options: .displayInline, children: sortArr)
         ///Selected Index
         guard let index = sortArr.firstIndex(where: { $0.title == action.title }) else { return }
-        let sortName = sortArr[index]
         self.sortLayout(column: index+2)
         ///Set UserDefaults
         UserDefaultsManager.shared.searchSort = index+2

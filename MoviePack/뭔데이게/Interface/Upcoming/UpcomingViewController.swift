@@ -25,7 +25,7 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
     
     override func configureRx() {
         ///Input
-        let input = UpcomingViewModel.Input(trigger: Observable.just(()))
+        let input = UpcomingViewModel.Input(sortChange: baseView.sortChange)
         ///Output
         let output = viewModel.transform(input: input)
         
@@ -44,6 +44,7 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
             
         }
         .disposed(by: disposeBag)
+        
     }
 }
 
