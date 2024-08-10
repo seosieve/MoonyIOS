@@ -27,17 +27,16 @@ final class NetworkManager {
     }
     
     ///Network Request with RxSwift
-    func rxNetworkRequest<T: Decodable>(router: Network, type: T.Type) -> Observable<T> {
+    func rxNetworkRequest<T: Decodable>(router: Network, type: T.Type) -> Single<T> {
         ///Create Observable
-        let observable = Observable<T>.create { observable in
+        let observable = Single<T>.create { single in
             ///Mapping Alamofire
             AF.request(router.endPoint, method: router.method, parameters: router.parameters).responseDecodable(of: T.self) { response in
                 switch response.result {
                 case .success(let value):
-                    observable.onNext(value)
-                    observable.onCompleted()
+                    single(.success(value))
                 case .failure(let error):
-                    observable.onError(error)
+                    single(.failure(error))
                 }
             }
             ///Return Disposable

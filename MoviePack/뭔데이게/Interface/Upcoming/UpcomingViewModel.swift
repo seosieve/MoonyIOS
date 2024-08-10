@@ -32,27 +32,21 @@ final class UpcomingViewModel: BaseViewModel {
             .map { Network.upcoming(minDate: $0.minDate, maxDate: $0.maxDate) }
             ///Rx Network Request
             .flatMap { NetworkManager.shared.rxNetworkRequest(router: $0, type: SearchResult.self) }
-            .subscribe { movie in
+            .subscribe(with: self, onNext: { owner, value in
                 ///Sort By Popularity
-                let sortedMovie = movie.results.sorted { $0.releaseDate ?? "" < $1.releaseDate ?? "" }
+                let sortedMovie = owner.sortMovie(with: 0, movie: value.results)
                 ///Initialize MovieList
                 movieList.accept(sortedMovie)
-            } onError: { error in
+            }, onError: { owner, error in
                 print(error)
-            } onCompleted: {
-                print("Completed")
-            }
+            })
             .disposed(by: disposeBag)
         
         input.sortChange
-            .subscribe(onNext:{ value in
-                if value == 0 {
-                    let sortedMovie = movieList.value.sorted { $0.releaseDate ?? "" < $1.releaseDate ?? "" }
-                    movieList.accept(sortedMovie)
-                } else {
-                    let sortedMovie = movieList.value.sorted { $0.popularity ?? 0 > $1.popularity ?? 0 }
-                    movieList.accept(sortedMovie)
-                }
+            .subscribe(with: self, onNext: { owner, value in
+                ///Sort By Order
+                let sortedMovie = owner.sortMovie(with: value, movie: movieList.value)
+                movieList.accept(sortedMovie)
             })
             .disposed(by: disposeBag)
         
@@ -60,6 +54,7 @@ final class UpcomingViewModel: BaseViewModel {
         return Output(movieList: movieList)
     }
     
+    //Return Current & 1 year later Date
     func getDateString() -> (minDate: String, maxDate: String) {
         let minDate = Date()
         let maxDate = Calendar.current.date(byAdding: .year, value: 1, to: minDate) ?? Date()
@@ -70,6 +65,19 @@ final class UpcomingViewModel: BaseViewModel {
         let maxDateString = formatter.string(from: maxDate)
         
         return (minDateString, maxDateString)
+    }
+    
+    //Sort Movie by Order
+    func sortMovie(with order: Int, movie: [Movie]) -> [Movie] {
+        let sortedMovie: [Movie]
+        
+        if order == 0 {
+            sortedMovie = movie.sorted { $0.releaseDate < $1.releaseDate }
+        } else {
+            sortedMovie = movie.sorted { $0.popularity > $1.popularity }
+        }
+        
+        return sortedMovie
     }
 }
 

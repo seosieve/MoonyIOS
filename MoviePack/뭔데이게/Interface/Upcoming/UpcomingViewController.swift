@@ -37,6 +37,8 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
         
         
         
+        
+        
         let identifier = GenreCollectionViewCell.description()
         let cell = GenreCollectionViewCell.self
         
@@ -44,7 +46,6 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
             
         }
         .disposed(by: disposeBag)
-        
     }
 }
 
