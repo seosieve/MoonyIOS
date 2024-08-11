@@ -65,7 +65,6 @@ final class UpcomingCollectionViewCell: BaseCollectionViewCell {
         $0.font = Fonts.stretch(12)
         $0.textColor = Colors.blackDescription
         $0.textAlignment = .center
-        $0.numberOfLines = 2
     }
     
     override func configureSubViews() {
@@ -120,13 +119,13 @@ final class UpcomingCollectionViewCell: BaseCollectionViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(posterImageView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(40)
+            make.horizontalEdges.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
         }
         
         engTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
-            make.horizontalEdges.equalToSuperview().inset(60)
+            make.horizontalEdges.equalToSuperview().inset(20)
             make.centerX.equalToSuperview()
         }
     }

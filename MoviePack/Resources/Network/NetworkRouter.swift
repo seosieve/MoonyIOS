@@ -12,7 +12,7 @@ enum Network {
     case kobis(date: String)
     case kobisSearch(word: String)
     case search(word: String, page: Int)
-    case upcoming(minDate: String, maxDate: String)
+    case upcoming(minDate: String, maxDate: String, genre: String)
     case trend(type: String)
     case detail(id: Int)
     case credit(id: Int)
@@ -64,23 +64,41 @@ enum Network {
     var parameters: Parameters {
         switch self {
         case .kobis(let date):
-            return ["key": APIKey.kobisKey, "targetDt": date]
+            return ["key": APIKey.kobisKey, 
+                    "targetDt": date]
         case .kobisSearch(let word):
-            return ["api_key": APIKey.TMDBKey, "language": "en-US", "query": word]
+            return ["api_key": APIKey.TMDBKey, 
+                    "language": "en-US",
+                    "query": word]
         case .search(let word, let page):
-            return ["api_key": APIKey.TMDBKey, "language": "ko-KR", "query": word, "page": page]
-        case .upcoming(let minDate, let maxDate):
-            return ["api_key": APIKey.TMDBKey, "language": "ko-KR", "primary_release_date.gte": minDate, "primary_release_date.lte": maxDate, "sort_by": "popularity.desc"]
+            return ["api_key": APIKey.TMDBKey, 
+                    "language": "ko-KR",
+                    "query": word,
+                    "page": page]
+        case .upcoming(let minDate, let maxDate, let genre):
+            return ["api_key": APIKey.TMDBKey,
+                    "language": "ko-KR",
+                    "primary_release_date.gte": minDate,
+                    "primary_release_date.lte": maxDate,
+                    "with_genres": genre,
+                    "sort_by": "popularity.desc"]
         case .trend:
-            return ["api_key": APIKey.TMDBKey, "language": "ko-KR"]
+            return ["api_key": APIKey.TMDBKey, 
+                    "language": "ko-KR"]
         case .detail:
-            return ["api_key": APIKey.TMDBKey, "language": "ko-KR"]
+            return ["api_key": APIKey.TMDBKey, 
+                    "language": "ko-KR"]
         case .credit:
-            return ["api_key": APIKey.TMDBKey, "language": "ko-KR"]
+            return ["api_key": APIKey.TMDBKey, 
+                    "language": "ko-KR"]
         case .similar(_, let page):
-            return ["api_key": APIKey.TMDBKey, "language": "ko-KR", "page": page]
+            return ["api_key": APIKey.TMDBKey, 
+                    "language": "ko-KR",
+                    "page": page]
         case .recommend(_, let page):
-            return ["api_key": APIKey.TMDBKey, "language": "ko-KR", "page": page]
+            return ["api_key": APIKey.TMDBKey, 
+                    "language": "ko-KR",
+                    "page": page]
         case .poster:
             return ["api_key": APIKey.TMDBKey]
         case .video:

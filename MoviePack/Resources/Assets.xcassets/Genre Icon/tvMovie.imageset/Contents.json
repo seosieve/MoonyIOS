@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "computer-screen-2--screen-device-electronics-monitor-diplay-computer.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "computer-screen-2--screen-device-electronics-monitor-diplay-computer 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "computer-screen-2--screen-device-electronics-monitor-diplay-computer 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
+  }
+}

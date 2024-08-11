@@ -36,7 +36,7 @@ final class UpcomingView: BaseView {
     
     private let genreLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
-        $0.itemSize = CGSize(width: 60, height: 60)
+        $0.itemSize = CGSize(width: 60, height: 100)
     }
     
     lazy var genreCollectionView = UICollectionView(frame: .zero, collectionViewLayout: genreLayout).then {
@@ -66,7 +66,7 @@ final class UpcomingView: BaseView {
     
     lazy var upcomingCollectionView = UICollectionView(frame: .zero, collectionViewLayout: upcomingLayout).then {
         $0.backgroundColor = .clear
-        $0.contentInset = UIEdgeInsets(top: -14, left: 0, bottom: 40, right: 0)
+        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
     }
     
     override func configureView() {
@@ -81,13 +81,13 @@ final class UpcomingView: BaseView {
     
     override func configureConstraints() {
         genreCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide).offset(10)
+            make.top.equalTo(self.safeAreaLayoutGuide)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(60)
+            make.height.equalTo(100)
         }
         
         upcomingDivider.snp.makeConstraints { make in
-            make.top.equalTo(genreCollectionView.snp.bottom).offset(10)
+            make.top.equalTo(genreCollectionView.snp.bottom)
             make.horizontalEdges.equalTo(self.safeAreaLayoutGuide)
             make.height.equalTo(1)
         }

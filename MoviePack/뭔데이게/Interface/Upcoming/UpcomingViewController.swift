@@ -11,7 +11,6 @@ import RxCocoa
 
 final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingViewModel> {
     
-    let genre = Observable.just(Names.Genre.dictionary)
     var dataSource: UICollectionViewDiffableDataSource<String, Movie>!
     
     let disposeBag = DisposeBag()
@@ -25,7 +24,7 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
     
     override func configureRx() {
         ///Input
-        let input = UpcomingViewModel.Input(sortChange: baseView.sortChange)
+        let input = UpcomingViewModel.Input(sortChange: baseView.sortChange, genreSelect: baseView.genreCollectionView.rx.itemSelected)
         ///Output
         let output = viewModel.transform(input: input)
         
@@ -39,13 +38,38 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
         
         
         
-        let identifier = GenreCollectionViewCell.description()
-        let cell = GenreCollectionViewCell.self
         
-        genre.bind(to: baseView.genreCollectionView.rx.items(cellIdentifier: identifier, cellType: cell)) { row, element, cell in
-            
-        }
-        .disposed(by: disposeBag)
+        
+        
+        
+        
+        //Genre Collection View
+
+        let (identifier, cellType) = (GenreCollectionViewCell.description(), GenreCollectionViewCell.self)
+        
+        Observable.just(Names.Genre.allCases)
+            .bind(to: baseView.genreCollectionView.rx.items(cellIdentifier: identifier, cellType: cellType)) { item, element, cell in
+                cell.configureCell(element)
+            }
+            .disposed(by: disposeBag)
+        
+        ///Configure 'All' is Selected in Initial
+        baseView.genreCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
+        
+        baseView.genreCollectionView.rx.itemSelected
+            .distinctUntilChanged()
+            .bind(with: self) { owner, value in
+                guard let cell = owner.baseView.genreCollectionView.cellForItem(at: value) as? GenreCollectionViewCell else { return }
+                cell.selectAnimation()
+            }
+            .disposed(by: disposeBag)
+        
+        baseView.genreCollectionView.rx.itemDeselected
+            .bind(with: self) { owner, value in
+                guard let cell = owner.baseView.genreCollectionView.cellForItem(at: value) as? GenreCollectionViewCell else { return }
+                cell.deselectAction()
+            }
+            .disposed(by: disposeBag)
     }
 }
 

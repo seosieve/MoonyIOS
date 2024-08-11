@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "interface-alert-radio-active-1--danger-nuke-radiation-nuclear-warning-alert-radioactive-caution.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "interface-alert-radio-active-1--danger-nuke-radiation-nuclear-warning-alert-radioactive-caution 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "interface-alert-radio-active-1--danger-nuke-radiation-nuclear-warning-alert-radioactive-caution 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
+  }
+}

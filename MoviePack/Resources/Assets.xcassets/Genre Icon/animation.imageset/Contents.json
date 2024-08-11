@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "travel-places-mountain--sun-landmark-mountain-place.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "travel-places-mountain--sun-landmark-mountain-place 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "travel-places-mountain--sun-landmark-mountain-place 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
+  }
+}

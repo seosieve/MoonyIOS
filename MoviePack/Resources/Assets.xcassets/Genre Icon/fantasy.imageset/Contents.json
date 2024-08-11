@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "religion-islam--religion-islam-moon-crescent-muslim-culture-star.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "religion-islam--religion-islam-moon-crescent-muslim-culture-star 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "religion-islam--religion-islam-moon-crescent-muslim-culture-star 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
+  }
+}

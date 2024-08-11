@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "interface-edit-skull-1--crash-death-delete-die-error-garbage-remove-skull-trash.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "interface-edit-skull-1--crash-death-delete-die-error-garbage-remove-skull-trash 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "interface-edit-skull-1--crash-death-delete-die-error-garbage-remove-skull-trash 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
+  }
+}

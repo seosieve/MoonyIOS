@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "nature-ecology-leaf--environment-leaf-ecology-plant-plants-eco.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "nature-ecology-leaf--environment-leaf-ecology-plant-plants-eco 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "nature-ecology-leaf--environment-leaf-ecology-plant-plants-eco 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
+  }
+}

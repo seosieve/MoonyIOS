@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "entertainment-walk-man--player-tapes-tape-headphones-music-walkman-headset-audio.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "entertainment-walk-man--player-tapes-tape-headphones-music-walkman-headset-audio 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "entertainment-walk-man--player-tapes-tape-headphones-music-walkman-headset-audio 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
+  }
+}

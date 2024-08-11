@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "travel-wayfinder-lifebuoy--water-life-ring-wheely-lifebelt-kisbee.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "travel-wayfinder-lifebuoy--water-life-ring-wheely-lifebelt-kisbee 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "travel-wayfinder-lifebuoy--water-life-ring-wheely-lifebelt-kisbee 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
+  }
+}

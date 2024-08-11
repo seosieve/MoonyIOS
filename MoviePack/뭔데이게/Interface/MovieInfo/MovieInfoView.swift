@@ -324,10 +324,10 @@ final class MovieInfoView: BaseView {
         let url = URL(string: movie.imageUrl)
         previewImageView.kf.setImage(with: url)
         let labels = [firstGenreLabel, secondGenreLabel, thirdGenreLabel]
-        let genres = genreID.compactMap{$0}
+        let genres = genreID.compactMap { $0 }.map { String($0) }
         for (index, genreID) in genres.prefix(3).enumerated() {
-            let genreName = Names.Genre.dictionary[genreID]
-            labels[index].text = genreName
+            guard let genreName = Names.Genre.from(genreID) else { return }
+            labels[index].text = genreName.description
             labels[index].layer.borderWidth = 1
             labels[index].snp.updateConstraints { make in
                 make.width.equalTo(labels[index].intrinsicContentSize.width + 20)
