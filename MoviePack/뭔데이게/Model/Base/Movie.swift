@@ -19,7 +19,8 @@ struct Movie: Decodable, BaseType, Hashable {
     let backdropPath: String?
     let posterPath: String?
     var imageUrl: String {
-        return "https://image.tmdb.org/t/p/original/" + (backdropPath ?? posterPath ?? "")
+        let baseUrl = "https://image.tmdb.org/t/p/original/"
+        return [backdropPath, posterPath].compactMap { $0 }.first.map { baseUrl + $0 } ?? ""
     }
 }
 

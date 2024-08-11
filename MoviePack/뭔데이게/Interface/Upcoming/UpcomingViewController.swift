@@ -30,7 +30,9 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
         
         output.movieList
             .bind(with: self) { owner, value in
+                guard !value.isEmpty else { return }
                 owner.updateSnapshot(value)
+                print("aa")
             }
             .disposed(by: disposeBag)
         
@@ -56,11 +58,20 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
         ///Configure 'All' is Selected in Initial
         baseView.genreCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
         
+        ///Select Animation
         baseView.genreCollectionView.rx.itemSelected
             .distinctUntilChanged()
             .bind(with: self) { owner, value in
                 guard let cell = owner.baseView.genreCollectionView.cellForItem(at: value) as? GenreCollectionViewCell else { return }
                 cell.selectAnimation()
+            }
+            .disposed(by: disposeBag)
+        
+        ///Scroll to Top
+        baseView.genreCollectionView.rx.itemSelected
+            .bind(with: self) { owner, value in
+                guard let cell = owner.baseView.genreCollectionView.cellForItem(at: value) as? GenreCollectionViewCell else { return }
+                owner.baseView.upcomingCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             }
             .disposed(by: disposeBag)
         

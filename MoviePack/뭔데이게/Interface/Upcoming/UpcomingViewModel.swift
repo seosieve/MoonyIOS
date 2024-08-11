@@ -35,8 +35,10 @@ final class UpcomingViewModel: BaseViewModel {
             ///Rx Network Request
             .flatMap { NetworkManager.shared.rxNetworkRequest(router: $0, type: SearchResult.self) }
             .subscribe(with: self, onNext: { owner, value in
-                ///Sort By Popularity
-                let sortedMovie = owner.sortMovie(with: sortOrder.value, movie: value.results)
+                ///Filter
+                let filteredMovie = owner.filterMovie(movie: value.results)
+                ///Sort
+                let sortedMovie = owner.sortMovie(with: sortOrder.value, movie: filteredMovie)
                 ///Initialize MovieList
                 movieList.accept(sortedMovie)
             }, onError: { owner, error in
@@ -48,22 +50,25 @@ final class UpcomingViewModel: BaseViewModel {
             .subscribe(with: self, onNext: { owner, value in
                 ///Update SortOrder
                 sortOrder.accept(value)
-                ///Sort By Order
-                let sortedMovie = owner.sortMovie(with: value, movie: movieList.value)
-                movieList.accept(sortedMovie)
+                ///Sort
+                let movie = owner.sortMovie(with: value, movie: movieList.value)
+                movieList.accept(movie)
             })
             .disposed(by: disposeBag)
         
         input.genreSelect
+            .distinctUntilChanged()
             .map { Names.Genre.allCases[$0.item].rawValue }
             ///Mapping with Router
             .map { self.getRouter(genre: $0) }
             ///Rx Network Request
             .flatMap { NetworkManager.shared.rxNetworkRequest(router: $0, type: SearchResult.self) }
             .subscribe(with: self, onNext: { owner, value in
-                ///Sort By Popularity
-                let sortedMovie = owner.sortMovie(with: sortOrder.value, movie: value.results)
-                ///Initialize MovieList
+                ///Filter
+                let filteredMovie = owner.filterMovie(movie: value.results)
+                ///Sort
+                let sortedMovie = owner.sortMovie(with: sortOrder.value, movie: filteredMovie)
+                ///Change MovieList
                 movieList.accept(sortedMovie)
             }, onError: { owner, error in
                 print(error)
@@ -93,17 +98,16 @@ final class UpcomingViewModel: BaseViewModel {
         return (minDateString, maxDateString)
     }
     
-    //Sort Movie by Order
+    //Filter Movie
+    func filterMovie(movie: [Movie]) -> [Movie] {
+        ///Filter that have no image
+        return movie.filter { !$0.imageUrl.isEmpty }
+    }
+    
+    //Sort Movie
     func sortMovie(with order: Int, movie: [Movie]) -> [Movie] {
-        let sortedMovie: [Movie]
-        
-        if order == 0 {
-            sortedMovie = movie.sorted { $0.releaseDate < $1.releaseDate }
-        } else {
-            sortedMovie = movie.sorted { $0.popularity > $1.popularity }
-        }
-        
-        return sortedMovie
+        ///Sort By Order
+        return movie.sorted { order == 0 ? ($0.releaseDate < $1.releaseDate) : ($0.popularity > $1.popularity) }
     }
 }
 
