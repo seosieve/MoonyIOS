@@ -26,7 +26,7 @@ final class MoviePreviewView: BaseView {
     }
     
     lazy var previewCollectionView = UICollectionView(frame: .zero, collectionViewLayout: previewLayout).then {
-        $0.register(PreviewCollectionViewCell.self, forCellWithReuseIdentifier: PreviewCollectionViewCell.identifier)
+        $0.register(PreviewCollectionViewCell.self, forCellWithReuseIdentifier: PreviewCollectionViewCell.description())
         $0.isPagingEnabled = true
         $0.decelerationRate = .fast
         $0.backgroundColor = .clear
@@ -79,6 +79,7 @@ final class MoviePreviewView: BaseView {
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension MoviePreviewView: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let page = round(scrollView.contentOffset.x / scrollView.frame.width)

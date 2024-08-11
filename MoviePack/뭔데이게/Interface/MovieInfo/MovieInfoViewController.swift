@@ -57,7 +57,11 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
     }
     
     @objc func previewButtonClicked() {
-        let vc = MoviePreviewViewController(view: MoviePreviewView(), viewModel: MoviePreviewViewModel())
+        
+        let viewModel = MoviePreviewViewModel()
+        viewModel.movieId = self.viewModel.searchMovieResult.value?.id
+        
+        let vc = MoviePreviewViewController(view: MoviePreviewView(), viewModel: viewModel)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -69,7 +73,7 @@ extension MovieInfoViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let identifier = PosterCollectionViewCell.identifier
+        let identifier = PosterCollectionViewCell.description()
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? PosterCollectionViewCell
         guard let cell else { return UICollectionViewCell() }
         let poster = viewModel.moviePosterArr.value[indexPath.row]
@@ -100,7 +104,7 @@ extension MovieInfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = CastTableViewCell.identifier
+        let identifier = CastTableViewCell.description()
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? CastTableViewCell
         guard let cell else { return UITableViewCell() }
         ///Configure Cell

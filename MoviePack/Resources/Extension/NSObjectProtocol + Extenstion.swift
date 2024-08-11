@@ -8,10 +8,6 @@
 import UIKit
 
 extension NSObjectProtocol {
-    static var identifier: String {
-        return String(describing: self)
-    }
-    
     ///Instead of UIScreen.main
     static var screenSize: CGRect {
         guard let window = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return CGRect() }

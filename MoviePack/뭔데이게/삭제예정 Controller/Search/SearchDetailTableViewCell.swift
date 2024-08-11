@@ -38,7 +38,7 @@ class SearchDetailTableViewCell: BaseTableViewCell {
     lazy var searchDetailCollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         collectionView.backgroundColor = .black
-        collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.identifier)
+        collectionView.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: SearchCollectionViewCell.description())
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.prefetchDataSource = self
@@ -75,7 +75,7 @@ extension SearchDetailTableViewCell: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.identifier, for: indexPath) as? SearchCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.description(), for: indexPath) as? SearchCollectionViewCell
         guard let cell = cell else { return UICollectionViewCell() }
         cell.configureCell(result: resultsArr[indexPath.row])
         

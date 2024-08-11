@@ -10,8 +10,8 @@ import Kingfisher
 
 class TrendDetailViewController: UIViewController {
     
-    let overViewIdentifier = OverViewTableViewCell.identifier
-    let castIdentifier = CastTableViewCell.identifier
+    let overViewIdentifier = OverViewTableViewCell.description()
+    let castIdentifier = CastTableViewCell.description()
     
     var trend: Movie?
     var creditsResult: CreditsResult?

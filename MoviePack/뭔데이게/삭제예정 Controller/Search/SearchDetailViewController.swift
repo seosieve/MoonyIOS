@@ -116,7 +116,7 @@ extension SearchDetailViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SearchDetailTableViewCell.identifier, for: indexPath) as? SearchDetailTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchDetailTableViewCell.description(), for: indexPath) as? SearchDetailTableViewCell
         guard let cell = cell else { return UITableViewCell() }
         guard let type = CollectionViewType(rawValue: indexPath.row) else { return UITableViewCell() }
         

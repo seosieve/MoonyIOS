@@ -16,7 +16,6 @@ final class PreviewCollectionViewCell: BaseCollectionViewCell {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = Colors.blackInterface.cgColor
         $0.backgroundColor = Colors.blackInterface
-        
     }
     
     let skeletonView = UIView().then {
@@ -49,9 +48,9 @@ final class PreviewCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func configureCell() {
+    func configureCell(key: String) {
         DispatchQueue.main.async {
-            self.previewVideoView.load(withVideoId: "6XmBefPeDnE")
+            self.previewVideoView.load(withVideoId: key)
         }
     }
 }

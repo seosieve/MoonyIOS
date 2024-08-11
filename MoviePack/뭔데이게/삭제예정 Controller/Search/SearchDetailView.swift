@@ -24,7 +24,7 @@ class SearchDetailView: BaseView {
         tableView.backgroundColor = .black
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        tableView.register(SearchDetailTableViewCell.self, forCellReuseIdentifier: SearchDetailTableViewCell.identifier)
+        tableView.register(SearchDetailTableViewCell.self, forCellReuseIdentifier: SearchDetailTableViewCell.description())
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()

@@ -53,7 +53,7 @@ final class HomeView: BaseView {
     lazy var rankCollectionView = UICollectionView(frame: .zero, collectionViewLayout: rankLayout).then {
         let horizontalInset = (HomeView.screenSize.width - rankLayout.itemSize.width) / 2
         $0.contentInset = UIEdgeInsets(top: 0, left: horizontalInset, bottom: 0, right: horizontalInset)
-        $0.register(RankCollectionViewCell.self, forCellWithReuseIdentifier: RankCollectionViewCell.identifier)
+        $0.register(RankCollectionViewCell.self, forCellWithReuseIdentifier: RankCollectionViewCell.description())
         $0.contentInsetAdjustmentBehavior = .never
         $0.decelerationRate = .fast
         $0.backgroundColor = .clear
@@ -119,7 +119,7 @@ final class HomeView: BaseView {
     
     lazy var trendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: trendLayout).then {
         $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        $0.register(TrendCollectionViewCell.self, forCellWithReuseIdentifier: TrendCollectionViewCell.identifier)
+        $0.register(TrendCollectionViewCell.self, forCellWithReuseIdentifier: TrendCollectionViewCell.description())
         $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
     }

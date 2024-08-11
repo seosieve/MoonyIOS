@@ -6,28 +6,29 @@
 //
 
 import UIKit
+import RxSwift
 
 final class MoviePreviewViewController: BaseViewController<MoviePreviewView, MoviePreviewViewModel> {
+    
+    let disposeBag = DisposeBag()
     
     override func configureView() {
         ///Navigation Controller
         baseView.configureNavigationController(self)
-        ///CollectionView Delegate
-        baseView.previewCollectionView.dataSource = self
-    }
-}
-
-//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension MoviePreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let identifier = PreviewCollectionViewCell.identifier
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? PreviewCollectionViewCell
-        guard let cell else { return UICollectionViewCell() }
-        cell.configureCell()        
-        return cell
+    override func configureRx() {
+        ///Input
+        let input = MoviePreviewViewModel.Input()
+        ///Output
+        let output = viewModel.transform(input: input)
+        
+        let (identifier, cellType) = (PreviewCollectionViewCell.description(), PreviewCollectionViewCell.self)
+        
+        output.videoList
+            .bind(to: baseView.previewCollectionView.rx.items(cellIdentifier: identifier, cellType: cellType)) { item, element, cell in
+                cell.configureCell(key: element.key)
+            }
+            .disposed(by: disposeBag)
     }
 }

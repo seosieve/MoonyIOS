@@ -11,7 +11,7 @@ import Kingfisher
 
 class TrendViewController: UIViewController {
     
-    let identifier = TrendTableViewCell.identifier
+    let identifier = TrendTableViewCell.description()
     var trendArr: [Movie] = []
     var creditsArr: [CreditsResult] = []
     

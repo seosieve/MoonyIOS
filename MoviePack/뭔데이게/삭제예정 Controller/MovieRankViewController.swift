@@ -67,7 +67,7 @@ class MovieRankViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(MovieRankTableViewCell.self, forCellReuseIdentifier: MovieRankTableViewCell.identifier)
+        tableView.register(MovieRankTableViewCell.self, forCellReuseIdentifier: MovieRankTableViewCell.description())
         tableView.rowHeight = 60
         return tableView
     }()
@@ -187,7 +187,7 @@ extension MovieRankViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let movie = movieArr[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: MovieRankTableViewCell.identifier, for: indexPath) as! MovieRankTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieRankTableViewCell.description(), for: indexPath) as! MovieRankTableViewCell
         cell.configureCell(movie: movie)
         return cell
     }

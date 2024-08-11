@@ -92,7 +92,7 @@ extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == baseView.rankCollectionView {
-            let identifier = RankCollectionViewCell.identifier
+            let identifier = RankCollectionViewCell.description()
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? RankCollectionViewCell
             guard let cell else { return UICollectionViewCell() }
             ///Carousel Animation
@@ -103,7 +103,7 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.configureCell(safeRank.kobisBinding[indexPath.item])
             return cell
         } else {
-            let identifier = TrendCollectionViewCell.identifier
+            let identifier = TrendCollectionViewCell.description()
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? TrendCollectionViewCell
             guard let cell else { return UICollectionViewCell() }
             ///Configure Cell

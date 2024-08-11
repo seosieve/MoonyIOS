@@ -27,7 +27,7 @@ final class MovieInfoView: BaseView {
     }
     
     lazy var posterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: posterLayout).then {
-        $0.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.identifier)
+        $0.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.description())
         $0.contentInsetAdjustmentBehavior = .never
         $0.isPagingEnabled = true
         $0.decelerationRate = .fast
@@ -158,7 +158,7 @@ final class MovieInfoView: BaseView {
     lazy var castTableView = UITableView().then {
         $0.rowHeight = 120
         $0.isScrollEnabled = false
-        $0.register(CastTableViewCell.self, forCellReuseIdentifier: CastTableViewCell.identifier)
+        $0.register(CastTableViewCell.self, forCellReuseIdentifier: CastTableViewCell.description())
     }
     
     override func configureView() {
