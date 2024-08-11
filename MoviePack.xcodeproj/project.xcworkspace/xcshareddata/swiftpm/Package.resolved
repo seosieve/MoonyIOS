@@ -1,5 +1,5 @@
 {
-  "originHash" : "73e8a8e8ac9581be1711892b4ab0e5b5ae9754b6d6893171ac76e4a1f8cb2027",
+  "originHash" : "b61678b3dc0919d630e2fe477f92fcd9638616ae17d4bc84ddc77c0a87605c6f",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -44,6 +44,15 @@
       "state" : {
         "revision" : "b06a8c8596e4c3e8e7788e08e720e3248563ce6a",
         "version" : "6.7.1"
+      }
+    },
+    {
+      "identity" : "scrollingpagecontrol",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/EmilioPelaez/ScrollingPageControl.git",
+      "state" : {
+        "revision" : "7256cce0bdf299a17f19c4a23ae4224d4d4f792b",
+        "version" : "1.0.0"
       }
     },
     {

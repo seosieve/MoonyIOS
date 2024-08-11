@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ScrollingPageControl
 
 final class MoviePreviewView: BaseView {
     
@@ -30,6 +31,13 @@ final class MoviePreviewView: BaseView {
         $0.decelerationRate = .fast
         $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
+        $0.delegate = self
+    }
+    
+    private let pageControl = ScrollingPageControl().then {
+        $0.pages = 4
+        $0.centerDots = 1
+        $0.maxDots = 3
     }
     
     override func configureView() {
@@ -40,6 +48,7 @@ final class MoviePreviewView: BaseView {
         self.addSubview(previewScrollView)
         previewScrollView.addSubview(contentView)
         contentView.addSubview(previewCollectionView)
+        contentView.addSubview(pageControl)
     }
     
     override func configureConstraints() {
@@ -53,13 +62,26 @@ final class MoviePreviewView: BaseView {
         }
         
         previewCollectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(44 + MoviePreviewView.safeArea.top)
+            make.top.equalToSuperview().inset(54 + MoviePreviewView.safeArea.top)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(220)
+        }
+        
+        pageControl.snp.makeConstraints {
+          $0.centerX.equalToSuperview()
+          $0.bottom.equalTo(previewCollectionView.snp.bottom).offset(10)
         }
     }
     
     override func configureNavigationController(_ vc: UIViewController) {
         vc.setCustomBackButton()
+        vc.navigationItem.title = "PREVIEW"
+    }
+}
+
+extension MoviePreviewView: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let page = round(scrollView.contentOffset.x / scrollView.frame.width)
+        pageControl.selectedPage = Int(page)
     }
 }

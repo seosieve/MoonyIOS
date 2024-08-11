@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import YoutubePlayer_in_WKWebView
 
 final class MoviePreviewViewController: BaseViewController<MoviePreviewView, MoviePreviewViewModel> {
     
@@ -14,7 +13,6 @@ final class MoviePreviewViewController: BaseViewController<MoviePreviewView, Mov
         ///Navigation Controller
         baseView.configureNavigationController(self)
         ///CollectionView Delegate
-        baseView.previewCollectionView.delegate = self
         baseView.previewCollectionView.dataSource = self
     }
 }
@@ -29,17 +27,7 @@ extension MoviePreviewViewController: UICollectionViewDelegate, UICollectionView
         let identifier = PreviewCollectionViewCell.identifier
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? PreviewCollectionViewCell
         guard let cell else { return UICollectionViewCell() }
-        cell.configureCell()
-        cell.previewVideoView.delegate = self
+        cell.configureCell()        
         return cell
-    }
-}
-
-extension MoviePreviewViewController: WKYTPlayerViewDelegate {
-    func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
-        guard let cell = baseView.previewCollectionView.visibleCells.first as? PreviewCollectionViewCell else { return }
-        cell.skeletonView.stopSkeletonAnimation()
-        cell.skeletonView.hideSkeleton()
-        cell.skeletonView.isHidden = true
     }
 }

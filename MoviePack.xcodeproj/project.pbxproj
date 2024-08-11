@@ -52,6 +52,7 @@
 		4E93305F2C1848FA00D1E91C /* UITextField + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93305E2C1848FA00D1E91C /* UITextField + Extension.swift */; };
 		4E9330612C184F2800D1E91C /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330602C184F2800D1E91C /* Search.swift */; };
 		4EAE781D2C68E6D3005DB65C /* PreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE781C2C68E6D3005DB65C /* PreviewCollectionViewCell.swift */; };
+		4EAE78202C690F3B005DB65C /* ScrollingPageControl in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAE781F2C690F3B005DB65C /* ScrollingPageControl */; };
 		4ECA9E672C46CE4100B3C6EC /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA9E662C46CE4100B3C6EC /* Person.swift */; };
 		4ECA9E692C46CE7600B3C6EC /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA9E682C46CE7600B3C6EC /* Movie.swift */; };
 		4ECA9E6B2C46CF3800B3C6EC /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA9E6A2C46CF3800B3C6EC /* TV.swift */; };
@@ -209,6 +210,7 @@
 				4ED9C5142C4270080090320E /* RealmSwift in Frameworks */,
 				4ED9C5112C426FD90090320E /* Then in Frameworks */,
 				4ED9C51D2C4270CF0090320E /* Kingfisher in Frameworks */,
+				4EAE78202C690F3B005DB65C /* ScrollingPageControl in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,6 +573,7 @@
 				4E019E312C65D3410082B732 /* RxCocoa */,
 				4E019E332C65D3410082B732 /* RxSwift */,
 				4E019E502C675C6C0082B732 /* VisualEffectView */,
+				4EAE781F2C690F3B005DB65C /* ScrollingPageControl */,
 			);
 			productName = MoviePack;
 			productReference = 4E8657742C0F1F4400FF4D6D /* MoviePack.app */;
@@ -611,6 +614,7 @@
 				4E019E092C5E11F00082B732 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				4E019E302C65D3410082B732 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				4E019E4F2C675C6C0082B732 /* XCRemoteSwiftPackageReference "VisualEffectView" */,
+				4EAE781E2C690F3B005DB65C /* XCRemoteSwiftPackageReference "ScrollingPageControl" */,
 			);
 			productRefGroup = 4E8657752C0F1F4400FF4D6D /* Products */;
 			projectDirPath = "";
@@ -964,6 +968,14 @@
 				minimumVersion = 4.1.5;
 			};
 		};
+		4EAE781E2C690F3B005DB65C /* XCRemoteSwiftPackageReference "ScrollingPageControl" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EmilioPelaez/ScrollingPageControl.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		4ED9C50F2C426FD90090320E /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then.git";
@@ -1042,6 +1054,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E019E4F2C675C6C0082B732 /* XCRemoteSwiftPackageReference "VisualEffectView" */;
 			productName = VisualEffectView;
+		};
+		4EAE781F2C690F3B005DB65C /* ScrollingPageControl */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EAE781E2C690F3B005DB65C /* XCRemoteSwiftPackageReference "ScrollingPageControl" */;
+			productName = ScrollingPageControl;
 		};
 		4ED9C5102C426FD90090320E /* Then */ = {
 			isa = XCSwiftPackageProductDependency;

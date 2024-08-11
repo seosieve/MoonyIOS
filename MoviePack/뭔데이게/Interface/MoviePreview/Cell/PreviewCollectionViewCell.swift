@@ -16,6 +16,7 @@ final class PreviewCollectionViewCell: BaseCollectionViewCell {
         $0.layer.borderWidth = 1
         $0.layer.borderColor = Colors.blackInterface.cgColor
         $0.backgroundColor = Colors.blackInterface
+        
     }
     
     let skeletonView = UIView().then {
@@ -30,6 +31,7 @@ final class PreviewCollectionViewCell: BaseCollectionViewCell {
     
     override func configureView() {
         contentView.backgroundColor = Colors.blackBackground
+        previewVideoView.delegate = self
     }
     
     override func configureSubViews() {
@@ -51,6 +53,15 @@ final class PreviewCollectionViewCell: BaseCollectionViewCell {
         DispatchQueue.main.async {
             self.previewVideoView.load(withVideoId: "6XmBefPeDnE")
         }
+    }
+}
+
+//MARK: - WKYTPlayerViewDelegate
+extension PreviewCollectionViewCell: WKYTPlayerViewDelegate {
+    func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
+        skeletonView.stopSkeletonAnimation()
+        skeletonView.hideSkeleton()
+        skeletonView.isHidden = true
     }
 }
 
