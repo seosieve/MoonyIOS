@@ -32,21 +32,12 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
             .bind(with: self) { owner, value in
                 guard !value.isEmpty else { return }
                 owner.updateSnapshot(value)
-                print("aa")
             }
             .disposed(by: disposeBag)
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        //Genre Collection View
-
+        //MARK: - Genre Collection View
         let (identifier, cellType) = (GenreCollectionViewCell.description(), GenreCollectionViewCell.self)
         
         Observable.just(Names.Genre.allCases)

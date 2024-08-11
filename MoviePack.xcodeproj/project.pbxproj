@@ -51,6 +51,7 @@
 		4E9330572C1837C700D1E91C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330562C1837C700D1E91C /* SearchViewController.swift */; };
 		4E93305F2C1848FA00D1E91C /* UITextField + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E93305E2C1848FA00D1E91C /* UITextField + Extension.swift */; };
 		4E9330612C184F2800D1E91C /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9330602C184F2800D1E91C /* Search.swift */; };
+		4EAE781D2C68E6D3005DB65C /* PreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAE781C2C68E6D3005DB65C /* PreviewCollectionViewCell.swift */; };
 		4ECA9E672C46CE4100B3C6EC /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA9E662C46CE4100B3C6EC /* Person.swift */; };
 		4ECA9E692C46CE7600B3C6EC /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA9E682C46CE7600B3C6EC /* Movie.swift */; };
 		4ECA9E6B2C46CF3800B3C6EC /* TV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA9E6A2C46CF3800B3C6EC /* TV.swift */; };
@@ -154,6 +155,7 @@
 		4E9330562C1837C700D1E91C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4E93305E2C1848FA00D1E91C /* UITextField + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + Extension.swift"; sourceTree = "<group>"; };
 		4E9330602C184F2800D1E91C /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		4EAE781C2C68E6D3005DB65C /* PreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		4ECA9E662C46CE4100B3C6EC /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		4ECA9E682C46CE7600B3C6EC /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		4ECA9E6A2C46CF3800B3C6EC /* TV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TV.swift; sourceTree = "<group>"; };
@@ -271,19 +273,10 @@
 				4E8657D22C10767D00FF4D6D /* Model */,
 				4E7D09EA2C296F53000A9FF2 /* Base */,
 				4ED9C5042C426D4B0090320E /* Interface */,
-				4E7D09E92C296F22000A9FF2 /* 삭제예정 View */,
 				4E8657C72C10670600FF4D6D /* 삭제예정 Controller */,
 			);
 			name = Presentation;
 			path = "뭔데이게";
-			sourceTree = "<group>";
-		};
-		4E7D09E92C296F22000A9FF2 /* 삭제예정 View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "삭제예정 View";
-			path = "삭제예정View";
 			sourceTree = "<group>";
 		};
 		4E7D09EA2C296F53000A9FF2 /* Base */ = {
@@ -398,6 +391,14 @@
 				4E7D0A182C312A18000A9FF2 /* SearchDetailTableViewCell.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		4EAE781B2C68E6C2005DB65C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4EAE781C2C68E6D3005DB65C /* PreviewCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		4ECA9E652C46CE2D00B3C6EC /* Base */ = {
@@ -536,6 +537,7 @@
 				4ED9C5582C44B21D0090320E /* MoviePreviewView.swift */,
 				4ED9C55A2C44B22C0090320E /* MoviePreviewViewController.swift */,
 				4ED9C55C2C44B2370090320E /* MoviePreviewViewModel.swift */,
+				4EAE781B2C68E6C2005DB65C /* Cell */,
 			);
 			path = MoviePreview;
 			sourceTree = "<group>";
@@ -641,6 +643,7 @@
 				4E7D0A362C32DDEB000A9FF2 /* NetworkRouter.swift in Sources */,
 				4ECA9E692C46CE7600B3C6EC /* Movie.swift in Sources */,
 				4E019E452C672F680082B732 /* UpcomingView.swift in Sources */,
+				4EAE781D2C68E6D3005DB65C /* PreviewCollectionViewCell.swift in Sources */,
 				4E93305F2C1848FA00D1E91C /* UITextField + Extension.swift in Sources */,
 				4ED9C4FD2C40FD8E0090320E /* CustomTabBarController.swift in Sources */,
 				4E86577C2C0F1F4400FF4D6D /* SignUpViewController.swift in Sources */,
