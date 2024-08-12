@@ -79,14 +79,14 @@ final class UpcomingViewModel: BaseViewModel {
     }
     
     //Get Network Router
-    func getRouter(genre: String) -> Network {
+    private func getRouter(genre: String) -> Network {
         let dateString = getDateString()
         
         return Network.upcoming(minDate: dateString.minDate, maxDate: dateString.maxDate, genre: genre)
     }
     
     //Return Current & 1 year later Date
-    func getDateString() -> (minDate: String, maxDate: String) {
+    private func getDateString() -> (minDate: String, maxDate: String) {
         let minDate = Date()
         let maxDate = Calendar.current.date(byAdding: .year, value: 1, to: minDate) ?? Date()
         
@@ -99,13 +99,13 @@ final class UpcomingViewModel: BaseViewModel {
     }
     
     //Filter Movie
-    func filterMovie(movie: [Movie]) -> [Movie] {
+    private func filterMovie(movie: [Movie]) -> [Movie] {
         ///Filter that have no image
         return movie.filter { !$0.imageUrl.isEmpty }
     }
     
     //Sort Movie
-    func sortMovie(with order: Int, movie: [Movie]) -> [Movie] {
+    private func sortMovie(with order: Int, movie: [Movie]) -> [Movie] {
         ///Sort By Order
         return movie.sorted { order == 0 ? ($0.releaseDate < $1.releaseDate) : ($0.popularity > $1.popularity) }
     }

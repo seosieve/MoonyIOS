@@ -9,5 +9,7 @@ import Foundation
 
 protocol BaseType: Decodable {
     var id: Int { get }
+    var name: String? { get }
+    var originalName: String? { get }
     var imageUrl: String { get }
 }

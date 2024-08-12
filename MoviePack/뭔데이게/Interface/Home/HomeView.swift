@@ -27,7 +27,8 @@ final class HomeView: BaseView {
         self.filterButtonItem.menu = UIMenu(options: .displayInline, children: sortArr)
         ///Selected Index
         guard let index = sortArr.firstIndex(where: { $0.title == action.title }) else { return }
-        self.sortChange.onNext(index)
+        let sortName = sortArr[index]
+        print(sortName)
     }
     
     lazy var filterButtonItem = UIBarButtonItem().then {

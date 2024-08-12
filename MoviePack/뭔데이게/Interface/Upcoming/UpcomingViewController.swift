@@ -62,8 +62,7 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
         
         ///Scroll to Top
         output.genreSelect
-            .bind(with: self) { owner, value in
-                guard let cell = owner.baseView.genreCollectionView.cellForItem(at: value) as? GenreCollectionViewCell else { return }
+            .bind(with: self) { owner, _ in
                 owner.baseView.upcomingCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             }
             .disposed(by: disposeBag)

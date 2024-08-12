@@ -6,12 +6,8 @@
 //
 
 import Foundation
-import RxSwift
-import RxCocoa
 
 final class HomeViewModel: BaseViewModel {
-    
-    let disposeBag = DisposeBag()
     
     let kobisArr: CustomObservable<[KobisRank]> = CustomObservable([KobisRank]())
     let kobisBindingArr: CustomObservable<[Movie?]> = CustomObservable(Array(repeating: nil, count: 10))

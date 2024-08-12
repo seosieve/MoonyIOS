@@ -12,6 +12,12 @@ enum Names {
         static let rank = Notification.Name(rawValue: "rankCardClicked")
     }
     
+    enum Trend: Int {
+        case movie
+        case people
+        case tv
+    }
+    
     ///TMDB Movie Genre
     enum Genre: String, CaseIterable {
         case all = ""
