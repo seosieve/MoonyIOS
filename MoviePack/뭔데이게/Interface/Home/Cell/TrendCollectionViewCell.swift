@@ -14,7 +14,6 @@ final class TrendCollectionViewCell: BaseCollectionViewCell {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 20
-        $0.isSkeletonable = true
     }
     
     private let titleLabel = UILabel().then {
@@ -63,21 +62,11 @@ final class TrendCollectionViewCell: BaseCollectionViewCell {
         
         titleLabel.text = trend.name
         engTitleLabel.text = trend.originalName
-        
-        trendImageView.stopSkeletonAnimation()
-        trendImageView.hideSkeleton()
     }
     
     func configureCell(_ trend: Person) {
-        ///Show Skeleton View
-        trendImageView.showAnimatedGradientSkeleton()
-        
         let url = URL(string: trend.imageUrl)
-        trendImageView.kf.setImage(with: url) { [weak self] _ in
-            ///Hide Skeleton View
-            self?.trendImageView.stopSkeletonAnimation()
-            self?.trendImageView.hideSkeleton(transition: .none)
-        }
+        trendImageView.kf.setImage(with: url)
         
         titleLabel.text = trend.name
         engTitleLabel.text = trend.originalName
@@ -89,8 +78,5 @@ final class TrendCollectionViewCell: BaseCollectionViewCell {
         
         titleLabel.text = trend.name
         engTitleLabel.text = trend.originalName
-        
-        trendImageView.stopSkeletonAnimation()
-        trendImageView.hideSkeleton()
     }
 }

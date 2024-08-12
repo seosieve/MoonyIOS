@@ -7,7 +7,6 @@
 
 import UIKit
 import Toast
-import SkeletonView
 
 final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
     

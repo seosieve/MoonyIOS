@@ -24,7 +24,9 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
     
     override func configureRx() {
         ///Input
-        let input = UpcomingViewModel.Input(sortChange: baseView.sortChange, genreSelect: baseView.genreCollectionView.rx.itemSelected)
+        let input = UpcomingViewModel.Input(sortChange: baseView.sortChange,
+                                            genreSelect: baseView.genreCollectionView.rx.itemSelected,
+                                            genreDeselect: baseView.genreCollectionView.rx.itemDeselected)
         ///Output
         let output = viewModel.transform(input: input)
         
@@ -50,7 +52,7 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
         baseView.genreCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
         
         ///Select Animation
-        baseView.genreCollectionView.rx.itemSelected
+        output.genreSelect
             .distinctUntilChanged()
             .bind(with: self) { owner, value in
                 guard let cell = owner.baseView.genreCollectionView.cellForItem(at: value) as? GenreCollectionViewCell else { return }
@@ -59,14 +61,14 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
             .disposed(by: disposeBag)
         
         ///Scroll to Top
-        baseView.genreCollectionView.rx.itemSelected
+        output.genreSelect
             .bind(with: self) { owner, value in
                 guard let cell = owner.baseView.genreCollectionView.cellForItem(at: value) as? GenreCollectionViewCell else { return }
                 owner.baseView.upcomingCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
             }
             .disposed(by: disposeBag)
         
-        baseView.genreCollectionView.rx.itemDeselected
+        output.genreDeselect
             .bind(with: self) { owner, value in
                 guard let cell = owner.baseView.genreCollectionView.cellForItem(at: value) as? GenreCollectionViewCell else { return }
                 cell.deselectAction()

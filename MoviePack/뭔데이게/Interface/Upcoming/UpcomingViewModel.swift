@@ -17,11 +17,14 @@ final class UpcomingViewModel: BaseViewModel {
     struct Input {
         let sortChange: Observable<Int>
         let genreSelect: ControlEvent<IndexPath>
+        let genreDeselect: ControlEvent<IndexPath>
     }
     
     ///Output Observable
     struct Output {
         let movieList: BehaviorRelay<[Movie]>
+        let genreSelect: ControlEvent<IndexPath>
+        let genreDeselect: ControlEvent<IndexPath>
     }
     
     func transform(input: Input) -> Output {
@@ -29,21 +32,18 @@ final class UpcomingViewModel: BaseViewModel {
         let movieList = BehaviorRelay<[Movie]>(value: [])
         let sortOrder = BehaviorRelay<Int>(value: 0)
         
-        Observable.just("")
-            ///Mapping with Router
-            .map { self.getRouter(genre: $0) }
-            ///Rx Network Request
-            .flatMap { NetworkManager.shared.rxNetworkRequest(router: $0, type: SearchResult.self) }
-            .subscribe(with: self, onNext: { owner, value in
+        //Initial Network Request
+        NetworkManager.shared.rxNetworkRequest(router: getRouter(genre: ""), type: SearchResult.self)
+            .subscribe(with: self) { owner, value in
                 ///Filter
                 let filteredMovie = owner.filterMovie(movie: value.results)
                 ///Sort
                 let sortedMovie = owner.sortMovie(with: sortOrder.value, movie: filteredMovie)
                 ///Initialize MovieList
                 movieList.accept(sortedMovie)
-            }, onError: { owner, error in
+            } onFailure: { _, error in
                 print(error)
-            })
+            }
             .disposed(by: disposeBag)
         
         input.sortChange
@@ -75,7 +75,7 @@ final class UpcomingViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
         
-        return Output(movieList: movieList)
+        return Output(movieList: movieList, genreSelect: input.genreSelect, genreDeselect: input.genreDeselect)
     }
     
     //Get Network Router

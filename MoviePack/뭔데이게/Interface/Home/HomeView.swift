@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RxSwift
 
 final class HomeView: BaseView {
     
     var previousIndex = 0
+    
+    let sortChange = BehaviorSubject<Int>(value: 0)
     
     private lazy var dateOrder = UIAction(title: "오늘", state: .on, handler: updateActionStates)
                                   
@@ -24,8 +27,7 @@ final class HomeView: BaseView {
         self.filterButtonItem.menu = UIMenu(options: .displayInline, children: sortArr)
         ///Selected Index
         guard let index = sortArr.firstIndex(where: { $0.title == action.title }) else { return }
-        let sortName = sortArr[index]
-        print(sortName)
+        self.sortChange.onNext(index)
     }
     
     lazy var filterButtonItem = UIBarButtonItem().then {
