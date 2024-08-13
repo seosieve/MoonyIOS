@@ -102,8 +102,8 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.configureCell(safeRank.kobisBinding[indexPath.item])
             return cell
         } else {
-            let identifier = TrendCollectionViewCell.description()
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? TrendCollectionViewCell
+            let identifier = MovieCollectionViewCell.description()
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? MovieCollectionViewCell
             guard let cell else { return UICollectionViewCell() }
             ///Configure Cell
             switch viewModel.inputTypeButtonTrigger.value {

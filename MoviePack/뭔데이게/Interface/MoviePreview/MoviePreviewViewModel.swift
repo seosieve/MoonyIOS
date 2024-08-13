@@ -22,6 +22,7 @@ final class MoviePreviewViewModel: BaseViewModel, ViewModelType {
     struct Output {
         let videoList: BehaviorRelay<[Video]>
         let posterList: BehaviorRelay<[Poster]>
+        let similarList: BehaviorRelay<[Movie]>
     }
     
     func transform(input: Input) -> Output {
@@ -30,6 +31,7 @@ final class MoviePreviewViewModel: BaseViewModel, ViewModelType {
         
         let videoList = BehaviorRelay<[Video]>(value: [])
         let posterList = BehaviorRelay<[Poster]>(value: [])
+        let similarList = BehaviorRelay<[Movie]>(value: [])
         
         //Configure Video
         NetworkManager.shared.rxNetworkRequest(router: Network.video(id: movieId), type: VideoResult.self)
@@ -49,6 +51,15 @@ final class MoviePreviewViewModel: BaseViewModel, ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output(videoList: videoList, posterList: posterList)
+        //Configure Similar
+        NetworkManager.shared.rxNetworkRequest(router: Network.similar(id: movieId, page: 1), type: SearchResult.self)
+            .subscribe { value in
+                similarList.accept(value.results)
+            } onFailure: { error in
+                print(error)
+            }
+            .disposed(by: disposeBag)
+        
+        return Output(videoList: videoList, posterList: posterList, similarList: similarList)
     }
 }

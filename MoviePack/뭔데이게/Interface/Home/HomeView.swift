@@ -122,7 +122,7 @@ final class HomeView: BaseView {
     
     lazy var trendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: trendLayout).then {
         $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        $0.register(TrendCollectionViewCell.self, forCellWithReuseIdentifier: TrendCollectionViewCell.description())
+        $0.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.description())
         $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
     }

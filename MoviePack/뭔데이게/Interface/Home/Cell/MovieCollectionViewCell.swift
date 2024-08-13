@@ -1,5 +1,5 @@
 //
-//  TrendCollectionViewCell.swift
+//  MovieCollectionViewCell.swift
 //  MoviePack
 //
 //  Created by 서충원 on 7/13/24.
@@ -8,12 +8,14 @@
 import UIKit
 import Kingfisher
 
-final class TrendCollectionViewCell: BaseCollectionViewCell {
+final class MovieCollectionViewCell: BaseCollectionViewCell {
     
-    private let trendImageView = UIImageView().then {
+    private let movieImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 20
+        $0.isSkeletonable = true
+        $0.showAnimatedGradientSkeleton()
     }
     
     private let titleLabel = UILabel().then {
@@ -34,19 +36,19 @@ final class TrendCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func configureSubViews() {
-        contentView.addSubview(trendImageView)
+        contentView.addSubview(movieImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(engTitleLabel)
     }
     
     override func configureConstraints() {
-        trendImageView.snp.makeConstraints { make in
+        movieImageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
             make.height.equalTo(180)
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(trendImageView.snp.bottom).offset(8)
+            make.top.equalTo(movieImageView.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(2)
         }
         
@@ -57,8 +59,15 @@ final class TrendCollectionViewCell: BaseCollectionViewCell {
     }
     
     func configureCell(_ trend: BaseType) {
+        ///Show Skeleton View
+        movieImageView.showAnimatedGradientSkeleton()
+        
         let url = URL(string: trend.imageUrl)
-        trendImageView.kf.setImage(with: url)
+        movieImageView.kf.setImage(with: url) { [weak self] _ in
+            ///Hide Skeleton View
+            self?.movieImageView.stopSkeletonAnimation()
+            self?.movieImageView.hideSkeleton()
+        }
         
         titleLabel.text = trend.name
         engTitleLabel.text = trend.originalName

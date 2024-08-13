@@ -47,7 +47,7 @@ final class MoviePreviewView: BaseView {
     }
     
     private let posterLayout = UICollectionViewFlowLayout().then {
-        $0.itemSize = CGSize(width: 140, height: 240)
+        $0.itemSize = CGSize(width: 125, height: 180)
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 10
     }
@@ -55,6 +55,25 @@ final class MoviePreviewView: BaseView {
     lazy var posterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: posterLayout).then {
         $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         $0.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.description())
+        $0.backgroundColor = .clear
+        $0.showsHorizontalScrollIndicator = false
+    }
+    
+    private let similarTitleLabel = UILabel().then {
+        $0.text = "Find Some Similar Ones?"
+        $0.font = .systemFont(ofSize: 18, weight: .heavy)
+        $0.textColor = Colors.blackAccent
+    }
+    
+    private let similarLayout = UICollectionViewFlowLayout().then {
+        $0.itemSize = CGSize(width: 140, height: 240)
+        $0.scrollDirection = .horizontal
+        $0.minimumLineSpacing = 10
+    }
+    
+    lazy var similarCollectionView = UICollectionView(frame: .zero, collectionViewLayout: similarLayout).then {
+        $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        $0.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.description())
         $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
     }
@@ -70,6 +89,8 @@ final class MoviePreviewView: BaseView {
         contentView.addSubview(pageControl)
         contentView.addSubview(posterTitleLabel)
         contentView.addSubview(posterCollectionView)
+        contentView.addSubview(similarTitleLabel)
+        contentView.addSubview(similarCollectionView)
     }
     
     override func configureConstraints() {
@@ -79,7 +100,6 @@ final class MoviePreviewView: BaseView {
         
         contentView.snp.makeConstraints { make in
             make.edges.width.equalToSuperview()
-            make.height.equalTo(1500)
         }
         
         previewCollectionView.snp.makeConstraints { make in
@@ -94,14 +114,26 @@ final class MoviePreviewView: BaseView {
         }
         
         posterTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(pageControl.snp.bottom).offset(30)
+            make.top.equalTo(pageControl.snp.bottom).offset(50)
             make.leading.equalToSuperview().inset(20)
         }
         
         posterCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(posterTitleLabel.snp.bottom).offset(20)
+            make.top.equalTo(posterTitleLabel.snp.bottom).offset(16)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(180)
+        }
+        
+        similarTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(posterCollectionView.snp.bottom).offset(50)
+            make.leading.equalToSuperview().inset(20)
+        }
+        
+        similarCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(similarTitleLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(240)
+            make.bottom.equalToSuperview().offset(-120)
         }
     }
     
