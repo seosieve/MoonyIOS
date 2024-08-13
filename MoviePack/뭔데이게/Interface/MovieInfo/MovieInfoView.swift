@@ -20,14 +20,14 @@ final class MovieInfoView: BaseView {
         $0.backgroundColor = Colors.blackBackground
     }
     
-    private let posterLayout = UICollectionViewFlowLayout().then {
+    private let fullScreenImageLayout = UICollectionViewFlowLayout().then {
         $0.itemSize = CGSize(width: MovieInfoView.screenSize.width, height: 420)
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 0
     }
     
-    lazy var posterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: posterLayout).then {
-        $0.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.description())
+    lazy var fullScreenImageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: fullScreenImageLayout).then {
+        $0.register(FullScreenImageCollectionViewCell.self, forCellWithReuseIdentifier: FullScreenImageCollectionViewCell.description())
         $0.contentInsetAdjustmentBehavior = .never
         $0.isPagingEnabled = true
         $0.decelerationRate = .fast
@@ -168,7 +168,7 @@ final class MovieInfoView: BaseView {
     override func configureSubViews() {
         self.addSubview(movieInfoScrollView)
         movieInfoScrollView.addSubview(contentView)
-        contentView.addSubview(posterCollectionView)
+        contentView.addSubview(fullScreenImageCollectionView)
         contentView.addSubview(gardeTitleLabel)
         contentView.addSubview(gradeLabel)
         contentView.addSubview(titleLabel)
@@ -197,13 +197,13 @@ final class MovieInfoView: BaseView {
             make.edges.width.equalToSuperview()
         }
         
-        posterCollectionView.snp.makeConstraints { make in
+        fullScreenImageCollectionView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
             make.height.equalTo(420)
         }
         
         gardeTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(posterCollectionView.snp.bottom).inset(90)
+            make.top.equalTo(fullScreenImageCollectionView.snp.bottom).inset(90)
             make.leading.equalToSuperview().inset(20)
             make.width.equalTo(40)
             make.height.equalTo(20)

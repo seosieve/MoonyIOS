@@ -40,6 +40,25 @@ final class MoviePreviewView: BaseView {
         $0.maxDots = 3
     }
     
+    private let posterTitleLabel = UILabel().then {
+        $0.text = "It Also Has Posters"
+        $0.font = .systemFont(ofSize: 18, weight: .heavy)
+        $0.textColor = Colors.blackAccent
+    }
+    
+    private let posterLayout = UICollectionViewFlowLayout().then {
+        $0.itemSize = CGSize(width: 140, height: 240)
+        $0.scrollDirection = .horizontal
+        $0.minimumLineSpacing = 10
+    }
+    
+    lazy var posterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: posterLayout).then {
+        $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        $0.register(PosterCollectionViewCell.self, forCellWithReuseIdentifier: PosterCollectionViewCell.description())
+        $0.backgroundColor = .clear
+        $0.showsHorizontalScrollIndicator = false
+    }
+    
     override func configureView() {
         self.backgroundColor = Colors.blackBackground
     }
@@ -49,6 +68,8 @@ final class MoviePreviewView: BaseView {
         previewScrollView.addSubview(contentView)
         contentView.addSubview(previewCollectionView)
         contentView.addSubview(pageControl)
+        contentView.addSubview(posterTitleLabel)
+        contentView.addSubview(posterCollectionView)
     }
     
     override func configureConstraints() {
@@ -70,6 +91,17 @@ final class MoviePreviewView: BaseView {
         pageControl.snp.makeConstraints {
           $0.centerX.equalToSuperview()
           $0.bottom.equalTo(previewCollectionView.snp.bottom).offset(10)
+        }
+        
+        posterTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(pageControl.snp.bottom).offset(30)
+            make.leading.equalToSuperview().inset(20)
+        }
+        
+        posterCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(posterTitleLabel.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(240)
         }
     }
     

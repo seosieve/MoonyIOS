@@ -14,7 +14,7 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
       super.viewDidLayoutSubviews()
         ///Set Infinite Scroll First Index
         let cellWidth = MovieInfoViewController.screenSize.width
-        baseView.posterCollectionView.setContentOffset(CGPoint(x: cellWidth, y: 0), animated: false)
+        baseView.fullScreenImageCollectionView.setContentOffset(CGPoint(x: cellWidth, y: 0), animated: false)
     }
     
     override func configureView() {
@@ -23,8 +23,8 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
         ///Preview Button
         baseView.previewButton.addTarget(self, action: #selector(previewButtonClicked), for: .touchUpInside)
         ///CollectionView Delegate
-        baseView.posterCollectionView.delegate = self
-        baseView.posterCollectionView.dataSource = self
+        baseView.fullScreenImageCollectionView.delegate = self
+        baseView.fullScreenImageCollectionView.dataSource = self
         ///TableView Delegate
         baseView.castTableView.delegate = self
         baseView.castTableView.dataSource = self
@@ -38,7 +38,7 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
         
         viewModel.moviePosterArr.bind { result in
             guard !result.isEmpty else { return }
-            self.baseView.posterCollectionView.reloadData()
+            self.baseView.fullScreenImageCollectionView.reloadData()
         }
         
         viewModel.movieOverview.bind { result in
@@ -57,11 +57,8 @@ final class MovieInfoViewController: BaseViewController<MovieInfoView, MovieInfo
     }
     
     @objc func previewButtonClicked() {
-        
-        let viewModel = MoviePreviewViewModel()
-        viewModel.movieId = self.viewModel.searchMovieResult.value?.id
-        
-        let vc = MoviePreviewViewController(view: MoviePreviewView(), viewModel: viewModel)
+        let vc = MoviePreviewViewController(view: MoviePreviewView(), viewModel: MoviePreviewViewModel())
+        vc.movieId = self.viewModel.searchMovieResult.value?.id
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -73,8 +70,8 @@ extension MovieInfoViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let identifier = PosterCollectionViewCell.description()
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? PosterCollectionViewCell
+        let identifier = FullScreenImageCollectionViewCell.description()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? FullScreenImageCollectionViewCell
         guard let cell else { return UICollectionViewCell() }
         let poster = viewModel.moviePosterArr.value[indexPath.row]
         let url = URL(string: poster.posterUrl)

@@ -62,6 +62,10 @@ extension PreviewCollectionViewCell: WKYTPlayerViewDelegate {
         skeletonView.hideSkeleton()
         skeletonView.isHidden = true
     }
+    
+    func playerView(_ playerView: WKYTPlayerView, receivedError error: WKYTPlayerError) {
+        print("receivedError")
+    }
 }
 
 

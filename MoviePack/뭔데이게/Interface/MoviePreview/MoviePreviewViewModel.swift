@@ -13,36 +13,42 @@ final class MoviePreviewViewModel: BaseViewModel, ViewModelType {
     
     let disposeBag = DisposeBag()
     
-    var movieId: Int?
-    
     ///Input Observable
     struct Input {
-        
+        let movieId: Int?
     }
     
     ///Output Observable
     struct Output {
         let videoList: BehaviorRelay<[Video]>
+        let posterList: BehaviorRelay<[Poster]>
     }
     
     func transform(input: Input) -> Output {
         
-        let videoList = BehaviorRelay<[Video]>(value: [])
+        let movieId = input.movieId ?? 0
         
-        Observable.just(movieId)
-            .compactMap { $0 }
-            ///Mapping with Router
-            .map { Network.video(id: $0) }
-            ///Rx Network Request
-            .flatMap { NetworkManager.shared.rxNetworkRequest(router: $0, type: VideoResult.self) }
-            .subscribe(with: self, onNext: { owner, value in
-                ///Initialize VideoList
+        let videoList = BehaviorRelay<[Video]>(value: [])
+        let posterList = BehaviorRelay<[Poster]>(value: [])
+        
+        //Configure Video
+        NetworkManager.shared.rxNetworkRequest(router: Network.video(id: movieId), type: VideoResult.self)
+            .subscribe { value in
                 videoList.accept(value.results)
-            }, onError: { owner, error in
+            } onFailure: { error in
                 print(error)
-            })
+            }
             .disposed(by: disposeBag)
         
-        return Output(videoList: videoList)
+        //Configure Poster
+        NetworkManager.shared.rxNetworkRequest(router: Network.poster(id: movieId), type: PosterResult.self)
+            .subscribe { value in
+                posterList.accept(value.posters)
+            } onFailure: { error in
+                print(error)
+            }
+            .disposed(by: disposeBag)
+        
+        return Output(videoList: videoList, posterList: posterList)
     }
 }

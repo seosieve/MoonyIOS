@@ -117,7 +117,7 @@ final class HomeView: BaseView {
     private let trendLayout = UICollectionViewFlowLayout().then {
         $0.itemSize = CGSize(width: 140, height: 240)
         $0.scrollDirection = .horizontal
-        $0.minimumLineSpacing = 20
+        $0.minimumLineSpacing = 10
     }
     
     lazy var trendCollectionView = UICollectionView(frame: .zero, collectionViewLayout: trendLayout).then {

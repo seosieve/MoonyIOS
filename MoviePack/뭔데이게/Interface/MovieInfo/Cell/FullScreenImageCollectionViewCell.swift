@@ -1,5 +1,5 @@
 //
-//  PosterCollectionViewCell.swift
+//  FullScreenImageCollectionViewCell.swift
 //  MoviePack
 //
 //  Created by 서충원 on 7/15/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PosterCollectionViewCell: BaseCollectionViewCell {
+final class FullScreenImageCollectionViewCell: BaseCollectionViewCell {
     let posterImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
@@ -16,7 +16,7 @@ final class PosterCollectionViewCell: BaseCollectionViewCell {
     private lazy var gradientView = UIView().then {
         $0.backgroundColor = .clear
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: PosterCollectionViewCell.screenSize.width, height: 300))
+        gradientLayer.frame = CGRect(origin: .zero, size: CGSize(width: FullScreenImageCollectionViewCell.screenSize.width, height: 300))
         gradientLayer.colors = [UIColor.clear.cgColor, Colors.blackBackground.cgColor]
         $0.layer.insertSublayer(gradientLayer, at: 0)
     }
