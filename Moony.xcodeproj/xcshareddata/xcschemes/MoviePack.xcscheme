@@ -18,7 +18,7 @@
                BlueprintIdentifier = "4E8657732C0F1F4400FF4D6D"
                BuildableName = "MoviePack.app"
                BlueprintName = "MoviePack"
-               ReferencedContainer = "container:MoviePack.xcodeproj">
+               ReferencedContainer = "container:Moony.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "4E8657732C0F1F4400FF4D6D"
             BuildableName = "MoviePack.app"
             BlueprintName = "MoviePack"
-            ReferencedContainer = "container:MoviePack.xcodeproj">
+            ReferencedContainer = "container:Moony.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "4E8657732C0F1F4400FF4D6D"
             BuildableName = "MoviePack.app"
             BlueprintName = "MoviePack"
-            ReferencedContainer = "container:MoviePack.xcodeproj">
+            ReferencedContainer = "container:Moony.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

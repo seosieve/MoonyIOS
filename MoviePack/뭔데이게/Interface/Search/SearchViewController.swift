@@ -14,7 +14,7 @@ import RxCocoa
 
 final class SearchViewController: BaseViewController<SearchView, SearchViewModel> {
     
-    let data = Observable.just(["dawdwaawd", "ss", "adad", "dawdwad", "aadda", "2"])
+    let data = Observable.just(["도라에몽", "진구", "지구 교향곡", "극장판", "aadda", "2"])
     var dataSource: UICollectionViewDiffableDataSource<String, Movie>!
     
     let prefetchItem = PublishSubject<Int>()

@@ -40,10 +40,10 @@ final class UpcomingViewController: BaseViewController<UpcomingView, UpcomingVie
         
         
         //MARK: - Genre Collection View
-        let (identifier, cellType) = (GenreCollectionViewCell.description(), GenreCollectionViewCell.self)
+        let genre = (identifier: GenreCollectionViewCell.description(), cellType: GenreCollectionViewCell.self)
         
         Observable.just(Names.Genre.allCases)
-            .bind(to: baseView.genreCollectionView.rx.items(cellIdentifier: identifier, cellType: cellType)) { item, element, cell in
+            .bind(to: baseView.genreCollectionView.rx.items(cellIdentifier: genre.identifier, cellType: genre.cellType)) { item, element, cell in
                 cell.configureCell(element)
             }
             .disposed(by: disposeBag)
