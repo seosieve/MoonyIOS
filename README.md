@@ -125,3 +125,58 @@ button.rx.tap
     })
     .disposed(by: disposeBag)
 ```
+<br>
+
+### 2. MVVM Architecture에서 항상 반복해서 Class와 Method를 선언해주어야 하는 문제
+> loadView, Input, Output, transform 등의 작업을 Class 생성 시마다 매 번 반복을 해 주어야 한다.
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/90447127-1cb7-47a4-b679-cbf1b0690b4f">
+</div>
+<br>
+
+- **MVVM 구조**에서 반복적으로 수행되는 init, loadView, configure 등의 작업들을 자동화 해주기 위해 **Generic 형식의 Base Class 상속**을 활용
+- ViewModel에서 Input \ Output 구조체, 구조체를 바인딩해주는 transform메소드의 구현을 명시적으로 정의해주기 위해 **Protocol의 AssociatedType** 사용
+> Base View Controller
+```swift
+class BaseViewController<View: BaseView, ViewModel: BaseViewModel>: UIViewController {
+    
+    let baseView: View
+    let viewModel: ViewModel
+    
+    init(view: View, viewModel: ViewModel) {
+        self.baseView = view
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        self.view = baseView
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureView()
+        configureRx()
+    }
+    
+    func configureView() { }
+    
+    func configureRx() { }
+}
+```
+> View Model Protocol
+```swift
+protocol ViewModelType {
+    
+    associatedtype Input
+    
+    associatedtype Output
+    
+    func transform(input: Input) -> Output
+}
+```
