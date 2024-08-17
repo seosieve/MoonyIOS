@@ -16,10 +16,13 @@ final class UpcomingCollectionViewCell: BaseCollectionViewCell {
     }
     
     private let backgroundImageView = UIImageView().then {
+        $0.backgroundColor = Colors.blackInterface
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 20
     }
+    
+    private let backgroundVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     private let posterImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
@@ -30,8 +33,6 @@ final class UpcomingCollectionViewCell: BaseCollectionViewCell {
         $0.isSkeletonable = true
         $0.showAnimatedGradientSkeleton()
     }
-    
-    private let backgroundVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
     private let expectationVisualEffectView = VisualEffectView().then {
         $0.layer.cornerRadius = 16

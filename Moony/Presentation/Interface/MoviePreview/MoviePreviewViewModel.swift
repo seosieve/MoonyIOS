@@ -21,6 +21,7 @@ final class MoviePreviewViewModel: BaseViewModel, ViewModelType {
     ///Output Observable
     struct Output {
         let videoList: BehaviorRelay<[Video]>
+        let tagline: BehaviorRelay<String>
         let posterList: BehaviorRelay<[Poster]>
         let similarList: BehaviorRelay<[Movie]>
     }
@@ -30,6 +31,7 @@ final class MoviePreviewViewModel: BaseViewModel, ViewModelType {
         let movieId = input.movieId ?? 0
         
         let videoList = BehaviorRelay<[Video]>(value: [])
+        let tagline = BehaviorRelay<String>(value: "")
         let posterList = BehaviorRelay<[Poster]>(value: [])
         let similarList = BehaviorRelay<[Movie]>(value: [])
         
@@ -37,6 +39,15 @@ final class MoviePreviewViewModel: BaseViewModel, ViewModelType {
         NetworkManager.shared.rxNetworkRequest(router: Network.video(id: movieId), type: VideoResult.self)
             .subscribe { value in
                 videoList.accept(value.results)
+            } onFailure: { error in
+                print(error)
+            }
+            .disposed(by: disposeBag)
+        
+        //Configure Tagline
+        NetworkManager.shared.rxNetworkRequest(router: Network.detail(id: movieId), type: Movie.self)
+            .subscribe { value in
+                tagline.accept(value.tagline ?? "")
             } onFailure: { error in
                 print(error)
             }
@@ -60,6 +71,6 @@ final class MoviePreviewViewModel: BaseViewModel, ViewModelType {
             }
             .disposed(by: disposeBag)
         
-        return Output(videoList: videoList, posterList: posterList, similarList: similarList)
+        return Output(videoList: videoList, tagline: tagline, posterList: posterList, similarList: similarList)
     }
 }

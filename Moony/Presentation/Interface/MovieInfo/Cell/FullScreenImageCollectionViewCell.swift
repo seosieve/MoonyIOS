@@ -41,5 +41,10 @@ final class FullScreenImageCollectionViewCell: BaseCollectionViewCell {
             make.height.equalTo(300)
         }
     }
+    
+    func configureCell(poster: Poster) {
+        let url = URL(string: poster.posterUrl)
+        posterImageView.kf.setImage(with: url)
+    }
 }
 

@@ -12,6 +12,7 @@ struct Movie: Decodable, BaseType, Hashable {
     let name: String?
     let originalName: String?
     let overview: String?
+    let tagline: String?
     let releaseDate: String?
     let grade: Double?
     let popularity: Double?
@@ -31,6 +32,7 @@ extension Movie {
         case name = "title"
         case originalName = "original_title"
         case overview
+        case tagline
         case releaseDate = "release_date"
         case grade = "vote_average"
         case popularity

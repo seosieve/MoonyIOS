@@ -40,14 +40,21 @@ final class MoviePreviewView: BaseView {
         $0.maxDots = 3
     }
     
+    let taglineLabel = UILabel().then {
+        $0.font = Fonts.han(22)
+        $0.textColor = Colors.blackDescription
+        $0.textAlignment = .center
+        $0.numberOfLines = 2
+    }
+    
     private let posterTitleLabel = UILabel().then {
-        $0.text = "It Also Has Posters"
+        $0.text = "Posters"
         $0.font = .systemFont(ofSize: 18, weight: .heavy)
         $0.textColor = Colors.blackAccent
     }
     
     private let posterLayout = UICollectionViewFlowLayout().then {
-        $0.itemSize = CGSize(width: 125, height: 180)
+        $0.itemSize = CGSize(width: 145, height: 210)
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 10
     }
@@ -60,13 +67,13 @@ final class MoviePreviewView: BaseView {
     }
     
     private let similarTitleLabel = UILabel().then {
-        $0.text = "Find Some Similar Ones?"
+        $0.text = "Similar Ones?"
         $0.font = .systemFont(ofSize: 18, weight: .heavy)
         $0.textColor = Colors.blackAccent
     }
     
     private let similarLayout = UICollectionViewFlowLayout().then {
-        $0.itemSize = CGSize(width: 140, height: 240)
+        $0.itemSize = CGSize(width: 145, height: 240)
         $0.scrollDirection = .horizontal
         $0.minimumLineSpacing = 10
     }
@@ -87,6 +94,7 @@ final class MoviePreviewView: BaseView {
         previewScrollView.addSubview(contentView)
         contentView.addSubview(previewCollectionView)
         contentView.addSubview(pageControl)
+        contentView.addSubview(taglineLabel)
         contentView.addSubview(posterTitleLabel)
         contentView.addSubview(posterCollectionView)
         contentView.addSubview(similarTitleLabel)
@@ -108,20 +116,26 @@ final class MoviePreviewView: BaseView {
             make.height.equalTo(220)
         }
         
-        pageControl.snp.makeConstraints {
-          $0.centerX.equalToSuperview()
-          $0.bottom.equalTo(previewCollectionView.snp.bottom).offset(10)
+        pageControl.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(previewCollectionView.snp.bottom).offset(10)
+        }
+        
+        taglineLabel.snp.makeConstraints { make in
+            make.top.equalTo(pageControl.snp.bottom).offset(50)
+            make.horizontalEdges.equalToSuperview().inset(50)
+            make.centerX.equalToSuperview()
         }
         
         posterTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(pageControl.snp.bottom).offset(50)
+            make.top.equalTo(taglineLabel.snp.bottom).offset(50)
             make.leading.equalToSuperview().inset(20)
         }
         
         posterCollectionView.snp.makeConstraints { make in
             make.top.equalTo(posterTitleLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(180)
+            make.height.equalTo(210)
         }
         
         similarTitleLabel.snp.makeConstraints { make in

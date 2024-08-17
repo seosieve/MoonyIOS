@@ -13,7 +13,6 @@ final class MovieInfoView: BaseView {
     
     private lazy var movieInfoScrollView = UIScrollView().then {
         $0.contentInsetAdjustmentBehavior = .never
-        $0.delegate = self
     }
     
     private let contentView = UIView().then {
@@ -339,14 +338,5 @@ final class MovieInfoView: BaseView {
     
     func configureOverview(_ overview: String) {
         overviewLabel.text = overview
-    }
-}
-
-//MARK: - UIScrollViewDelegate
-extension MovieInfoView: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y < 0 {
-            scrollView.contentOffset.y = 0
-        }
     }
 }

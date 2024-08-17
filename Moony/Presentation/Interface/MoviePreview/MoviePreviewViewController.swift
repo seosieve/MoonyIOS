@@ -17,7 +17,6 @@ final class MoviePreviewViewController: BaseViewController<MoviePreviewView, Mov
     override func configureView() {
         ///Navigation Controller
         baseView.configureNavigationController(self)
-        print(movieId)
     }
     
     override func configureRx() {
@@ -34,6 +33,10 @@ final class MoviePreviewViewController: BaseViewController<MoviePreviewView, Mov
             .bind(to: baseView.previewCollectionView.rx.items(cellIdentifier: video.identifier, cellType: video.cellType)) { item, element, cell in
                 cell.configureCell(key: element.key)
             }
+            .disposed(by: disposeBag)
+        
+        output.tagline
+            .bind(to: baseView.taglineLabel.rx.text)
             .disposed(by: disposeBag)
         
         output.posterList

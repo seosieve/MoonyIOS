@@ -74,8 +74,8 @@ extension MovieInfoViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? FullScreenImageCollectionViewCell
         guard let cell else { return UICollectionViewCell() }
         let poster = viewModel.moviePosterArr.value[indexPath.row]
-        let url = URL(string: poster.posterUrl)
-        cell.posterImageView.kf.setImage(with: url)
+        ///Configure Cell
+        cell.configureCell(poster: poster)
         return cell
     }
     

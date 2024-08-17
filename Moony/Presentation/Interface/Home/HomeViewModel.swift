@@ -20,9 +20,6 @@ final class HomeViewModel: BaseViewModel {
     let outputKobisDate: CustomObservable<String?> = CustomObservable(nil)
     
     override func bindData() {
-        configureKobisDate()
-        configureKobisArr()
-        
         configureTrendMovie()
         configureTrendPerson()
         configureTrendTV()
@@ -33,24 +30,27 @@ final class HomeViewModel: BaseViewModel {
         }
     }
     
-    private func configureKobisDate() {
-        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now) else { return }
+    func configureKobisDate(_ index: Int) {
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: -16, to: .now) else { return }
+        guard let targetDate = Calendar.current.date(byAdding: .year, value: index, to: yesterday) else { return }
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
-        let date = formatter.string(from: yesterday)
+        let date = formatter.string(from: targetDate)
         outputKobisDate.value = "영화진흥위원회 \(date)일 기준"
     }
     
-    private func configureCurrentDate() -> String {
-        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now) else { return String() }
+    private func configureCurrentDate(_ index: Int) -> String {
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: -16, to: .now) else { return String() }
+        guard let targetDate = Calendar.current.date(byAdding: .year, value: index, to: yesterday) else { return String() }
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd"
-        let date = formatter.string(from: yesterday)
+        let date = formatter.string(from: targetDate)
         return date
     }
     
-    private func configureKobisArr() {
-        let date = configureCurrentDate()
+    func configureKobisArr(_ index: Int) {
+        let date = configureCurrentDate(index)
         
         NetworkManager.shared.networkRequest(router: Network.kobis(date: date), type: KobisResult.self) { result in
             switch result {

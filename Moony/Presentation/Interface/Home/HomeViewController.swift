@@ -7,8 +7,12 @@
 
 import UIKit
 import Toast
+import RxSwift
+import RxCocoa
 
 final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
+    
+    let disposeBag = DisposeBag()
     
     override func configureView() {
         ///Navigation Controller
@@ -44,6 +48,14 @@ final class HomeViewController: BaseViewController<HomeView, HomeViewModel> {
             self.baseView.trendCollectionView.reloadData()
             self.baseView.trendCollectionView.scrollToItem(at: [0,0], at: .left, animated: true)
         }
+        
+        baseView.sortChange
+            .subscribe(with: self, onNext: { owner, value in
+                owner.view.makeToastActivity(.center)
+                owner.viewModel.configureKobisDate(value)
+                owner.viewModel.configureKobisArr(value)
+            })
+            .disposed(by: disposeBag)
     }
     
     @objc func rankCardClicked(_ notification: Notification) {
