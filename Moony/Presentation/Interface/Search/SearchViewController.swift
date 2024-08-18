@@ -116,7 +116,7 @@ extension SearchViewController: UICollectionViewDataSourcePrefetching {
     }
 }
 
-//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+//MARK: - UICollectionViewDelegateFlowLayout
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var text: String = ""
